@@ -1,4 +1,4 @@
-public class Users{
+public class User{
 
     private String _name { get; private set;}
     private String? _pfp_path { get; private set;}
