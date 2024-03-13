@@ -57,3 +57,13 @@ Nathan:
 
 
 
+
+
+Safin:
+		Will we need to add an extra class to help with testing I/O methods?
+		Will GUI components still be part of seperate classes? Will the GUI stuff be part of a singular class?
+
+
+
+
+
