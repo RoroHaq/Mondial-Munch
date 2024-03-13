@@ -50,3 +50,10 @@ Additionally, there will be a feature that allows developpers to easily implemen
 Nathan:
     How should the git branches be organized?
     Should every method of the project be tested / how will GUI be tested?
+
+
+
+
+
+
+
