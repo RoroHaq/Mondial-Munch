@@ -5,5 +5,5 @@ public enum DietaryTags{
     Vegan,
     Pescetarian,
     Kosher,
-    Hallal,
+    Halal,
 }

@@ -1,17 +1,21 @@
 public class Recipe{
 
-    public String _name { get;}
-    public User _creator { get;}
-    public String? _description { get; private set;}
-    public int _servings { get;}
-    public double _prep_time { get;}
-    public double _cooking_time { get;}
-    public double total_time => _prep_time + _cooking_time;
-    public Country? _country { get;}
-    public String[] _insturctions { get; private set;}
-    public String[] _regular_ingredients { get; private set;}
-    public String[] _ingredients_amounts { get; private set;}
-    public String[] _substitutions { get; private set;}
-    public DietaryTags tags { get; private set;}
-    public int _stars { get; private set;}
+    public string Name { get; internal set;}
+    public User Creator { get;}
+    public string? Description { get; internal set;}
+    public int Servings { get; internal set;}
+    public double PrepTime { get; internal set;}
+    public double CookingTime { get; internal set;}
+    public double TotalTime => PrepTime + CookingTime;
+    public Country Country { get; internal set;}
+    public string[] Instructions { get; internal set;}
+    public string[] RegularIngredients { get; internal set;}
+    public string[] IngredientsAmounts { get; internal set;}
+    public Dictionary<string, string[]>? Substitutions { get; internal set;}
+    public DietaryTags Tags { get; internal set;}
+    public int Stars { get; internal set;}
+
+    public Recipe(string name, User creator, string description, int servings, double preptime, double cookingTime, Country country, string[] Instructions, ){
+
+    }
 }
