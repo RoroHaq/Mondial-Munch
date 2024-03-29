@@ -21,7 +21,21 @@ public class Ingredient{
             else if(_name.Length > 50){
                 throw new ValidationException("Name is too big");
             }
+
+            _name = value;S
         }
+    }
+
+    public int Quantity{
+        get{return _quantity;}
+
+        internal set{
+            if(_quantity < 0){
+                throw new ValidationException("Ingredient Quantity cannot be 0 or any less");
+            }
+
+            _quantity = value;
+        }   
     }
 
 }   
