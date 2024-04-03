@@ -41,8 +41,21 @@ public class User{
         return false;
     }
 
-    public void ChangeName(){
-        throw new InvalidOperationException("Method Incomplete!");
+    public bool ChangeName(string password, string new_name){
+        byte[] password_hash = MD5.Create().ComputeHash(ASCIIEncoding.ASCII.GetBytes(password));
+        bool same_passwords=true;
+        for(int i = 0; i < password_hash.Length; i++){
+            if (password_hash[i] != _password[i]){
+                same_passwords = false;
+                break;
+            }
+        }
+        if (same_passwords && password_hash.Length == _password.Length){
+            Name = new_name;
+            return true;
+        }
+
+        return false;
     }
     
     public void ChangeDescription(){
