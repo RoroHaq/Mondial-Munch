@@ -7,8 +7,8 @@ public class Ingredient{
     public int _quantity;
 
     public Ingredient(string name, int quantity){
-        _name= name;
-        _quantity = quantity;
+        Name= name;
+        Quantity = quantity;
     }
 
     public string Name{
@@ -22,7 +22,7 @@ public class Ingredient{
                 throw new ValidationException("Name is too big");
             }
 
-            _name = value;S
+            _name = value;
         }
     }
 
