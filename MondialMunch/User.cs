@@ -1,3 +1,5 @@
+using System.Security.Cryptography;
+using System.Text;
 public class User{
 
     public string Name { get; private set;}
@@ -5,7 +7,7 @@ public class User{
     public string? Description { get; private set;}
     public Country CountryOrigin { get; private set;}
     public Country? CountryCurrent { get; private set;}
-    private byte[] _password { get; private set;}
+    private byte[] _password { get; set;}
     public List<Recipe> PersonalRecipes { get; internal set;}
     public List<Recipe> FavouriteRecipies { get; internal set;}
     public List<Recipe> TodoRecipies { get; internal set;} 
@@ -22,8 +24,21 @@ public class User{
         TodoRecipies = new List<Recipe>();
     }
 
-    public void ResetPassword(){
-        throw new InvalidOperationException("Method Incomplete!");
+    public bool ResetPassword(string old_password, string new_password){
+        byte[] old_password_hash = MD5.Create().ComputeHash(ASCIIEncoding.ASCII.GetBytes(old_password));
+        bool same_passwords=true;
+        for(int i = 0; i < old_password_hash.Length; i++){
+            if (old_password_hash[i] != _password[i]){
+                same_passwords = false;
+                break;
+            }
+        }
+        if (same_passwords && old_password_hash.Length == _password.Length){
+            _password = MD5.Create().ComputeHash(ASCIIEncoding.ASCII.GetBytes(new_password));
+            return true;
+        }
+
+        return false;
     }
 
     public void ChangeName(){
