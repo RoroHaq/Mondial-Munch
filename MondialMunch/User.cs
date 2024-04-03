@@ -18,7 +18,17 @@ public class User {
         }
     }
     public string? ProfilePicturePath { get; private set; }
-    public string? Description { get; private set; }
+    private string? _description;
+    public string? Description {
+        get { return _description; }
+        private set {
+            if (value != null && value.Length > 5000) {
+                throw new ValidationException("Description is too long");
+            }
+
+            _description = value;
+        }
+    }
     public Country CountryOrigin { get; private set; }
     public Country? CountryCurrent { get; private set; }
     private byte[] _password { get; set; }
@@ -69,15 +79,32 @@ public class User {
                 Name = new_name;
                 return true;
             }
-            catch (Exception e) {
+            catch (Exception) {
                 return false;
             }
         }
         return false;
     }
 
-    public void ChangeDescription() {
-        throw new InvalidOperationException("Method Incomplete!");
+    public bool ChangeDescription(string password, string new_description) {
+        byte[] password_hash = MD5.HashData(ASCIIEncoding.ASCII.GetBytes(password));
+        bool same_passwords = true;
+        for (int i = 0; i < password_hash.Length; i++) {
+            if (password_hash[i] != _password[i]) {
+                same_passwords = false;
+                break;
+            }
+        }
+        if (same_passwords && password_hash.Length == _password.Length) {
+            try {
+                Description = new_description;
+                return true;
+            }
+            catch (Exception) {
+                return false;
+            }
+        }
+        return false;
     }
 
     public void ChangeCurrentCountry() {
