@@ -1,0 +1,6 @@
+# Formatting configuration for C#
+# Default options are not included
+# Full list of options available at https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/style-rules/csharp-formatting-options
+[*.cs]
+csharp_new_line_before_open_brace = none
+csharp_indent_labels = no_change
