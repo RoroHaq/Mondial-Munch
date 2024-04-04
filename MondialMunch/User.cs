@@ -37,12 +37,13 @@ public class User {
     public List<Recipe> FavouriteRecipies { get; internal set; }
     public List<Recipe> TodoRecipies { get; internal set; }
 
-    public User(string name, string profilePicturePath, string description, Country countryOrigin, Country? countryCurrent, string unhashed_password) {
+    public User(string name, string profile_picture_path, string description, Country country_origin,
+                Country? country_current, string unhashed_password) {
         Name = name;
-        ProfilePicturePath = profilePicturePath;
+        ProfilePicturePath = profile_picture_path;
         Description = description;
-        CountryOrigin = countryOrigin;
-        CountryCurrent = countryCurrent;
+        CountryOrigin = country_origin;
+        CountryCurrent = country_current;
         PersonalRecipes = new List<Recipe>();
         FavouriteRecipies = new List<Recipe>();
         TodoRecipies = new List<Recipe>();
@@ -56,7 +57,6 @@ public class User {
 
     public bool ResetPassword(string old_password, string new_password) {
         if (SamePassword(old_password)) {
-            // _password = MD5.HashData(ASCIIEncoding.ASCII.GetBytes(new_password));
             _salt = new byte[8];
             using RNGCryptoServiceProvider rngCsp = new();
             rngCsp.GetBytes(_salt);
@@ -86,6 +86,19 @@ public class User {
         if (SamePassword(password)) {
             try {
                 Description = new_description;
+                return true;
+            }
+            catch (Exception) {
+                return false;
+            }
+        }
+        return false;
+    }
+
+    public bool ChangeProfilePicture(string password, string profile_picture_path) {
+        if (SamePassword(password)) {
+            try {
+                ProfilePicturePath = profile_picture_path;
                 return true;
             }
             catch (Exception) {
