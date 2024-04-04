@@ -95,6 +95,19 @@ public class User {
         return false;
     }
 
+    public bool ChangeCurrentCountry(string password, Country new_country) {
+        if (SamePassword(password)) {
+            try {
+                CountryCurrent = new_country;
+                return true;
+            }
+            catch (Exception) {
+                return false;
+            }
+        }
+        return false;
+    }
+
     public bool SamePassword(string password_to_compare) {
         Rfc2898DeriveBytes key = new(password_to_compare, _salt, 1000);
         byte[] password_hash = key.GetBytes(32);
@@ -107,9 +120,5 @@ public class User {
         if (password_hash.Length == _password.Length)
             return true;
         return false;
-    }
-
-    public void ChangeCurrentCountry() {
-        throw new InvalidOperationException("Method Incomplete!");
     }
 }
