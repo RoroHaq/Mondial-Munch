@@ -38,7 +38,7 @@ public class User {
     public List<Recipe> TodoRecipies { get; internal set; }
 
     public User(string name, string profile_picture_path, string description, Country country_origin,
-                Country? country_current, string unhashed_password) {
+                Country? country_current, string unhashed_password, byte[] salt) {
         Name = name;
         ProfilePicturePath = profile_picture_path;
         Description = description;
@@ -48,19 +48,14 @@ public class User {
         FavouriteRecipies = new List<Recipe>();
         TodoRecipies = new List<Recipe>();
 
-        _salt = new byte[8];
-        using RNGCryptoServiceProvider rngCsp = new();
-        rngCsp.GetBytes(_salt);
+        _salt = salt;
         Rfc2898DeriveBytes key = new(unhashed_password, _salt, 1000);
         _password = key.GetBytes(32);
     }
 
     public bool ResetPassword(string old_password, string new_password) {
         if (SamePassword(old_password)) {
-            _salt = new byte[8];
-            using RNGCryptoServiceProvider rngCsp = new();
-            rngCsp.GetBytes(_salt);
-
+            _salt = GenerateSalt();
             Rfc2898DeriveBytes key = new(new_password, _salt, 1000);
             _password = key.GetBytes(32);
             return true;
@@ -160,4 +155,18 @@ public class User {
             return true;
         return false;
     }
+
+    public static byte[] GenerateSalt() {
+        byte[] salt = new byte[8];
+        using RNGCryptoServiceProvider rngCsp = new();
+        rngCsp.GetBytes(salt);
+        return salt;
+    }
 }
+
+// Register a new account by providing a valid username and password
+// Authenticate by entering the correct username and password
+// Delete their account
+// Add/Remove recipe(s) to/from the favorites list
+
+//should salt be created outside of the class? static method to generate salt?
