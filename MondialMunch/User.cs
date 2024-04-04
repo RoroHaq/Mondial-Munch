@@ -32,33 +32,37 @@ public class User {
     public Country CountryOrigin { get; private set; }
     public Country? CountryCurrent { get; private set; }
     private byte[] _password { get; set; }
+    private byte[] _salt { get; set; }
     public List<Recipe> PersonalRecipes { get; internal set; }
     public List<Recipe> FavouriteRecipies { get; internal set; }
     public List<Recipe> TodoRecipies { get; internal set; }
 
-    public User(string name, string profilePicturePath, string description, Country countryOrigin, Country? countryCurrent, byte[] password) {
+    public User(string name, string profilePicturePath, string description, Country countryOrigin, Country? countryCurrent, string unhashed_password) {
         Name = name;
         ProfilePicturePath = profilePicturePath;
         Description = description;
         CountryOrigin = countryOrigin;
         CountryCurrent = countryCurrent;
-        _password = password;
         PersonalRecipes = new List<Recipe>();
         FavouriteRecipies = new List<Recipe>();
         TodoRecipies = new List<Recipe>();
+
+        _salt = new byte[8];
+        using RNGCryptoServiceProvider rngCsp = new();
+        rngCsp.GetBytes(_salt);
+        Rfc2898DeriveBytes key = new(unhashed_password, _salt, 1000);
+        _password = key.GetBytes(32);
     }
 
     public bool ResetPassword(string old_password, string new_password) {
-        byte[] old_password_hash = MD5.HashData(ASCIIEncoding.ASCII.GetBytes(old_password));
-        bool same_passwords = true;
-        for (int i = 0; i < old_password_hash.Length; i++) {
-            if (old_password_hash[i] != _password[i]) {
-                same_passwords = false;
-                break;
-            }
-        }
-        if (same_passwords && old_password_hash.Length == _password.Length) {
-            _password = MD5.HashData(ASCIIEncoding.ASCII.GetBytes(new_password));
+        if (SamePassword(old_password)) {
+            // _password = MD5.HashData(ASCIIEncoding.ASCII.GetBytes(new_password));
+            _salt = new byte[8];
+            using RNGCryptoServiceProvider rngCsp = new();
+            rngCsp.GetBytes(_salt);
+
+            Rfc2898DeriveBytes key = new(new_password, _salt, 1000);
+            _password = key.GetBytes(32);
             return true;
         }
 
@@ -66,15 +70,7 @@ public class User {
     }
 
     public bool ChangeName(string password, string new_name) {
-        byte[] password_hash = MD5.HashData(ASCIIEncoding.ASCII.GetBytes(password));
-        bool same_passwords = true;
-        for (int i = 0; i < password_hash.Length; i++) {
-            if (password_hash[i] != _password[i]) {
-                same_passwords = false;
-                break;
-            }
-        }
-        if (same_passwords && password_hash.Length == _password.Length) {
+        if (SamePassword(password)) {
             try {
                 Name = new_name;
                 return true;
@@ -87,15 +83,7 @@ public class User {
     }
 
     public bool ChangeDescription(string password, string new_description) {
-        byte[] password_hash = MD5.HashData(ASCIIEncoding.ASCII.GetBytes(password));
-        bool same_passwords = true;
-        for (int i = 0; i < password_hash.Length; i++) {
-            if (password_hash[i] != _password[i]) {
-                same_passwords = false;
-                break;
-            }
-        }
-        if (same_passwords && password_hash.Length == _password.Length) {
+        if (SamePassword(password)) {
             try {
                 Description = new_description;
                 return true;
@@ -104,6 +92,20 @@ public class User {
                 return false;
             }
         }
+        return false;
+    }
+
+    public bool SamePassword(string password_to_compare) {
+        Rfc2898DeriveBytes key = new(password_to_compare, _salt, 1000);
+        byte[] password_hash = key.GetBytes(32);
+
+        for (int i = 0; i < password_hash.Length; i++) {
+            if (password_hash[i] != _password[i]) {
+                return false;
+            }
+        }
+        if (password_hash.Length == _password.Length)
+            return true;
         return false;
     }
 
