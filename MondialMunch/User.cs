@@ -108,6 +108,32 @@ public class User {
         return false;
     }
 
+    public bool RemoveDescription(string password) {
+        if (SamePassword(password)) {
+            try {
+                Description = null;
+                return true;
+            }
+            catch (Exception) {
+                return false;
+            }
+        }
+        return false;
+    }
+
+    public bool RemoveProfilePicture(string password) {
+        if (SamePassword(password)) {
+            try {
+                ProfilePicturePath = null;
+                return true;
+            }
+            catch (Exception) {
+                return false;
+            }
+        }
+        return false;
+    }
+
     public bool ChangeCurrentCountry(string password, Country new_country) {
         if (SamePassword(password)) {
             try {
