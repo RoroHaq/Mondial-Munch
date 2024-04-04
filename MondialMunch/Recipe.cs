@@ -41,10 +41,10 @@ public class Recipe {
     public string Name {
         get { return _name; }
         internal set {
-            if (string.IsNullOrEmpty(_name)) {
+            if (string.IsNullOrEmpty(value)) {
                 throw new ArgumentNullException("Name is null or is an Empty String");
             }
-            else if (_name.Length > 50) {
+            else if (value.Length > 50) {
                 throw new ValidationException("Name is too big");
             }
 
@@ -56,10 +56,10 @@ public class Recipe {
         get { return _description; }
 
         internal set {
-            if (_description == "" || _description == "") {
+            if (value == "" || value == "") {
                 throw new ValidationException("Description is empty or blank");
             }
-            else if (_description.Length > 300) {
+            else if (value.Length > 300) {
                 throw new ValidationException("Description Lenght Too Large");
             }
 
@@ -71,7 +71,7 @@ public class Recipe {
         get { return _servings; }
 
         internal set {
-            if (_servings < 0) {
+            if (value < 0) {
                 throw new ValidationException("Serving size is invalid. Cannot be negative or 0");
             }
 
@@ -83,7 +83,7 @@ public class Recipe {
         get { return _prepTime; }
 
         internal set {
-            if (_prepTime < 0) {
+            if (value < 0) {
                 throw new ValidationException("Prep time size is invalid. Cannot be negative or 0");
             }
 
@@ -95,7 +95,7 @@ public class Recipe {
         get { return _cookingTime; }
 
         internal set {
-            if (_cookingTime < 0) {
+            if (value < 0) {
                 throw new ValidationException("Cooking Time size is invalid. Cannot be negative or 0");
             }
 
@@ -107,7 +107,7 @@ public class Recipe {
         get { return _instructions; }
 
         internal set {
-            if (_instructions.Count == 0) {
+            if (value.Count == 0) {
                 throw new ValidationException("You cant have 0 steps");
             }
 
@@ -119,7 +119,7 @@ public class Recipe {
         get { return _ingredients; }
 
         internal set {
-            if (_instructions.Count == 0) {
+            if (value.Count == 0) {
                 throw new ValidationException("You cant have 0 Ingredients in your Recipe");
             }
 

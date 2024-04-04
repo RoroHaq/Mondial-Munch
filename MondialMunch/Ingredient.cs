@@ -15,10 +15,10 @@ public class Ingredient{
         get{return _name;}
 
         internal set{
-            if(string.IsNullOrEmpty(_name) || string.IsNullOrWhiteSpace(_name)){
+            if(string.IsNullOrEmpty(value) || string.IsNullOrWhiteSpace(value)){
                 throw new ArgumentNullException("Name is either null, an Empty String or blank");
             }
-            else if(_name.Length > 50){
+            else if(value.Length > 50){
                 throw new ValidationException("Name is too big");
             }
 
@@ -30,7 +30,7 @@ public class Ingredient{
         get{return _quantity;}
 
         internal set{
-            if(_quantity < 0){
+            if(value < 0){
                 throw new ValidationException("Ingredient Quantity cannot be 0 or any less");
             }
 
