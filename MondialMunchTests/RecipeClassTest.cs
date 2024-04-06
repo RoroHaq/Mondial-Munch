@@ -1,13 +1,12 @@
-namespace MondialMunchTests;
+namespace MondialMunch;
 
-using Recipe;
+
 
 [TestClass]
-public class UnitTest1
-{
+public class RecipeClassTest {
     [TestMethod]
-    public void RecipeClassPasses()
-    {
-        //Will add stuff soon after all is merged well
+    public void RecipeClassPasses() {
+        User testUser = new User("Safin", "img/something.png", "a guy who enjoys cooking",
+                                Country.Canada, Country.Mexico, );
     }
 }
