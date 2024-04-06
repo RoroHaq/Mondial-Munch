@@ -13,6 +13,9 @@ public class User {
             else if (value.Length > 50) {
                 throw new ValidationException("Name is too long");
             }
+            else if (value.Length < 3) {
+                throw new ValidationException("Name is too short");
+            }
 
             _name = value;
         }
@@ -162,11 +165,28 @@ public class User {
         rngCsp.GetBytes(salt);
         return salt;
     }
+
+    public void AddToFavouriteRecipies(Recipe recipe) {
+        AddRecipe(FavouriteRecipies, recipe);
+    }
+
+    public void AddToTodoRecipies(Recipe recipe) {
+        AddRecipe(TodoRecipies, recipe);
+    }
+
+    public void RemoveFromFavouriteRecipies(Recipe recipe) {
+        RemoveRecipe(FavouriteRecipies, recipe);
+    }
+
+    public void RemoveFromTodoRecipies(Recipe recipe) {
+        RemoveRecipe(TodoRecipies, recipe);
+    }
+
+    private static void AddRecipe(List<Recipe> list, Recipe recipe) {
+        list.Add(recipe);
+    }
+
+    private static void RemoveRecipe(List<Recipe> list, Recipe recipe) {
+        list.Remove(recipe);
+    }
 }
-
-// Register a new account by providing a valid username and password
-// Authenticate by entering the correct username and password
-// Delete their account
-// Add/Remove recipe(s) to/from the favorites list
-
-//should salt be created outside of the class? static method to generate salt?
