@@ -1,24 +1,25 @@
 using System.ComponentModel.DataAnnotations;
 
-public class Recipe{
+
+public class Recipe {
 
     private string _name;
-    public User Creator { get;}
+    public User Creator { get; }
     public string? _description;
     public int _servings;
     public double _prepTime;
     public double _cookingTime;
     public double TotalTime => _prepTime + _cookingTime;
-    public Country Country { get; internal set;}
+    public Country Country { get; internal set; }
     public List<string> _instructions;
     public List<Ingredient> _ingredients;
-    public Dictionary<string, string[]>? Substitutions { get; internal set;}
-    public List<DietaryTags>? Tags { get; internal set;}
-    public int Stars { get; internal set;}
+    public Dictionary<string, string[]>? Substitutions { get; internal set; }
+    public List<DietaryTags>? Tags { get; internal set; }
+    public int Stars { get; internal set; }
 
-    public Recipe(string name, User creator, string description, int servings, 
-                    double preptime, double cookingTime, Country country, List<string> instructions, List<Ingredient> ingredients){
-        
+    public Recipe(string name, User creator, string description, int servings,
+                    double preptime, double cookingTime, Country country, List<string> instructions, List<Ingredient> ingredients) {
+
         /*
             PrepTime & Cooking Cant be < 0
             Description and name cant be "" or " "
@@ -26,24 +27,24 @@ public class Recipe{
             Description can be null
             Instructions and Ingredients cannot be a size of 0
         */
-        _name= name;
+        Name = name;
         Creator = creator;
-        _description= description;
-        _servings = servings;
-        _prepTime = preptime;
-        _cookingTime = cookingTime;
+        Description = description;
+        Servings = servings;
+        PrepTime = preptime;
+        CookingTime = cookingTime;
         Country = country;
-        _instructions = instructions;
-        _ingredients = ingredients;
+        Instructions = instructions;
+        Ingredients = ingredients;
     }
 
-    public string Name{
-        get{ return _name;}
-        internal set{
-            if(string.IsNullOrEmpty(_name)){
+    public string Name {
+        get { return _name; }
+        internal set {
+            if (string.IsNullOrEmpty(value)) {
                 throw new ArgumentNullException("Name is null or is an Empty String");
             }
-            else if(_name.Length > 50){
+            else if (value.Length > 50) {
                 throw new ValidationException("Name is too big");
             }
 
@@ -51,14 +52,14 @@ public class Recipe{
         }
     }
 
-    public string? Description{
-        get{ return _description;}
+    public string? Description {
+        get { return _description; }
 
-        internal set{
-            if(_description == "" || _description == ""){
+        internal set {
+            if (value == "" || value == "") {
                 throw new ValidationException("Description is empty or blank");
             }
-            else if(_description.Length > 300){
+            else if (value.Length > 300) {
                 throw new ValidationException("Description Lenght Too Large");
             }
 
@@ -66,11 +67,11 @@ public class Recipe{
         }
     }
 
-    public int Servings{
-        get{ return _servings; }
+    public int Servings {
+        get { return _servings; }
 
-        internal set{
-            if(_servings < 0){
+        internal set {
+            if (value < 0) {
                 throw new ValidationException("Serving size is invalid. Cannot be negative or 0");
             }
 
@@ -78,11 +79,11 @@ public class Recipe{
         }
     }
 
-    public double PrepTime{
-        get{ return _prepTime;}
+    public double PrepTime {
+        get { return _prepTime; }
 
-        internal set{
-            if(_prepTime < 0){
+        internal set {
+            if (value < 0) {
                 throw new ValidationException("Prep time size is invalid. Cannot be negative or 0");
             }
 
@@ -90,11 +91,11 @@ public class Recipe{
         }
     }
 
-    public double CookingTime{
-        get{ return _cookingTime;}
+    public double CookingTime {
+        get { return _cookingTime; }
 
-        internal set{
-            if(_cookingTime < 0){
+        internal set {
+            if (value < 0) {
                 throw new ValidationException("Cooking Time size is invalid. Cannot be negative or 0");
             }
 
@@ -102,11 +103,11 @@ public class Recipe{
         }
     }
 
-    public List<string> Instructions{
-        get{return _instructions; }
+    public List<string> Instructions {
+        get { return _instructions; }
 
-        internal set{
-            if(_instructions.Count == 0){
+        internal set {
+            if (value.Count == 0) {
                 throw new ValidationException("You cant have 0 steps");
             }
 
@@ -114,11 +115,11 @@ public class Recipe{
         }
     }
 
-    public List<Ingredient> Ingredients{
-        get{return _ingredients; }
+    public List<Ingredient> Ingredients {
+        get { return _ingredients; }
 
-        internal set{
-            if(_instructions.Count == 0){
+        internal set {
+            if (value.Count == 0) {
                 throw new ValidationException("You cant have 0 Ingredients in your Recipe");
             }
 
