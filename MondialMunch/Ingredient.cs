@@ -22,7 +22,7 @@ public class Ingredient{
                 throw new ValidationException("Name is too big");
             }
 
-            _name = value;S
+            _name = value;
         }
     }
 
