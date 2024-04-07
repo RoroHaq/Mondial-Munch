@@ -7,7 +7,7 @@ public class User {
     public string Name {
         get { return _name; }
         private set {
-            if (string.IsNullOrEmpty(value)) {
+            if (string.IsNullOrEmpty(value) || string.IsNullOrWhiteSpace(value)) {
                 throw new ArgumentNullException("Name is null or is an Empty String");
             }
             else if (value.Length > 50) {
