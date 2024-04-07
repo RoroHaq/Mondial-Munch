@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using MondialMunch;
 
 
 public class Recipe {
@@ -41,26 +42,25 @@ public class Recipe {
     public string Name {
         get { return _name; }
         internal set {
-            if (string.IsNullOrEmpty(value)) {
-                throw new ArgumentNullException("Name is null or is an Empty String");
+            if (string.IsNullOrEmpty(value) || string.IsNullOrWhiteSpace(value)) {
+                throw new ArgumentNullException("Name is either null, has an Empty String or its a white space");
             }
             else if (value.Length > 50) {
-                throw new ValidationException("Name is too big");
+                throw new ArgumentException("Name is too big");
             }
 
             _name = value;
         }
     }
-
     public string? Description {
         get { return _description; }
 
         internal set {
-            if (value == "" || value == "") {
-                throw new ValidationException("Description is empty or blank");
+            if (value == "" || value == " ") {
+                throw new ArgumentException("Description is empty or blank");
             }
             else if (value.Length > 300) {
-                throw new ValidationException("Description Lenght Too Large");
+                throw new ArgumentException("Description Length Too Large");
             }
 
             _description = value;
@@ -71,8 +71,8 @@ public class Recipe {
         get { return _servings; }
 
         internal set {
-            if (value < 0) {
-                throw new ValidationException("Serving size is invalid. Cannot be negative or 0");
+            if (value <= 0) {
+                throw new ArgumentException("Serving size is invalid. Cannot be negative or 0");
             }
 
             _servings = value;
@@ -83,8 +83,8 @@ public class Recipe {
         get { return _prepTime; }
 
         internal set {
-            if (value < 0) {
-                throw new ValidationException("Prep time size is invalid. Cannot be negative or 0");
+            if (value <= 0) {
+                throw new ArgumentException("Prep time size is invalid. Cannot be negative or 0");
             }
 
             _prepTime = value;
@@ -95,8 +95,8 @@ public class Recipe {
         get { return _cookingTime; }
 
         internal set {
-            if (value < 0) {
-                throw new ValidationException("Cooking Time size is invalid. Cannot be negative or 0");
+            if (value <= 0) {
+                throw new ArgumentException("Cooking Time size is invalid. Cannot be negative or 0");
             }
 
             _cookingTime = value;
@@ -108,7 +108,7 @@ public class Recipe {
 
         internal set {
             if (value.Count == 0) {
-                throw new ValidationException("You cant have 0 steps");
+                throw new ArgumentException("You cant have 0 steps");
             }
 
             _instructions = value;
@@ -120,7 +120,7 @@ public class Recipe {
 
         internal set {
             if (value.Count == 0) {
-                throw new ValidationException("You cant have 0 Ingredients in your Recipe");
+                throw new ArgumentException("You cant have 0 Ingredients in your Recipe");
             }
 
             _ingredients = value;
