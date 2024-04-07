@@ -7,8 +7,6 @@ public class RecipeClassTest {
     [TestMethod]
     public void RecipeClassPasses() {
 
-        byte[] hash = User.GenerateSalt();
-
         List<string> steps = new List<string>();
 
         steps.Add("1. Get out your meat");
@@ -20,7 +18,7 @@ public class RecipeClassTest {
         ingredients.Add(new Ingredient("Taco seasoning", 1));
 
         User testUser = new User("Safin", "img/something.png", "a guy who enjoys cooking",
-                                Country.Canada, Country.Mexico, "password123", hash);
+                                Country.Canada, Country.Mexico, "password123", User.GenerateSalt());
 
 
         Recipe recipe = new Recipe("Tacos", testUser, "made in the depths of hell", 5, 3, 15, Country.Mexico,
@@ -30,7 +28,8 @@ public class RecipeClassTest {
     [TestMethod]
     [ExpectedException(typeof(ArgumentNullException))]
     public void RecipeClassInvalidNameIsNull() {
-        byte[] hash = User.GenerateSalt();
+
+
 
         List<string> steps = new List<string>();
 
@@ -43,7 +42,7 @@ public class RecipeClassTest {
         ingredients.Add(new Ingredient("Taco seasoning", 1));
 
         User testUser = new User("Safin", "img/something.png", "a guy who enjoys cooking",
-                                Country.Canada, Country.Mexico, "password123", hash);
+                                Country.Canada, Country.Mexico, "password123", User.GenerateSalt());
 
 
         Recipe recipe = new Recipe(null, testUser, "made in the depths of hell", 5, 3, 15, Country.Mexico,
@@ -53,7 +52,7 @@ public class RecipeClassTest {
     [TestMethod]
     [ExpectedException(typeof(ArgumentNullException))]
     public void RecipeClassInvalidNameIsBlank() {
-        byte[] hash = User.GenerateSalt();
+
 
         List<string> steps = new List<string>();
 
@@ -66,7 +65,7 @@ public class RecipeClassTest {
         ingredients.Add(new Ingredient("Taco seasoning", 1));
 
         User testUser = new User("Safin", "img/something.png", "a guy who enjoys cooking",
-                                Country.Canada, Country.Mexico, "password123", hash);
+                                Country.Canada, Country.Mexico, "password123", User.GenerateSalt());
 
 
         Recipe recipe = new Recipe("", testUser, "made in the depths of hell", 5, 3, 15, Country.Mexico,
@@ -76,7 +75,7 @@ public class RecipeClassTest {
     [TestMethod]
     [ExpectedException(typeof(ArgumentNullException))]
     public void RecipeClassInvalidNameHasWhiteSpace() {
-        byte[] hash = User.GenerateSalt();
+
 
         List<string> steps = new List<string>();
 
@@ -89,7 +88,7 @@ public class RecipeClassTest {
         ingredients.Add(new Ingredient("Taco seasoning", 1));
 
         User testUser = new User("Safin", "img/something.png", "a guy who enjoys cooking",
-                                Country.Canada, Country.Mexico, "password123", hash);
+                                Country.Canada, Country.Mexico, "password123", User.GenerateSalt());
 
 
         Recipe recipe = new Recipe(" ", testUser, "made in the depths of hell", 5, 3, 15, Country.Mexico,
@@ -99,7 +98,7 @@ public class RecipeClassTest {
     [TestMethod]
     [ExpectedException(typeof(ArgumentException))]
     public void RecipeClassInvalidNameIsTooBig() {
-        byte[] hash = User.GenerateSalt();
+
 
         List<string> steps = new List<string>();
 
@@ -112,7 +111,7 @@ public class RecipeClassTest {
         ingredients.Add(new Ingredient("Taco seasoning", 1));
 
         User testUser = new User("Safin", "img/something.png", "a guy who enjoys cooking",
-                                Country.Canada, Country.Mexico, "password123", hash);
+                                Country.Canada, Country.Mexico, "password123", User.GenerateSalt());
 
 
         Recipe recipe = new Recipe("tacooooooooooooooooooooooooooooooooooooooooooooooos",
@@ -123,7 +122,7 @@ public class RecipeClassTest {
     [TestMethod]
     [ExpectedException(typeof(ArgumentException))]
     public void RecipeClassInvalidDescriptionIsBlank() {
-        byte[] hash = User.GenerateSalt();
+
 
         List<string> steps = new List<string>();
 
@@ -136,7 +135,7 @@ public class RecipeClassTest {
         ingredients.Add(new Ingredient("Taco seasoning", 1));
 
         User testUser = new User("Safin", "img/something.png", "a guy who enjoys cooking",
-                                Country.Canada, Country.Mexico, "password123", hash);
+                                Country.Canada, Country.Mexico, "password123", User.GenerateSalt());
 
 
         Recipe recipe = new Recipe("taco",
@@ -147,7 +146,7 @@ public class RecipeClassTest {
     [TestMethod]
     [ExpectedException(typeof(ArgumentException))]
     public void RecipeClassInvalidDescriptionIsEmpty() {
-        byte[] hash = User.GenerateSalt();
+
 
         List<string> steps = new List<string>();
 
@@ -160,7 +159,7 @@ public class RecipeClassTest {
         ingredients.Add(new Ingredient("Taco seasoning", 1));
 
         User testUser = new User("Safin", "img/something.png", "a guy who enjoys cooking",
-                                Country.Canada, Country.Mexico, "password123", hash);
+                                Country.Canada, Country.Mexico, "password123", User.GenerateSalt());
 
 
         Recipe recipe = new Recipe("taco",
@@ -171,7 +170,7 @@ public class RecipeClassTest {
     [TestMethod]
     [ExpectedException(typeof(ArgumentException))]
     public void RecipeClassInvalidServingSizeIs0() {
-        byte[] hash = User.GenerateSalt();
+
 
         List<string> steps = new List<string>();
 
@@ -184,7 +183,7 @@ public class RecipeClassTest {
         ingredients.Add(new Ingredient("Taco seasoning", 1));
 
         User testUser = new User("Safin", "img/something.png", "a guy who enjoys cooking",
-                                Country.Canada, Country.Mexico, "password123", hash);
+                                Country.Canada, Country.Mexico, "password123", User.GenerateSalt());
 
 
         Recipe recipe = new Recipe("taco",
@@ -195,7 +194,7 @@ public class RecipeClassTest {
     [TestMethod]
     [ExpectedException(typeof(ArgumentException))]
     public void RecipeClassInvalidServingSizeIsNegative() {
-        byte[] hash = User.GenerateSalt();
+
 
         List<string> steps = new List<string>();
 
@@ -208,7 +207,7 @@ public class RecipeClassTest {
         ingredients.Add(new Ingredient("Taco seasoning", 1));
 
         User testUser = new User("Safin", "img/something.png", "a guy who enjoys cooking",
-                                Country.Canada, Country.Mexico, "password123", hash);
+                                Country.Canada, Country.Mexico, "password123", User.GenerateSalt());
 
 
         Recipe recipe = new Recipe("taco",
@@ -219,7 +218,7 @@ public class RecipeClassTest {
     [TestMethod]
     [ExpectedException(typeof(ArgumentException))]
     public void RecipeClassInvalidPrepTimeIs0() {
-        byte[] hash = User.GenerateSalt();
+
 
         List<string> steps = new List<string>();
 
@@ -232,7 +231,7 @@ public class RecipeClassTest {
         ingredients.Add(new Ingredient("Taco seasoning", 1));
 
         User testUser = new User("Safin", "img/something.png", "a guy who enjoys cooking",
-                                Country.Canada, Country.Mexico, "password123", hash);
+                                Country.Canada, Country.Mexico, "password123", User.GenerateSalt());
 
 
         Recipe recipe = new Recipe("taco",
@@ -243,7 +242,7 @@ public class RecipeClassTest {
     [TestMethod]
     [ExpectedException(typeof(ArgumentException))]
     public void RecipeClassInvalidPrepTimeIsNegative() {
-        byte[] hash = User.GenerateSalt();
+
 
         List<string> steps = new List<string>();
 
@@ -256,7 +255,7 @@ public class RecipeClassTest {
         ingredients.Add(new Ingredient("Taco seasoning", 1));
 
         User testUser = new User("Safin", "img/something.png", "a guy who enjoys cooking",
-                                Country.Canada, Country.Mexico, "password123", hash);
+                                Country.Canada, Country.Mexico, "password123", User.GenerateSalt());
 
 
         Recipe recipe = new Recipe("taco",
@@ -267,7 +266,7 @@ public class RecipeClassTest {
     [TestMethod]
     [ExpectedException(typeof(ArgumentException))]
     public void RecipeClassInvalidCookingTimeIs0() {
-        byte[] hash = User.GenerateSalt();
+
 
         List<string> steps = new List<string>();
 
@@ -280,7 +279,7 @@ public class RecipeClassTest {
         ingredients.Add(new Ingredient("Taco seasoning", 1));
 
         User testUser = new User("Safin", "img/something.png", "a guy who enjoys cooking",
-                                Country.Canada, Country.Mexico, "password123", hash);
+                                Country.Canada, Country.Mexico, "password123", User.GenerateSalt());
 
 
         Recipe recipe = new Recipe("taco",
@@ -291,7 +290,7 @@ public class RecipeClassTest {
     [TestMethod]
     [ExpectedException(typeof(ArgumentException))]
     public void RecipeClassInvalidCookingTimeIsNegative() {
-        byte[] hash = User.GenerateSalt();
+
 
         List<string> steps = new List<string>();
 
@@ -304,7 +303,7 @@ public class RecipeClassTest {
         ingredients.Add(new Ingredient("Taco seasoning", 1));
 
         User testUser = new User("Safin", "img/something.png", "a guy who enjoys cooking",
-                                Country.Canada, Country.Mexico, "password123", hash);
+                                Country.Canada, Country.Mexico, "password123", User.GenerateSalt());
 
 
         Recipe recipe = new Recipe("taco",
@@ -315,7 +314,7 @@ public class RecipeClassTest {
     [TestMethod]
     [ExpectedException(typeof(ArgumentException))]
     public void RecipeClassInvalidStepsIsSize0() {
-        byte[] hash = User.GenerateSalt();
+
 
         List<string> steps = new List<string>();
 
@@ -325,7 +324,7 @@ public class RecipeClassTest {
         ingredients.Add(new Ingredient("Taco seasoning", 1));
 
         User testUser = new User("Safin", "img/something.png", "a guy who enjoys cooking",
-                                Country.Canada, Country.Mexico, "password123", hash);
+                                Country.Canada, Country.Mexico, "password123", User.GenerateSalt());
 
 
         Recipe recipe = new Recipe("taco",
@@ -336,7 +335,7 @@ public class RecipeClassTest {
     [TestMethod]
     [ExpectedException(typeof(ArgumentException))]
     public void RecipeClassInvalidIngredeintsIsSize0() {
-        byte[] hash = User.GenerateSalt();
+
 
         List<string> steps = new List<string>();
 
@@ -346,7 +345,7 @@ public class RecipeClassTest {
         List<Ingredient> ingredients = new List<Ingredient>();
 
         User testUser = new User("Safin", "img/something.png", "a guy who enjoys cooking",
-                                Country.Canada, Country.Mexico, "password123", hash);
+                                Country.Canada, Country.Mexico, "password123", User.GenerateSalt());
 
 
         Recipe recipe = new Recipe("taco",
