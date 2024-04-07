@@ -2,40 +2,40 @@
 
 using System.ComponentModel.DataAnnotations;
 
-public class Ingredient{
+public class Ingredient {
     public string _name;
     public int _quantity;
 
-    public Ingredient(string name, int quantity){
-        Name= name;
+    public Ingredient(string name, int quantity) {
+        Name = name;
         Quantity = quantity;
     }
 
-    public string Name{
-        get{return _name;}
+    public string Name {
+        get { return _name; }
 
-        internal set{
-            if(string.IsNullOrEmpty(value) || string.IsNullOrWhiteSpace(value)){
+        internal set {
+            if (string.IsNullOrEmpty(value) || string.IsNullOrWhiteSpace(value)) {
                 throw new ArgumentNullException("Name is either null, an Empty String or blank");
             }
-            else if(value.Length > 50){
-                throw new ValidationException("Name is too big");
+            else if (value.Length > 50) {
+                throw new ArgumentException("Name is too big");
             }
 
             _name = value;
         }
     }
 
-    public int Quantity{
-        get{return _quantity;}
+    public int Quantity {
+        get { return _quantity; }
 
-        internal set{
-            if(value < 0){
-                throw new ValidationException("Ingredient Quantity cannot be 0 or any less");
+        internal set {
+            if (value <= 0) {
+                throw new ArgumentException("Ingredient Quantity cannot be 0 or any less");
             }
 
             _quantity = value;
-        }   
+        }
     }
 
-}   
+}

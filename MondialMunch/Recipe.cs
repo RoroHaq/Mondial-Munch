@@ -71,7 +71,7 @@ public class Recipe {
         get { return _servings; }
 
         internal set {
-            if (value < 0) {
+            if (value <= 0) {
                 throw new ArgumentException("Serving size is invalid. Cannot be negative or 0");
             }
 
@@ -83,7 +83,7 @@ public class Recipe {
         get { return _prepTime; }
 
         internal set {
-            if (value < 0) {
+            if (value <= 0) {
                 throw new ArgumentException("Prep time size is invalid. Cannot be negative or 0");
             }
 
@@ -95,7 +95,7 @@ public class Recipe {
         get { return _cookingTime; }
 
         internal set {
-            if (value < 0) {
+            if (value <= 0) {
                 throw new ArgumentException("Cooking Time size is invalid. Cannot be negative or 0");
             }
 
