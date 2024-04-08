@@ -71,7 +71,7 @@ public class UserClassTest {
         User testUser = new("Nathan", "img/something.png", "Hello!, I'm Nathan.",
                             Country.Canada, Country.Canada, "password123", User.GenerateSalt());
 
-        if (testUser.ResetPassword("password123", "Nathaniel") != true) {
+        if (testUser.ChangeName("password123", "Nathaniel") != true) {
             Assert.Fail();
         }
     }
@@ -92,6 +92,16 @@ public class UserClassTest {
                             Country.Canada, Country.Canada, "password123", User.GenerateSalt());
 
         if (testUser.ChangeName("password123", " ") == true) {
+            Assert.Fail();
+        }
+    }
+
+    [TestMethod]
+    public void ChangeDescriptionTest() {
+        User testUser = new("Nathan", "img/something.png", "Hello!, I'm Nathan.",
+                            Country.Canada, Country.Canada, "password123", User.GenerateSalt());
+
+        if (testUser.ChangeDescription("password123", "Frankly I'm just very tired.") != true) {
             Assert.Fail();
         }
     }
@@ -119,11 +129,65 @@ public class UserClassTest {
     }
 
     [TestMethod]
+    public void ChangeProfilePictureTest() {
+        User testUser = new("Nathan", "img/something.png", "Hello!, I'm Nathan.",
+                            Country.Canada, Country.Canada, "password123", User.GenerateSalt());
+
+        if (testUser.ChangeProfilePicture("password123", "img/somethingelse.png") == true) {
+            Assert.AreEqual("img/somethingelse.png", testUser.ProfilePicturePath);
+        }
+    }
+
+    [TestMethod]
     public void ChangeProfilePictureInvalidPassword() {
         User testUser = new("Nathan", "img/something.png", "Hello!, I'm Nathan.",
                             Country.Canada, Country.Canada, "password123", User.GenerateSalt());
 
-        if (testUser.ChangeName("password124", "Nathaniel") == true) {
+        if (testUser.ChangeProfilePicture("password124", "img/somethingelse.png") == true) {
+            Assert.Fail();
+        }
+    }
+
+    [TestMethod]
+    public void RemoveDescriptionTest() {
+        User testUser = new("Nathan", "img/something.png", "Hello!, I'm Nathan.",
+                            Country.Canada, Country.Canada, "password123", User.GenerateSalt());
+
+        if (testUser.RemoveDescription("password123") != true) {
+            Assert.Fail();
+        }
+
+        Assert.AreEqual(null, testUser.Description);
+    }
+
+    [TestMethod]
+    public void RemoveDescriptionInvalidPassword() {
+        User testUser = new("Nathan", "img/something.png", "Hello!, I'm Nathan.",
+                            Country.Canada, Country.Canada, "password123", User.GenerateSalt());
+
+        if (testUser.RemoveDescription("password124") == true) {
+            Assert.Fail();
+        }
+    }
+
+    [TestMethod]
+    public void RemoveProfilePictureTest() {
+        User testUser = new("Nathan", "img/something.png", "Hello!, I'm Nathan.",
+                            Country.Canada, Country.Canada, "password123", User.GenerateSalt());
+
+        if (testUser.RemoveProfilePicture("password123") != true) {
+            Assert.Fail();
+        }
+
+        Assert.AreEqual(null, testUser.ProfilePicturePath);
+    }
+
+    [TestMethod]
+    public void RemoveProfilePictureInvalidPassword() {
+        User testUser = new("Nathan", "img/something.png", "Hello!, I'm Nathan.",
+                            Country.Canada, Country.Canada, "password123", User.GenerateSalt());
+
+        if (testUser.RemoveProfilePicture("password124") == true) {
             Assert.Fail();
         }
     }
