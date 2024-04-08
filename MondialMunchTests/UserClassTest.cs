@@ -243,4 +243,98 @@ public class UserClassTest {
             Assert.Fail();
         }
     }
+
+    [TestMethod]
+    public void AddToFavouriteRecipiesTest() {
+        User testUser = new("Nathan", "img/something.png", "Hello!, I'm Nathan.",
+                            Country.Canada, Country.Canada, "password123", User.GenerateSalt());
+
+        List<string> steps = new() {
+            "1. Get out your meat",
+            "2. Add in seasoning"
+        };
+
+        List<Ingredient> ingredients = new() {
+            new Ingredient("Groudn Beef", 2),
+            new Ingredient("Taco seasoning", 1)
+        };
+
+        Recipe recipe = new("Tacos", testUser, "made in the depths of hell", 5, 3, 15,
+                            Country.Mexico, steps, ingredients);
+
+        testUser.AddToFavouriteRecipies(recipe);
+
+        Assert.AreEqual(true, testUser.FavouriteRecipies.Contains(recipe));
+    }
+
+    [TestMethod]
+    public void RemoveFromFavouriteRecipiesTest() {
+        User testUser = new("Nathan", "img/something.png", "Hello!, I'm Nathan.",
+                            Country.Canada, Country.Canada, "password123", User.GenerateSalt());
+
+        List<string> steps = new() {
+            "1. Get out your meat",
+            "2. Add in seasoning"
+        };
+
+        List<Ingredient> ingredients = new() {
+            new Ingredient("Groudn Beef", 2),
+            new Ingredient("Taco seasoning", 1)
+        };
+
+        Recipe recipe = new("Tacos", testUser, "made in the depths of hell", 5, 3, 15,
+                            Country.Mexico, steps, ingredients);
+
+        testUser.AddToFavouriteRecipies(recipe);
+        testUser.RemoveFromFavouriteRecipies(recipe);
+
+        Assert.AreEqual(false, testUser.FavouriteRecipies.Contains(recipe));
+    }
+
+    [TestMethod]
+    public void AddToTodoRecipiesTest() {
+        User testUser = new("Nathan", "img/something.png", "Hello!, I'm Nathan.",
+                            Country.Canada, Country.Canada, "password123", User.GenerateSalt());
+
+        List<string> steps = new() {
+            "1. Get out your meat",
+            "2. Add in seasoning"
+        };
+
+        List<Ingredient> ingredients = new() {
+            new Ingredient("Groudn Beef", 2),
+            new Ingredient("Taco seasoning", 1)
+        };
+
+        Recipe recipe = new("Tacos", testUser, "made in the depths of hell", 5, 3, 15,
+                            Country.Mexico, steps, ingredients);
+
+        testUser.AddToTodoRecipies(recipe);
+
+        Assert.AreEqual(true, testUser.TodoRecipies.Contains(recipe));
+    }
+
+    [TestMethod]
+    public void RemoveFromTodoRecipiesTest() {
+        User testUser = new("Nathan", "img/something.png", "Hello!, I'm Nathan.",
+                            Country.Canada, Country.Canada, "password123", User.GenerateSalt());
+
+        List<string> steps = new() {
+            "1. Get out your meat",
+            "2. Add in seasoning"
+        };
+
+        List<Ingredient> ingredients = new() {
+            new Ingredient("Groudn Beef", 2),
+            new Ingredient("Taco seasoning", 1)
+        };
+
+        Recipe recipe = new("Tacos", testUser, "made in the depths of hell", 5, 3, 15,
+                            Country.Mexico, steps, ingredients);
+
+        testUser.AddToTodoRecipies(recipe);
+        testUser.RemoveFromTodoRecipies(recipe);
+
+        Assert.AreEqual(false, testUser.TodoRecipies.Contains(recipe));
+    }
 }
