@@ -191,4 +191,56 @@ public class UserClassTest {
             Assert.Fail();
         }
     }
+
+    [TestMethod]
+    public void ChangeCurrentCountryPictureTest() {
+        User testUser = new("Nathan", "img/something.png", "Hello!, I'm Nathan.",
+                            Country.Canada, Country.Canada, "password123", User.GenerateSalt());
+
+        if (testUser.ChangeCurrentCountry("password123", Country.United_States) != true) {
+            Assert.Fail();
+        }
+
+        Assert.AreEqual(Country.United_States, testUser.CountryCurrent);
+    }
+
+    [TestMethod]
+    public void ChangeCurrentCountryInvalidPassword() {
+        User testUser = new("Nathan", "img/something.png", "Hello!, I'm Nathan.",
+                            Country.Canada, Country.Canada, "password123", User.GenerateSalt());
+
+        if (testUser.ChangeCurrentCountry("password124", Country.United_States) == true) {
+            Assert.Fail();
+        }
+    }
+
+    [TestMethod]
+    public void SamePasswordTest() {
+        User testUser = new("Nathan", "img/something.png", "Hello!, I'm Nathan.",
+                            Country.Canada, Country.Canada, "password123", User.GenerateSalt());
+
+        if (testUser.SamePassword("password123") != true) {
+            Assert.Fail();
+        }
+    }
+
+    [TestMethod]
+    public void SamePasswordInvalidLength() {
+        User testUser = new("Nathan", "img/something.png", "Hello!, I'm Nathan.",
+                            Country.Canada, Country.Canada, "password123", User.GenerateSalt());
+
+        if (testUser.SamePassword("") == true) {
+            Assert.Fail();
+        }
+    }
+
+    [TestMethod]
+    public void SamePasswordInvalidPassword() {
+        User testUser = new("Nathan", "img/something.png", "Hello!, I'm Nathan.",
+                            Country.Canada, Country.Canada, "password123", User.GenerateSalt());
+
+        if (testUser.SamePassword("password124") == true) {
+            Assert.Fail();
+        }
+    }
 }
