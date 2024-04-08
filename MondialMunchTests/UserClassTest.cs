@@ -51,9 +51,7 @@ public class UserClassTest {
         User testUser = new("Nathan", "img/something.png", "Hello!, I'm Nathan.",
                             Country.Canada, Country.Canada, "password123", User.GenerateSalt());
 
-        if (testUser.ResetPassword("password123", "hello123") != true) {
-            Assert.Fail();
-        }
+        Assert.IsTrue(testUser.ResetPassword("password123", "hello123"));
     }
 
     [TestMethod]
@@ -61,9 +59,7 @@ public class UserClassTest {
         User testUser = new("Nathan", "img/something.png", "Hello!, I'm Nathan.",
                             Country.Canada, Country.Canada, "password123", User.GenerateSalt());
 
-        if (testUser.ResetPassword("password124", "hello123") == true) {
-            Assert.Fail();
-        }
+        Assert.IsFalse(testUser.ResetPassword("password124", "hello123") == true);
     }
 
     [TestMethod]
@@ -71,9 +67,7 @@ public class UserClassTest {
         User testUser = new("Nathan", "img/something.png", "Hello!, I'm Nathan.",
                             Country.Canada, Country.Canada, "password123", User.GenerateSalt());
 
-        if (testUser.ChangeName("password123", "Nathaniel") != true) {
-            Assert.Fail();
-        }
+        Assert.IsTrue(testUser.ChangeName("password123", "Nathaniel"));
     }
 
     [TestMethod]
@@ -81,9 +75,7 @@ public class UserClassTest {
         User testUser = new("Nathan", "img/something.png", "Hello!, I'm Nathan.",
                             Country.Canada, Country.Canada, "password123", User.GenerateSalt());
 
-        if (testUser.ChangeName("password124", "Nathaniel") == true) {
-            Assert.Fail();
-        }
+        Assert.IsFalse(testUser.ChangeName("password124", "Nathaniel"));
     }
 
     [TestMethod]
@@ -91,9 +83,7 @@ public class UserClassTest {
         User testUser = new("Nathan", "img/something.png", "Hello!, I'm Nathan.",
                             Country.Canada, Country.Canada, "password123", User.GenerateSalt());
 
-        if (testUser.ChangeName("password123", " ") == true) {
-            Assert.Fail();
-        }
+        Assert.IsFalse(testUser.ChangeName("password123", " "));
     }
 
     [TestMethod]
@@ -101,9 +91,7 @@ public class UserClassTest {
         User testUser = new("Nathan", "img/something.png", "Hello!, I'm Nathan.",
                             Country.Canada, Country.Canada, "password123", User.GenerateSalt());
 
-        if (testUser.ChangeDescription("password123", "Frankly I'm just very tired.") != true) {
-            Assert.Fail();
-        }
+        Assert.IsTrue(testUser.ChangeDescription("password123", "Frankly I'm just very tired."));
     }
 
     [TestMethod]
@@ -111,9 +99,7 @@ public class UserClassTest {
         User testUser = new("Nathan", "img/something.png", "Hello!, I'm Nathan.",
                             Country.Canada, Country.Canada, "password123", User.GenerateSalt());
 
-        if (testUser.ChangeDescription("password124", "Frankly I'm just very tired.") == true) {
-            Assert.Fail();
-        }
+        Assert.IsFalse(testUser.ChangeDescription("password124", "Frankly I'm just very tired."));
     }
 
     [TestMethod]
@@ -123,9 +109,7 @@ public class UserClassTest {
         User testUser = new("Nathan", "img/something.png", "Hello!, I'm Nathan.",
                             Country.Canada, Country.Canada, "password123", User.GenerateSalt());
 
-        if (testUser.ChangeDescription("password123", description) == true) {
-            Assert.Fail();
-        }
+        Assert.IsFalse(testUser.ChangeDescription("password123", description));
     }
 
     [TestMethod]
@@ -136,6 +120,9 @@ public class UserClassTest {
         if (testUser.ChangeProfilePicture("password123", "img/somethingelse.png") == true) {
             Assert.AreEqual("img/somethingelse.png", testUser.ProfilePicturePath);
         }
+        else {
+            Assert.Fail();
+        }
     }
 
     [TestMethod]
@@ -143,9 +130,7 @@ public class UserClassTest {
         User testUser = new("Nathan", "img/something.png", "Hello!, I'm Nathan.",
                             Country.Canada, Country.Canada, "password123", User.GenerateSalt());
 
-        if (testUser.ChangeProfilePicture("password124", "img/somethingelse.png") == true) {
-            Assert.Fail();
-        }
+        Assert.IsFalse(testUser.ChangeProfilePicture("password124", "img/somethingelse.png"));
     }
 
     [TestMethod]
@@ -165,9 +150,7 @@ public class UserClassTest {
         User testUser = new("Nathan", "img/something.png", "Hello!, I'm Nathan.",
                             Country.Canada, Country.Canada, "password123", User.GenerateSalt());
 
-        if (testUser.RemoveDescription("password124") == true) {
-            Assert.Fail();
-        }
+        Assert.IsFalse(testUser.RemoveDescription("password124"));
     }
 
     [TestMethod]
@@ -187,9 +170,7 @@ public class UserClassTest {
         User testUser = new("Nathan", "img/something.png", "Hello!, I'm Nathan.",
                             Country.Canada, Country.Canada, "password123", User.GenerateSalt());
 
-        if (testUser.RemoveProfilePicture("password124") == true) {
-            Assert.Fail();
-        }
+        Assert.IsFalse(testUser.RemoveProfilePicture("password124"));
     }
 
     [TestMethod]
@@ -209,9 +190,7 @@ public class UserClassTest {
         User testUser = new("Nathan", "img/something.png", "Hello!, I'm Nathan.",
                             Country.Canada, Country.Canada, "password123", User.GenerateSalt());
 
-        if (testUser.ChangeCurrentCountry("password124", Country.United_States) == true) {
-            Assert.Fail();
-        }
+        Assert.IsFalse(testUser.ChangeCurrentCountry("password124", Country.United_States));
     }
 
     [TestMethod]
@@ -219,9 +198,7 @@ public class UserClassTest {
         User testUser = new("Nathan", "img/something.png", "Hello!, I'm Nathan.",
                             Country.Canada, Country.Canada, "password123", User.GenerateSalt());
 
-        if (testUser.SamePassword("password123") != true) {
-            Assert.Fail();
-        }
+        Assert.IsTrue(testUser.SamePassword("password123"));
     }
 
     [TestMethod]
@@ -229,9 +206,7 @@ public class UserClassTest {
         User testUser = new("Nathan", "img/something.png", "Hello!, I'm Nathan.",
                             Country.Canada, Country.Canada, "password123", User.GenerateSalt());
 
-        if (testUser.SamePassword("") == true) {
-            Assert.Fail();
-        }
+        Assert.IsFalse(testUser.SamePassword(""));
     }
 
     [TestMethod]
@@ -239,9 +214,7 @@ public class UserClassTest {
         User testUser = new("Nathan", "img/something.png", "Hello!, I'm Nathan.",
                             Country.Canada, Country.Canada, "password123", User.GenerateSalt());
 
-        if (testUser.SamePassword("password124") == true) {
-            Assert.Fail();
-        }
+        Assert.IsFalse(testUser.SamePassword("password124"));
     }
 
     [TestMethod]
