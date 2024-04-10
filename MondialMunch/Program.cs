@@ -12,7 +12,7 @@ public class Program {
 
         if (username == null || password == null) return;
 
-        User user = MockData.Users.First(u => u.Name == username);
+        User? user = MockData.Users.FirstOrDefault(u => u.Name == username);
         if (user == null) {
             Console.WriteLine("This user does not exist.");
             return;
@@ -28,21 +28,21 @@ public class Program {
 
     private static void PromptUserActionUpdateProfile() {
         Console.WriteLine("Write your new description (leave blank to skip):");
-        string description = Console.ReadLine();
+        string? description = Console.ReadLine();
 
         Console.WriteLine("Write your new country of origin (enter the number) (leave blank to skip):");
         foreach (int c in Enum.GetValues(typeof(Country))) {
             Console.Write("( " + c + " " + Enum.GetName(typeof(Country), c) + " ) ");
         }
         Console.WriteLine();
-        string countryOrigin = Console.ReadLine();
+        string? countryOrigin = Console.ReadLine();
 
         Console.WriteLine("Write your new current country (enter the number) (leave blank to skip):");
         foreach (int c in Enum.GetValues(typeof(Country))) {
             Console.Write("( " + c + " " + Enum.GetName(typeof(Country), c) + " ) ");
         }
         Console.WriteLine();
-        string currentCountry = Console.ReadLine();
+        string? currentCountry = Console.ReadLine();
 
         if (!string.IsNullOrEmpty(description)) {
             // currentUser.ChangeDescription(description);
@@ -138,6 +138,73 @@ public class Program {
         }
     }
 
+    private static void PromptSearchRecipe() {
+        // input keyword
+        Console.WriteLine("Filter by keyword (leave blank to skip):");
+        string? keyword = Console.ReadLine();
+
+        // input ingredients
+        Console.WriteLine("Filter by ingredients (leave blank to skip/continue):");
+        List<Ingredient> ingredients = new();
+        while (true) {
+            string? ingredient = Console.ReadLine();
+            if (string.IsNullOrEmpty(ingredient)) break;
+            ingredients.Add(new(ingredient, 1));
+        }
+
+        // input min time
+        Console.WriteLine("Filter by minimum time (leave blank to skip):");
+        bool hasMinTime = int.TryParse(Console.ReadLine(), out int minTime);
+
+        // input max time
+        Console.WriteLine("Filter by maximum time (leave blank to skip):");
+        bool hasMaxTime = int.TryParse(Console.ReadLine(), out int maxTime);
+
+        // input min servings
+        Console.WriteLine("Filter by minimum servings (leave blank to skip):");
+        bool hasMinServings = int.TryParse(Console.ReadLine(), out int minServings);
+
+        // input max servings
+        Console.WriteLine("Filter by maximum servings (leave blank to skip):");
+        bool hasMaxServings = int.TryParse(Console.ReadLine(), out int maxServings);
+
+        // input tags
+        List<DietaryTags> tags = new();
+        Console.WriteLine("Filter by tags (enter the number) (leave blank to skip/continue):");
+        foreach (int c in Enum.GetValues(typeof(DietaryTags))) {
+            Console.Write("( " + c + " " + Enum.GetName(typeof(DietaryTags), c) + " ) ");
+        }
+        Console.WriteLine();
+        while (true) {
+            bool didParseCorrectly = int.TryParse(Console.ReadLine(), out int tagNumber);
+            if (!didParseCorrectly) break;
+            if (Enum.IsDefined(typeof(DietaryTags), tagNumber)) {
+                tags.Add((DietaryTags)tagNumber);
+            }
+        }
+
+        // input creator
+        Console.WriteLine("Filter by creator (leave blank to skip):");
+        string? creator = Console.ReadLine();
+
+        // filter
+        RecipeList recipes = new(MockData.Recipes);
+        if (!string.IsNullOrEmpty(keyword)) recipes.FilterByKeyword(keyword);
+        if (ingredients.Count > 0) recipes.FilterByIngredients(ingredients);
+        if (hasMinTime) recipes.FilterByMinTime(minTime);
+        if (hasMaxTime) recipes.FilterByMaxTime(maxTime);
+        if (hasMinServings) recipes.FilterByMinServings(minServings);
+        if (hasMaxServings) recipes.FilterByMaxServings(maxServings);
+        if (tags.Count > 0) recipes.FilterByTags(tags);
+        if (!string.IsNullOrEmpty(creator)) recipes.FilterByCreator(creator);
+
+        // display
+        Console.WriteLine("Found " + recipes.Recipes.Count() + " recipes.");
+        foreach (Recipe r in recipes.Recipes) {
+            Console.WriteLine(r.Name);
+        }
+    }
+
     public static void Main() {
         while (true) {
             if (currentUser == null) {
@@ -155,6 +222,9 @@ public class Program {
                 switch (input) {
                     case "1":
                         PromptUserActions();
+                        break;
+                    case "2":
+                        PromptSearchRecipe();
                         break;
                 }
             }
