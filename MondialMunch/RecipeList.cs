@@ -34,7 +34,7 @@ public class RecipeList {
     }
 
     public void FilterByKeyword(string keyword) {
-        this.Recipes = this.Recipes.Where(r => r.Name.ToLower().Contains(keyword) || (r.Description != null && r.Description.ToLower().Contains(keyword)));
+        this.Recipes = this.Recipes.Where(r => r.Name.ToLower().Contains(keyword.ToLower()) || (r.Description != null && r.Description.ToLower().Contains(keyword.ToLower())));
     }
 
     public void FilterByCreator(string username) {
