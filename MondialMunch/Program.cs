@@ -273,6 +273,39 @@ public class Program {
         Console.WriteLine("Created recipe!");
     }
 
+    public static void PromptDeleteRecipe() {
+        // prompt enter name
+        Console.WriteLine("Enter recipe name to delete (enter blank to cancel):");
+        string? name = Console.ReadLine();
+        if (string.IsNullOrEmpty(name)) {
+            Console.WriteLine("Cancelling operation.");
+            return;
+        }
+
+        // get recipe
+        Recipe? recipe = MockData.Recipes.FirstOrDefault(r => r.Name == name);
+        if (recipe == null) {
+            Console.WriteLine("This recipe does not exist.");
+            return;
+        }
+        if (recipe.Creator != currentUser) {
+            Console.WriteLine("You do not own this recipe.");
+            return;
+        }
+
+        // prompt confirm
+        Console.WriteLine("Are you sure you want to delete your recipe " + recipe.Name + "? You cannot undo this. Type 'yes' to confirm.");
+        string? confirmation = Console.ReadLine();
+        if (confirmation != "yes") {
+            Console.WriteLine("Cancelling operation.");
+            return;
+        }
+
+        // delete recipe
+        MockData.Recipes.Remove(recipe);
+        Console.WriteLine("Deleted recipe.");
+    }
+
     public static void Main() {
         while (true) {
             if (currentUser == null) {
@@ -296,6 +329,9 @@ public class Program {
                         break;
                     case "3":
                         PromptAddRecipe();
+                        break;
+                    case "4":
+                        PromptDeleteRecipe();
                         break;
                 }
             }
