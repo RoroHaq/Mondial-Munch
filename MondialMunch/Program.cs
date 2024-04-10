@@ -201,8 +201,76 @@ public class Program {
         // display
         Console.WriteLine("Found " + recipes.Recipes.Count() + " recipes.");
         foreach (Recipe r in recipes.Recipes) {
-            Console.WriteLine(r.Name);
+            Console.WriteLine(r.Name + " by " + r.Creator);
         }
+        Console.WriteLine();
+    }
+
+    private static void PromptAddRecipe() {
+        // input name
+        Console.WriteLine("Enter recipe name (leave blank to cancel):");
+        string? name = Console.ReadLine();
+        if (string.IsNullOrEmpty(name)) return;
+
+        // input description
+        Console.WriteLine("Enter description (leave blank to skip):");
+        string? description = Console.ReadLine();
+
+        // input servings
+        Console.WriteLine("Enter serving size (leave blank to cancel):");
+        bool hasServings = int.TryParse(Console.ReadLine(), out int servings);
+        if (!hasServings) return;
+
+        // input prep time
+        Console.WriteLine("Enter prep time (leave blank to cancel):");
+        bool hasPrepTime = int.TryParse(Console.ReadLine(), out int prepTime);
+        if (!hasPrepTime) return;
+
+        // input cook time
+        Console.WriteLine("Enter cook time (leave blank to cancel):");
+        bool hasCookTime = int.TryParse(Console.ReadLine(), out int cookTime);
+        if (!hasCookTime) return;
+
+        // input country
+        Console.WriteLine("Enter country (enter the number) (leave blank/invalid to cancel):");
+        foreach (int c in Enum.GetValues(typeof(Country))) {
+            Console.Write("( " + c + " " + Enum.GetName(typeof(Country), c) + " ) ");
+        }
+        bool hasCountryNumber = int.TryParse(Console.ReadLine(), out int countryNumber);
+        if (!hasCountryNumber) return;
+        if (!Enum.IsDefined(typeof(Country), countryNumber)) return;
+        Country country = (Country)countryNumber;
+
+        // input instructions
+        Console.WriteLine("Enter instructions (leave blank to cancel/continue)");
+        List<string> instructions = new();
+        while (true) {
+            string? instruction = Console.ReadLine();
+            if (string.IsNullOrEmpty(instruction)) break;
+            instructions.Add(instruction);
+        }
+        if (instructions.Count == 0) return;
+
+        // input ingredients
+        Console.WriteLine("Enter ingredients (leave blank to skip/continue):");
+        List<Ingredient> ingredients = new();
+        while (true) {
+            Console.WriteLine("Name:");
+            string? ingredient = Console.ReadLine();
+            if (string.IsNullOrEmpty(ingredient)) break;
+
+            Console.WriteLine("Amount:");
+            bool hasAmount = int.TryParse(Console.ReadLine(), out int amount);
+            if (!hasAmount) break;
+
+            ingredients.Add(new(ingredient, amount));
+        }
+        if (ingredients.Count == 0) return;
+
+        // make recipe
+        Recipe recipe = new(name, currentUser!, description!, servings, prepTime, cookTime, country, instructions, ingredients);
+        MockData.Recipes.Add(recipe);
+        Console.WriteLine("Created recipe!");
     }
 
     public static void Main() {
@@ -225,6 +293,9 @@ public class Program {
                         break;
                     case "2":
                         PromptSearchRecipe();
+                        break;
+                    case "3":
+                        PromptAddRecipe();
                         break;
                 }
             }
