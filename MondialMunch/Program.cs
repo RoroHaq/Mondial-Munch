@@ -24,6 +24,63 @@ public class Program {
         }
 
         currentUser = user;
+        Console.WriteLine("Welcome back to Mondial Munch, " + username + "!");
+    }
+
+    private static void PromptCreateAccount() {
+        // prompt username
+        Console.WriteLine("Enter username (leave blank to cancel):");
+        string? username = Console.ReadLine();
+        if (string.IsNullOrEmpty(username)) return;
+        if (MockData.Users.FirstOrDefault(u => u.Name == username) != null) {
+            Console.WriteLine("This user already exists.");
+            return;
+        }
+
+        // prompt password
+        Console.WriteLine("Create your password (leave blank to cancel):");
+        string? password = Console.ReadLine();
+        if (string.IsNullOrEmpty(password)) return;
+
+        // re-prompt password
+        Console.WriteLine("Re-enter your password (leave blank to cancel):");
+        string? password2 = Console.ReadLine();
+        if (string.IsNullOrEmpty(password2)) return;
+        if (password != password2) {
+            Console.WriteLine("Passwords do not match.");
+            return;
+        }
+
+        // prompt description
+        Console.WriteLine("Enter profile description (leave blank to cancel):");
+        string? description = Console.ReadLine();
+        if (string.IsNullOrEmpty(description)) return;
+
+        // prompt country of origin
+        Console.WriteLine("Enter your country of origin (enter the number) (leave blank/invalid to cancel):");
+        foreach (int c in Enum.GetValues(typeof(Country))) {
+            Console.Write("( " + c + " " + Enum.GetName(typeof(Country), c) + " ) ");
+        }
+        bool hasCountryNumber = int.TryParse(Console.ReadLine(), out int countryNumber);
+        if (!hasCountryNumber) return;
+        if (!Enum.IsDefined(typeof(Country), countryNumber)) return;
+        Country country = (Country)countryNumber;
+
+        // prompt current country
+        Console.WriteLine("Enter your current country (enter the number) (leave blank/invalid to cancel):");
+        foreach (int c in Enum.GetValues(typeof(Country))) {
+            Console.Write("( " + c + " " + Enum.GetName(typeof(Country), c) + " ) ");
+        }
+        bool hasCurrentCountryNumber = int.TryParse(Console.ReadLine(), out int currentCountryNumber);
+        if (!hasCurrentCountryNumber) return;
+        if (!Enum.IsDefined(typeof(Country), countryNumber)) return;
+        Country currentCountry = (Country)countryNumber;
+
+        // create user
+        User newUser = new(username, "img/something.png", description, country, currentCountry, password, User.GenerateSalt());
+        MockData.Users.Add(newUser);
+        currentUser = newUser;
+        Console.WriteLine("Welcome to Mondial Munch, " + username + "!");
     }
 
     private static void PromptUserActionUpdateProfile() {
@@ -309,7 +366,20 @@ public class Program {
     public static void Main() {
         while (true) {
             if (currentUser == null) {
-                PromptLogin();
+                Console.WriteLine("1. Login");
+                Console.WriteLine("2. Sign up");
+
+                string? input = Console.ReadLine();
+                if (input == null) return;
+
+                switch (input) {
+                    case "1":
+                        PromptLogin();
+                        break;
+                    case "2":
+                        PromptCreateAccount();
+                        break;
+                }
             }
             else {
                 Console.WriteLine("1. User operations");
