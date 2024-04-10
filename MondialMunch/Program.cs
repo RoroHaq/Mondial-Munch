@@ -1,5 +1,6 @@
 ﻿namespace MondialMunch;
 
+//Milestone 2 Done. 
 public class Program {
     private static User? currentUser;
 
