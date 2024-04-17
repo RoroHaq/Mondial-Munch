@@ -95,8 +95,8 @@ public class Recipe {
         get { return _cookingTime; }
 
         internal set {
-            if (value <= 0) {
-                throw new ArgumentException("Cooking Time size is invalid. Cannot be negative or 0");
+            if (value < 0) {
+                throw new ArgumentException("Cooking Time size is invalid. Cannot be negative.");
             }
 
             _cookingTime = value;
