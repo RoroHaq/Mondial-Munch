@@ -3,6 +3,7 @@ using System.Text;
 using System.ComponentModel.DataAnnotations;
 namespace MondialMunch;
 public class User {
+    public int Id { get; set; }
     private string _name;
     public string Name {
         get { return _name; }
@@ -55,6 +56,8 @@ public class User {
         Rfc2898DeriveBytes key = new(unhashed_password, _salt, 1000);
         _password = key.GetBytes(32);
     }
+
+    private User() { }
 
     public bool ResetPassword(string old_password, string new_password) {
         if (SamePassword(old_password)) {

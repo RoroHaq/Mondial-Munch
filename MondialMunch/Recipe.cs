@@ -4,6 +4,7 @@ using MondialMunch;
 
 public class Recipe {
 
+    public int Id { get; set; }
     private string _name;
     public User Creator { get; }
     public string? _description;
@@ -14,7 +15,7 @@ public class Recipe {
     public Country Country { get; internal set; }
     public List<string> _instructions;
     public List<Ingredient> _ingredients;
-    public Dictionary<string, string[]>? Substitutions { get; internal set; }
+    // public Dictionary<string, string[]>? Substitutions { get; internal set; } // entity framework doesn't like this
     public List<DietaryTags>? Tags { get; internal set; }
     public int Stars { get; internal set; }
 
@@ -38,6 +39,8 @@ public class Recipe {
         Instructions = instructions;
         Ingredients = ingredients;
     }
+
+    private Recipe() { }
 
     public string Name {
         get { return _name; }

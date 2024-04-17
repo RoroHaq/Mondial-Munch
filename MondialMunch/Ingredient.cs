@@ -3,6 +3,7 @@
 using System.ComponentModel.DataAnnotations;
 
 public class Ingredient {
+    public int Id { get; set; }
     public string _name;
     public int _quantity;
 
@@ -10,6 +11,8 @@ public class Ingredient {
         Name = name;
         Quantity = quantity;
     }
+
+    private Ingredient() { }
 
     public string Name {
         get { return _name; }
