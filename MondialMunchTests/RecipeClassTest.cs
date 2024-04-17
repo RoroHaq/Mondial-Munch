@@ -18,10 +18,10 @@ public class RecipeClassTest {
         ingredients.Add(new Ingredient("Taco seasoning", 1));
 
         User testUser = new User("Safin", "img/something.png", "a guy who enjoys cooking",
-                                Country.Canada, Country.Mexico, "password123", User.GenerateSalt());
+                                new Country("Canada"), new Country("Mexico"), "password123", User.GenerateSalt());
 
 
-        Recipe recipe = new Recipe("Tacos", testUser, "made in the depths of hell", 5, 3, 15, Country.Mexico,
+        Recipe recipe = new Recipe("Tacos", testUser, "made in the depths of hell", 5, 3, 15, new Country("Mexico"),
                             steps, ingredients);
     }
 
@@ -42,10 +42,10 @@ public class RecipeClassTest {
         ingredients.Add(new Ingredient("Taco seasoning", 1));
 
         User testUser = new User("Safin", "img/something.png", "a guy who enjoys cooking",
-                                Country.Canada, Country.Mexico, "password123", User.GenerateSalt());
+                                new Country("Canada"), new Country("Mexico"), "password123", User.GenerateSalt());
 
 
-        Recipe recipe = new Recipe(null, testUser, "made in the depths of hell", 5, 3, 15, Country.Mexico,
+        Recipe recipe = new Recipe(null, testUser, "made in the depths of hell", 5, 3, 15, new Country("Mexico"),
                             steps, ingredients);
     }
 
@@ -65,10 +65,10 @@ public class RecipeClassTest {
         ingredients.Add(new Ingredient("Taco seasoning", 1));
 
         User testUser = new User("Safin", "img/something.png", "a guy who enjoys cooking",
-                                Country.Canada, Country.Mexico, "password123", User.GenerateSalt());
+                                new Country("Canada"), new Country("Mexico"), "password123", User.GenerateSalt());
 
 
-        Recipe recipe = new Recipe("", testUser, "made in the depths of hell", 5, 3, 15, Country.Mexico,
+        Recipe recipe = new Recipe("", testUser, "made in the depths of hell", 5, 3, 15, new Country("Mexico"),
                             steps, ingredients);
     }
 
@@ -88,10 +88,10 @@ public class RecipeClassTest {
         ingredients.Add(new Ingredient("Taco seasoning", 1));
 
         User testUser = new User("Safin", "img/something.png", "a guy who enjoys cooking",
-                                Country.Canada, Country.Mexico, "password123", User.GenerateSalt());
+                                new Country("Canada"), new Country("Mexico"), "password123", User.GenerateSalt());
 
 
-        Recipe recipe = new Recipe(" ", testUser, "made in the depths of hell", 5, 3, 15, Country.Mexico,
+        Recipe recipe = new Recipe(" ", testUser, "made in the depths of hell", 5, 3, 15, new Country("Mexico"),
                             steps, ingredients);
     }
 
@@ -111,11 +111,11 @@ public class RecipeClassTest {
         ingredients.Add(new Ingredient("Taco seasoning", 1));
 
         User testUser = new User("Safin", "img/something.png", "a guy who enjoys cooking",
-                                Country.Canada, Country.Mexico, "password123", User.GenerateSalt());
+                                new Country("Canada"), new Country("Mexico"), "password123", User.GenerateSalt());
 
 
         Recipe recipe = new Recipe("tacooooooooooooooooooooooooooooooooooooooooooooooos",
-                            testUser, "made in the depths of hell", 5, 3, 15, Country.Mexico,
+                            testUser, "made in the depths of hell", 5, 3, 15, new Country("Mexico"),
                             steps, ingredients);
     }
 
@@ -135,11 +135,11 @@ public class RecipeClassTest {
         ingredients.Add(new Ingredient("Taco seasoning", 1));
 
         User testUser = new User("Safin", "img/something.png", "a guy who enjoys cooking",
-                                Country.Canada, Country.Mexico, "password123", User.GenerateSalt());
+                                new Country("Canada"), new Country("Mexico"), "password123", User.GenerateSalt());
 
 
         Recipe recipe = new Recipe("taco",
-                            testUser, "", 5, 3, 15, Country.Mexico,
+                            testUser, "", 5, 3, 15, new Country("Mexico"),
                             steps, ingredients);
     }
 
@@ -159,11 +159,11 @@ public class RecipeClassTest {
         ingredients.Add(new Ingredient("Taco seasoning", 1));
 
         User testUser = new User("Safin", "img/something.png", "a guy who enjoys cooking",
-                                Country.Canada, Country.Mexico, "password123", User.GenerateSalt());
+                                new Country("Canada"), new Country("Mexico"), "password123", User.GenerateSalt());
 
 
         Recipe recipe = new Recipe("taco",
-                            testUser, " ", 5, 3, 15, Country.Mexico,
+                            testUser, " ", 5, 3, 15, new Country("Mexico"),
                             steps, ingredients);
     }
 
@@ -183,11 +183,11 @@ public class RecipeClassTest {
         ingredients.Add(new Ingredient("Taco seasoning", 1));
 
         User testUser = new User("Safin", "img/something.png", "a guy who enjoys cooking",
-                                Country.Canada, Country.Mexico, "password123", User.GenerateSalt());
+                                new Country("Canada"), new Country("Mexico"), "password123", User.GenerateSalt());
 
 
         Recipe recipe = new Recipe("taco",
-                            testUser, "", 0, 3, 15, Country.Mexico,
+                            testUser, "", 0, 3, 15, new Country("Mexico"),
                             steps, ingredients);
     }
 
@@ -207,11 +207,11 @@ public class RecipeClassTest {
         ingredients.Add(new Ingredient("Taco seasoning", 1));
 
         User testUser = new User("Safin", "img/something.png", "a guy who enjoys cooking",
-                                Country.Canada, Country.Mexico, "password123", User.GenerateSalt());
+                                new Country("Canada"), new Country("Mexico"), "password123", User.GenerateSalt());
 
 
         Recipe recipe = new Recipe("taco",
-                            testUser, "", -2, 3, 15, Country.Mexico,
+                            testUser, "", -2, 3, 15, new Country("Mexico"),
                             steps, ingredients);
     }
 
@@ -231,11 +231,11 @@ public class RecipeClassTest {
         ingredients.Add(new Ingredient("Taco seasoning", 1));
 
         User testUser = new User("Safin", "img/something.png", "a guy who enjoys cooking",
-                                Country.Canada, Country.Mexico, "password123", User.GenerateSalt());
+                                new Country("Canada"), new Country("Mexico"), "password123", User.GenerateSalt());
 
 
         Recipe recipe = new Recipe("taco",
-                            testUser, "", 5, 0, 15, Country.Mexico,
+                            testUser, "", 5, 0, 15, new Country("Mexico"),
                             steps, ingredients);
     }
 
@@ -255,11 +255,11 @@ public class RecipeClassTest {
         ingredients.Add(new Ingredient("Taco seasoning", 1));
 
         User testUser = new User("Safin", "img/something.png", "a guy who enjoys cooking",
-                                Country.Canada, Country.Mexico, "password123", User.GenerateSalt());
+                                new Country("Canada"), new Country("Mexico"), "password123", User.GenerateSalt());
 
 
         Recipe recipe = new Recipe("taco",
-                            testUser, "", 5, -14, 15, Country.Mexico,
+                            testUser, "", 5, -14, 15, new Country("Mexico"),
                             steps, ingredients);
     }
 
@@ -279,11 +279,11 @@ public class RecipeClassTest {
         ingredients.Add(new Ingredient("Taco seasoning", 1));
 
         User testUser = new User("Safin", "img/something.png", "a guy who enjoys cooking",
-                                Country.Canada, Country.Mexico, "password123", User.GenerateSalt());
+                                new Country("Canada"), new Country("Mexico"), "password123", User.GenerateSalt());
 
 
         Recipe recipe = new Recipe("taco",
-                            testUser, "", 5, 3, 0, Country.Mexico,
+                            testUser, "", 5, 3, 0, new Country("Mexico"),
                             steps, ingredients);
     }
 
@@ -303,11 +303,11 @@ public class RecipeClassTest {
         ingredients.Add(new Ingredient("Taco seasoning", 1));
 
         User testUser = new User("Safin", "img/something.png", "a guy who enjoys cooking",
-                                Country.Canada, Country.Mexico, "password123", User.GenerateSalt());
+                                new Country("Canada"), new Country("Mexico"), "password123", User.GenerateSalt());
 
 
         Recipe recipe = new Recipe("taco",
-                            testUser, "", 5, 3, -15, Country.Mexico,
+                            testUser, "", 5, 3, -15, new Country("Mexico"),
                             steps, ingredients);
     }
 
@@ -324,11 +324,11 @@ public class RecipeClassTest {
         ingredients.Add(new Ingredient("Taco seasoning", 1));
 
         User testUser = new User("Safin", "img/something.png", "a guy who enjoys cooking",
-                                Country.Canada, Country.Mexico, "password123", User.GenerateSalt());
+                                new Country("Canada"), new Country("Mexico"), "password123", User.GenerateSalt());
 
 
         Recipe recipe = new Recipe("taco",
-                            testUser, "", 5, 3, 15, Country.Mexico,
+                            testUser, "", 5, 3, 15, new Country("Mexico"),
                             steps, ingredients);
     }
 
@@ -345,11 +345,11 @@ public class RecipeClassTest {
         List<Ingredient> ingredients = new List<Ingredient>();
 
         User testUser = new User("Safin", "img/something.png", "a guy who enjoys cooking",
-                                Country.Canada, Country.Mexico, "password123", User.GenerateSalt());
+                                new Country("Canada"), new Country("Mexico"), "password123", User.GenerateSalt());
 
 
         Recipe recipe = new Recipe("taco",
-                            testUser, "", 5, 3, 15, Country.Mexico,
+                            testUser, "", 5, 3, 15, new Country("Mexico"),
                             steps, ingredients);
     }
 }
