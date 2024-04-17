@@ -174,7 +174,7 @@ public class UserClassTest {
     }
 
     [TestMethod]
-    public void ChangeCurrentCountryPictureTest() {
+    public void ChangeCurrentCountryTest() {
         User testUser = new("Nathan", "img/something.png", "Hello!, I'm Nathan.",
                             new Country("Canada"), new Country("Canada"), "password123", User.GenerateSalt());
 
