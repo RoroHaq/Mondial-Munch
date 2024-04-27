@@ -1,9 +1,10 @@
 using System.Security.Cryptography;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 namespace MondialMunch;
 public class User {
-    public int Id { get; set; }
+    public int Id { get; private set; }
     private string _name;
     public string Name {
         get { return _name; }
@@ -38,7 +39,9 @@ public class User {
     private byte[] _password { get; set; }
     private byte[] _salt { get; set; }
     public List<Recipe> PersonalRecipes { get; internal set; }
+    [InverseProperty("FavouriteUsers")]
     public List<Recipe> FavouriteRecipies { get; internal set; }
+    [InverseProperty("TodoUsers")]
     public List<Recipe> TodoRecipies { get; internal set; }
 
     public User(string name, string profile_picture_path, string description, Country country_origin,
