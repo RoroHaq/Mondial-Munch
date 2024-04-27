@@ -266,19 +266,20 @@ public class Program {
         bool hasMaxServings = int.TryParse(Console.ReadLine(), out int maxServings);
 
         // input tags
-        List<DietaryTags> tags = new();
-        Console.WriteLine("Filter by tags (enter the number) (leave blank to skip/continue):");
-        foreach (int c in Enum.GetValues(typeof(DietaryTags))) {
-            Console.Write("( " + c + " " + Enum.GetName(typeof(DietaryTags), c) + " ) ");
-        }
-        Console.WriteLine();
-        while (true) {
-            bool didParseCorrectly = int.TryParse(Console.ReadLine(), out int tagNumber);
-            if (!didParseCorrectly) break;
-            if (Enum.IsDefined(typeof(DietaryTags), tagNumber)) {
-                tags.Add((DietaryTags)tagNumber);
-            }
-        }
+        List<DietaryTag> tags = new();
+        // TEMPORARILY DISABLED FOR NOW..
+        // Console.WriteLine("Filter by tags (enter the number) (leave blank to skip/continue):");
+        // foreach (int c in Enum.GetValues(typeof(DietaryTag))) {
+        //     Console.Write("( " + c + " " + Enum.GetName(typeof(DietaryTag), c) + " ) ");
+        // }
+        // Console.WriteLine();
+        // while (true) {
+        //     bool didParseCorrectly = int.TryParse(Console.ReadLine(), out int tagNumber);
+        //     if (!didParseCorrectly) break;
+        //     if (Enum.IsDefined(typeof(DietaryTag), tagNumber)) {
+        //         tags.Add((DietaryTag)tagNumber);
+        //     }
+        // }
 
         // input creator
         Console.WriteLine("Filter by creator (leave blank to skip):");
@@ -343,11 +344,11 @@ public class Program {
 
         // input instructions
         Console.WriteLine("Enter instructions (leave blank to cancel/continue)");
-        List<string> instructions = new();
+        List<RecipeInstruction> instructions = new();
         while (true) {
             string? instruction = Console.ReadLine();
             if (string.IsNullOrEmpty(instruction)) break;
-            instructions.Add(instruction);
+            instructions.Add(new RecipeInstruction(instruction));
         }
         if (instructions.Count == 0) return;
 

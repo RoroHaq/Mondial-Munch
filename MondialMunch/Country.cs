@@ -1,11 +1,13 @@
-using System.ComponentModel.DataAnnotations;
 namespace MondialMunch;
 
 public class Country {
-    public readonly string Name;
+    public int Id { get; private set; }
+    public string Name { get; private set; }
+
     public Country(string name) {
         Name = name;
     }
+    private Country() { }
 
     public override string ToString() {
         return Name;

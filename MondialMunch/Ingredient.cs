@@ -3,9 +3,9 @@
 using System.ComponentModel.DataAnnotations;
 
 public class Ingredient {
-    public int Id { get; set; }
-    public string _name;
-    public int _quantity;
+    public int Id { get; private set; }
+    private string _name;
+    private int _quantity;
 
     public Ingredient(string name, int quantity) {
         Name = name;
