@@ -222,9 +222,9 @@ public class UserClassTest {
         User testUser = new("Nathan", "img/something.png", "Hello!, I'm Nathan.",
                             new Country("Canada"), new Country("Canada"), "password123", User.GenerateSalt());
 
-        List<string> steps = new() {
-            "1. Get out your meat",
-            "2. Add in seasoning"
+        List<RecipeInstruction> steps = new() {
+            new("1. Get out your meat"),
+            new("2. Add in seasoning")
         };
 
         List<Ingredient> ingredients = new() {
@@ -245,9 +245,9 @@ public class UserClassTest {
         User testUser = new("Nathan", "img/something.png", "Hello!, I'm Nathan.",
                             new Country("Canada"), new Country("Canada"), "password123", User.GenerateSalt());
 
-        List<string> steps = new() {
-            "1. Get out your meat",
-            "2. Add in seasoning"
+        List<RecipeInstruction> steps = new() {
+            new("1. Get out your meat"),
+            new("2. Add in seasoning")
         };
 
         List<Ingredient> ingredients = new() {
@@ -269,9 +269,9 @@ public class UserClassTest {
         User testUser = new("Nathan", "img/something.png", "Hello!, I'm Nathan.",
                             new Country("Canada"), new Country("Canada"), "password123", User.GenerateSalt());
 
-        List<string> steps = new() {
-            "1. Get out your meat",
-            "2. Add in seasoning"
+        List<RecipeInstruction> steps = new() {
+            new("1. Get out your meat"),
+            new("2. Add in seasoning")
         };
 
         List<Ingredient> ingredients = new() {
@@ -292,9 +292,9 @@ public class UserClassTest {
         User testUser = new("Nathan", "img/something.png", "Hello!, I'm Nathan.",
                             new Country("Canada"), new Country("Canada"), "password123", User.GenerateSalt());
 
-        List<string> steps = new() {
-            "1. Get out your meat",
-            "2. Add in seasoning"
+        List<RecipeInstruction> steps = new() {
+            new("1. Get out your meat"),
+            new("2. Add in seasoning")
         };
 
         List<Ingredient> ingredients = new() {

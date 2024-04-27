@@ -4,10 +4,10 @@ namespace MondialMunch;
 
 [TestClass]
 public class RecipeClassTest {
-    public List<string> MakeMockSteps() {
-        List<string> steps = new List<string>();
-        steps.Add("1. Get out your meat");
-        steps.Add("2. Add in seasoning");
+    public List<RecipeInstruction> MakeMockSteps() {
+        List<RecipeInstruction> steps = new();
+        steps.Add(new("1. Get out your meat"));
+        steps.Add(new("2. Add in seasoning"));
         return steps;
     }
 
@@ -26,7 +26,7 @@ public class RecipeClassTest {
     [TestMethod]
     public void RecipeClassPasses() {
         // arrange
-        List<string> steps = MakeMockSteps();
+        List<RecipeInstruction> steps = MakeMockSteps();
         List<Ingredient> ingredients = MakeMockIngredients();
         User testUser = MakeMockUser();
 
@@ -39,7 +39,7 @@ public class RecipeClassTest {
     [ExpectedException(typeof(ArgumentNullException))]
     public void RecipeClassInvalidNameIsNull() {
         // arrange
-        List<string> steps = MakeMockSteps();
+        List<RecipeInstruction> steps = MakeMockSteps();
         List<Ingredient> ingredients = MakeMockIngredients();
         User testUser = MakeMockUser();
 
@@ -52,7 +52,7 @@ public class RecipeClassTest {
     [ExpectedException(typeof(ArgumentNullException))]
     public void RecipeClassInvalidNameIsBlank() {
         // arrange
-        List<string> steps = MakeMockSteps();
+        List<RecipeInstruction> steps = MakeMockSteps();
         List<Ingredient> ingredients = MakeMockIngredients();
         User testUser = MakeMockUser();
 
@@ -65,7 +65,7 @@ public class RecipeClassTest {
     [ExpectedException(typeof(ArgumentNullException))]
     public void RecipeClassInvalidNameHasWhiteSpace() {
         // arrange
-        List<string> steps = MakeMockSteps();
+        List<RecipeInstruction> steps = MakeMockSteps();
         List<Ingredient> ingredients = MakeMockIngredients();
         User testUser = MakeMockUser();
 
@@ -78,7 +78,7 @@ public class RecipeClassTest {
     [ExpectedException(typeof(ArgumentException))]
     public void RecipeClassInvalidNameIsTooBig() {
         // arrange
-        List<string> steps = MakeMockSteps();
+        List<RecipeInstruction> steps = MakeMockSteps();
         List<Ingredient> ingredients = MakeMockIngredients();
         User testUser = MakeMockUser();
 
@@ -92,7 +92,7 @@ public class RecipeClassTest {
     [ExpectedException(typeof(ArgumentException))]
     public void RecipeClassInvalidDescriptionIsBlank() {
         // arrange
-        List<string> steps = MakeMockSteps();
+        List<RecipeInstruction> steps = MakeMockSteps();
         List<Ingredient> ingredients = MakeMockIngredients();
         User testUser = MakeMockUser();
 
@@ -105,7 +105,7 @@ public class RecipeClassTest {
     [ExpectedException(typeof(ArgumentException))]
     public void RecipeClassInvalidDescriptionIsEmpty() {
         // arrange
-        List<string> steps = MakeMockSteps();
+        List<RecipeInstruction> steps = MakeMockSteps();
         List<Ingredient> ingredients = MakeMockIngredients();
         User testUser = MakeMockUser();
 
@@ -118,7 +118,7 @@ public class RecipeClassTest {
     [ExpectedException(typeof(ArgumentException))]
     public void RecipeClassInvalidServingSizeIs0() {
         // arrange
-        List<string> steps = MakeMockSteps();
+        List<RecipeInstruction> steps = MakeMockSteps();
         List<Ingredient> ingredients = MakeMockIngredients();
         User testUser = MakeMockUser();
 
@@ -131,7 +131,7 @@ public class RecipeClassTest {
     [ExpectedException(typeof(ArgumentException))]
     public void RecipeClassInvalidServingSizeIsNegative() {
         // arrange
-        List<string> steps = MakeMockSteps();
+        List<RecipeInstruction> steps = MakeMockSteps();
         List<Ingredient> ingredients = MakeMockIngredients();
         User testUser = MakeMockUser();
 
@@ -144,7 +144,7 @@ public class RecipeClassTest {
     [ExpectedException(typeof(ArgumentException))]
     public void RecipeClassInvalidPrepTimeIs0() {
         // arrange
-        List<string> steps = MakeMockSteps();
+        List<RecipeInstruction> steps = MakeMockSteps();
         List<Ingredient> ingredients = MakeMockIngredients();
         User testUser = MakeMockUser();
 
@@ -158,7 +158,7 @@ public class RecipeClassTest {
     [ExpectedException(typeof(ArgumentException))]
     public void RecipeClassInvalidPrepTimeIsNegative() {
         // arrange
-        List<string> steps = MakeMockSteps();
+        List<RecipeInstruction> steps = MakeMockSteps();
         List<Ingredient> ingredients = MakeMockIngredients();
         User testUser = MakeMockUser();
 
@@ -171,7 +171,7 @@ public class RecipeClassTest {
     [ExpectedException(typeof(ArgumentException))]
     public void RecipeClassInvalidCookingTimeIs0() {
         // arrange
-        List<string> steps = MakeMockSteps();
+        List<RecipeInstruction> steps = MakeMockSteps();
         List<Ingredient> ingredients = MakeMockIngredients();
         User testUser = MakeMockUser();
 
@@ -184,7 +184,7 @@ public class RecipeClassTest {
     [ExpectedException(typeof(ArgumentException))]
     public void RecipeClassInvalidCookingTimeIsNegative() {
         // arrange
-        List<string> steps = MakeMockSteps();
+        List<RecipeInstruction> steps = MakeMockSteps();
         List<Ingredient> ingredients = MakeMockIngredients();
         User testUser = MakeMockUser();
 
@@ -197,7 +197,7 @@ public class RecipeClassTest {
     [ExpectedException(typeof(ArgumentException))]
     public void RecipeClassInvalidStepsIsSize0() {
         // arrange
-        List<string> steps = new List<string>();
+        List<RecipeInstruction> steps = new List<RecipeInstruction>();
         List<Ingredient> ingredients = MakeMockIngredients();
         User testUser = MakeMockUser();
 
@@ -210,7 +210,7 @@ public class RecipeClassTest {
     [ExpectedException(typeof(ArgumentException))]
     public void RecipeClassInvalidIngredeintsIsSize0() {
         // arrange
-        List<string> steps = MakeMockSteps();
+        List<RecipeInstruction> steps = MakeMockSteps();
         List<Ingredient> ingredients = new List<Ingredient>();
         User testUser = MakeMockUser();
 

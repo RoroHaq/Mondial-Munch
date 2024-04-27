@@ -10,22 +10,22 @@ public class RecipeListTests {
         List<Recipe> recipes = new() {
             new Recipe(
                 "Recipe 1", testUser1, "This is my first recipe", 3, 15, 15, new Country("Canada"),
-                new List<string> { "Step 1", "Step 2" },
+                new List<RecipeInstruction> { new("Step 1"), new("Step 2") },
                 new List<Ingredient> { new("Eggs", 3), new("Flour", 2) }
             ),
             new Recipe(
                 "Recipe 2", testUser1, "This is my second recipe", 6, 5, 5, new Country("Mexico"),
-                new List<string> { "Step 1", "Step 2" },
+                new List<RecipeInstruction> { new("Step 1"), new("Step 2") },
                 new List<Ingredient> { new("Beans", 1), new("Steak", 2) }
             ),
             new Recipe(
                 "Burger", testUser1, "Delicious food", 1, 10, 10, new Country("United States"),
-                new List<string> { "Step 1", "Step 2" },
+                new List<RecipeInstruction> { new("Step 1"), new("Step 2") },
                 new List<Ingredient> { new("Meat", 1), new("Bread", 2), new("Lettuce", 1), new("Tomato", 4), new("Cheese", 1) }
             ),
             new Recipe(
                 "Food", testUser2, "Food", 2, 5, 10, new Country("Mexico"),
-                new List<string> { "Step 1", "Step 2" },
+                new List<RecipeInstruction> { new("Step 1"), new("Step 2") },
                 new List<Ingredient> { new("Eggs", 1), new("Cheese", 2) }
             )
         };
