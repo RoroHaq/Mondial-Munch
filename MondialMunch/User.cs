@@ -38,6 +38,7 @@ public class User {
     public Country? CountryCurrent { get; private set; }
     private byte[] _password { get; set; }
     private byte[] _salt { get; set; }
+    private bool _is_authenticated { get; set; } = false;
     public List<Recipe> PersonalRecipes { get; internal set; }
     [InverseProperty("FavouriteUsers")]
     public List<Recipe> FavouriteRecipies { get; internal set; }
@@ -149,6 +150,18 @@ public class User {
             }
         }
         return false;
+    }
+
+    public bool Authenticate(string password) {
+        if (SamePassword(password)) {
+            _is_authenticated = true;
+            return true;
+        }
+        return false;
+    }
+
+    public void Logout() {
+        _is_authenticated = false;
     }
 
     public bool SamePassword(string password_to_compare) {
