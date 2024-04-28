@@ -5,8 +5,10 @@ using Microsoft.EntityFrameworkCore;
 namespace MondialMunch;
 
 public class MondialMunchContext : DbContext {
-    public DbSet<Recipe> Recipes { get; set; }
-    public DbSet<User> Users { get; set; }
+    public virtual DbSet<Country> Countries { get; set; }
+    public virtual DbSet<DietaryTag> DietaryTags { get; set; }
+    public virtual DbSet<Recipe> Recipes { get; set; }
+    public virtual DbSet<User> Users { get; set; }
 
     private readonly string? oracleUser = Environment.GetEnvironmentVariable("MM_ORACLE_USERNAME");
     private readonly string? oraclePassword = Environment.GetEnvironmentVariable("MM_ORACLE_PASSWORD");
