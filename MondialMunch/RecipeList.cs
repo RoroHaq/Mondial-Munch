@@ -29,7 +29,7 @@ public class RecipeList {
         this.Recipes = this.Recipes.Where(r => r.Servings <= maxServings);
     }
 
-    public void FilterByTags(List<DietaryTags> tags) {
+    public void FilterByTags(List<DietaryTag> tags) {
         this.Recipes = this.Recipes.Where(r => r.Tags != null && r.Tags.Intersect(tags).Any());
     }
 

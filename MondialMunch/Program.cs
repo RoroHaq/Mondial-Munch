@@ -75,24 +75,24 @@ public class Program {
         if (string.IsNullOrEmpty(description)) return;
 
         // prompt country of origin
-        Console.WriteLine("Enter your country of origin (enter the number) (leave blank/invalid to cancel):");
-        foreach (int c in Enum.GetValues(typeof(Country))) {
-            Console.Write("( " + c + " " + Enum.GetName(typeof(Country), c) + " ) ");
-        }
-        bool hasCountryNumber = int.TryParse(Console.ReadLine(), out int countryNumber);
-        if (!hasCountryNumber) return;
-        if (!Enum.IsDefined(typeof(Country), countryNumber)) return;
-        Country country = (Country)countryNumber;
+        Console.WriteLine("Enter the name of your country of origin (leave blank/invalid to cancel):");
+        // foreach (int c in Enum.GetValues(typeof(Country))) {
+        //     Console.Write("( " + c + " " + Enum.GetName(typeof(Country), c) + " ) ");
+        // }
+        // bool hasCountryNumber = int.TryParse(Console.ReadLine(), out int countryNumber);
+        // if (!hasCountryNumber) return;
+        // if (!Enum.IsDefined(typeof(Country), countryNumber)) return;
+        Country country = new(Console.ReadLine());
 
         // prompt current country
-        Console.WriteLine("Enter your current country (enter the number) (leave blank/invalid to cancel):");
-        foreach (int c in Enum.GetValues(typeof(Country))) {
-            Console.Write("( " + c + " " + Enum.GetName(typeof(Country), c) + " ) ");
-        }
-        bool hasCurrentCountryNumber = int.TryParse(Console.ReadLine(), out int currentCountryNumber);
-        if (!hasCurrentCountryNumber) return;
-        if (!Enum.IsDefined(typeof(Country), countryNumber)) return;
-        Country currentCountry = (Country)countryNumber;
+        // Console.WriteLine("Enter the name of your country of origin (leave blank/invalid to cancel):");
+        // foreach (int c in Enum.GetValues(typeof(Country))) {
+        //     Console.Write("( " + c + " " + Enum.GetName(typeof(Country), c) + " ) ");
+        // }
+        // bool hasCurrentCountryNumber = int.TryParse(Console.ReadLine(), out int currentCountryNumber);
+        // if (!hasCurrentCountryNumber) return;
+        // if (!Enum.IsDefined(typeof(Country), countryNumber)) return;
+        Country currentCountry = new(Console.ReadLine());
 
         // create user
         User newUser = new(username, "img/something.png", description, country, currentCountry, password, User.GenerateSalt());
@@ -266,19 +266,20 @@ public class Program {
         bool hasMaxServings = int.TryParse(Console.ReadLine(), out int maxServings);
 
         // input tags
-        List<DietaryTags> tags = new();
-        Console.WriteLine("Filter by tags (enter the number) (leave blank to skip/continue):");
-        foreach (int c in Enum.GetValues(typeof(DietaryTags))) {
-            Console.Write("( " + c + " " + Enum.GetName(typeof(DietaryTags), c) + " ) ");
-        }
-        Console.WriteLine();
-        while (true) {
-            bool didParseCorrectly = int.TryParse(Console.ReadLine(), out int tagNumber);
-            if (!didParseCorrectly) break;
-            if (Enum.IsDefined(typeof(DietaryTags), tagNumber)) {
-                tags.Add((DietaryTags)tagNumber);
-            }
-        }
+        List<DietaryTag> tags = new();
+        // TEMPORARILY DISABLED FOR NOW..
+        // Console.WriteLine("Filter by tags (enter the number) (leave blank to skip/continue):");
+        // foreach (int c in Enum.GetValues(typeof(DietaryTag))) {
+        //     Console.Write("( " + c + " " + Enum.GetName(typeof(DietaryTag), c) + " ) ");
+        // }
+        // Console.WriteLine();
+        // while (true) {
+        //     bool didParseCorrectly = int.TryParse(Console.ReadLine(), out int tagNumber);
+        //     if (!didParseCorrectly) break;
+        //     if (Enum.IsDefined(typeof(DietaryTag), tagNumber)) {
+        //         tags.Add((DietaryTag)tagNumber);
+        //     }
+        // }
 
         // input creator
         Console.WriteLine("Filter by creator (leave blank to skip):");
@@ -332,22 +333,22 @@ public class Program {
         if (!hasCookTime) return;
 
         // input country
-        Console.WriteLine("Enter country (enter the number) (leave blank/invalid to cancel):");
-        foreach (int c in Enum.GetValues(typeof(Country))) {
-            Console.Write("( " + c + " " + Enum.GetName(typeof(Country), c) + " ) ");
-        }
-        bool hasCountryNumber = int.TryParse(Console.ReadLine(), out int countryNumber);
-        if (!hasCountryNumber) return;
-        if (!Enum.IsDefined(typeof(Country), countryNumber)) return;
-        Country country = (Country)countryNumber;
+        Console.WriteLine("Enter the name of the country (leave blank/invalid to cancel):");
+        // foreach (int c in Enum.GetValues(typeof(Country))) {
+        //     Console.Write("( " + c + " " + Enum.GetName(typeof(Country), c) + " ) ");
+        // }
+        // bool hasCountryNumber = int.TryParse(Console.ReadLine(), out int countryNumber);
+        // if (!hasCountryNumber) return;
+        // if (!Enum.IsDefined(typeof(Country), countryNumber)) return;
+        Country country = new(Console.ReadLine());
 
         // input instructions
         Console.WriteLine("Enter instructions (leave blank to cancel/continue)");
-        List<string> instructions = new();
+        List<RecipeInstruction> instructions = new();
         while (true) {
             string? instruction = Console.ReadLine();
             if (string.IsNullOrEmpty(instruction)) break;
-            instructions.Add(instruction);
+            instructions.Add(new RecipeInstruction(instruction));
         }
         if (instructions.Count == 0) return;
 

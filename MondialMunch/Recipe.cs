@@ -1,9 +1,10 @@
-using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using MondialMunch;
 
 
 public class Recipe {
 
+    public int Id { get; private set; }
     private string _name;
     public User Creator { get; }
     public string? _description;
@@ -12,14 +13,16 @@ public class Recipe {
     public double _cookingTime;
     public double TotalTime => _prepTime + _cookingTime;
     public Country Country { get; internal set; }
-    public List<string> _instructions;
+    public List<RecipeInstruction> _instructions;
     public List<Ingredient> _ingredients;
-    public Dictionary<string, string[]>? Substitutions { get; internal set; }
-    public List<DietaryTags>? Tags { get; internal set; }
+    // public Dictionary<string, string[]>? Substitutions { get; internal set; } // entity framework doesn't like this
+    public List<DietaryTag>? Tags { get; internal set; }
     public int Stars { get; internal set; }
+    public List<User> FavouriteUsers { get; internal set; }
+    public List<User> TodoUsers { get; internal set; }
 
     public Recipe(string name, User creator, string description, int servings,
-                    double preptime, double cookingTime, Country country, List<string> instructions, List<Ingredient> ingredients) {
+                    double preptime, double cookingTime, Country country, List<RecipeInstruction> instructions, List<Ingredient> ingredients) {
 
         /*
             PrepTime & Cooking Cant be < 0
@@ -38,6 +41,8 @@ public class Recipe {
         Instructions = instructions;
         Ingredients = ingredients;
     }
+
+    private Recipe() { }
 
     public string Name {
         get { return _name; }
@@ -103,7 +108,7 @@ public class Recipe {
         }
     }
 
-    public List<string> Instructions {
+    public List<RecipeInstruction> Instructions {
         get { return _instructions; }
 
         internal set {
@@ -126,6 +131,24 @@ public class Recipe {
             _ingredients = value;
         }
     }
-
-
 }
+
+public class RecipeInstruction {
+    public int Id { get; private set; }
+    public string Text { get; private set; }
+
+    public RecipeInstruction(string text) {
+        Text = text;
+    }
+    private RecipeInstruction() { }
+
+    public override string ToString() {
+        return Text;
+    }
+
+    public override bool Equals(object? obj) {
+        RecipeInstruction c = (RecipeInstruction)obj;
+        return Text.Equals(c.Text);
+    }
+}
+
