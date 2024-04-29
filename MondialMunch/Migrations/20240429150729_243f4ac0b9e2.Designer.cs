@@ -12,8 +12,8 @@ using Oracle.EntityFrameworkCore.Metadata;
 namespace MondialMunch.Migrations
 {
     [DbContext(typeof(MondialMunchContext))]
-    [Migration("20240427151346_0cdbe40a555c")]
-    partial class _0cdbe40a555c
+    [Migration("20240429150729_243f4ac0b9e2")]
+    partial class _243f4ac0b9e2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -55,7 +55,7 @@ namespace MondialMunch.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("NUMBER(10)");
 
-                    b.Property<int?>("RecipeId")
+                    b.Property<int>("RecipeId")
                         .HasColumnType("NUMBER(10)");
 
                     b.HasKey("Id");
@@ -79,7 +79,7 @@ namespace MondialMunch.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Country");
+                    b.ToTable("Countries");
                 });
 
             modelBuilder.Entity("MondialMunch.DietaryTag", b =>
@@ -96,7 +96,7 @@ namespace MondialMunch.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("DietaryTag");
+                    b.ToTable("DietaryTags");
                 });
 
             modelBuilder.Entity("MondialMunch.User", b =>
@@ -192,7 +192,7 @@ namespace MondialMunch.Migrations
 
                     OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("RecipeId")
+                    b.Property<int>("RecipeId")
                         .HasColumnType("NUMBER(10)");
 
                     b.Property<string>("Text")
@@ -253,9 +253,13 @@ namespace MondialMunch.Migrations
 
             modelBuilder.Entity("Ingredient", b =>
                 {
-                    b.HasOne("Recipe", null)
+                    b.HasOne("Recipe", "Recipe")
                         .WithMany("Ingredients")
-                        .HasForeignKey("RecipeId");
+                        .HasForeignKey("RecipeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Recipe");
                 });
 
             modelBuilder.Entity("MondialMunch.User", b =>
@@ -294,9 +298,13 @@ namespace MondialMunch.Migrations
 
             modelBuilder.Entity("RecipeInstruction", b =>
                 {
-                    b.HasOne("Recipe", null)
+                    b.HasOne("Recipe", "Recipe")
                         .WithMany("Instructions")
-                        .HasForeignKey("RecipeId");
+                        .HasForeignKey("RecipeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Recipe");
                 });
 
             modelBuilder.Entity("RecipeUser", b =>
