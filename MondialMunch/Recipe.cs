@@ -131,6 +131,10 @@ public class Recipe {
             _ingredients = value;
         }
     }
+
+    public override string ToString() {
+        return Name + " from " + Country.Name + " by " + Creator.Name + " : " + Description;
+    }
 }
 
 public class RecipeInstruction {

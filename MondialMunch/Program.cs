@@ -301,7 +301,7 @@ public class Program {
         // display
         Console.WriteLine("Found " + recipes.Recipes.Count() + " recipes.");
         foreach (Recipe r in recipes.Recipes) {
-            Console.WriteLine(r.Name + " from " + r.Country.ToString() + " by " + r.Creator.Name + " : " + r.Description);
+            Console.WriteLine(r);
         }
         Console.WriteLine();
     }
@@ -410,6 +410,77 @@ public class Program {
         foreach (Ingredient ingredient in recipe.Ingredients) {
             Console.WriteLine("\t" + ingredient.Name + ": " + ingredient.Quantity);
         }
+
+        Console.WriteLine(">> Recipe actions");
+        Console.WriteLine("1. Favorite recipe");
+        Console.WriteLine("2. Unfavorite recipe");
+        Console.WriteLine("3. View favorites");
+
+        string? input = Console.ReadLine();
+        if (input == null) return;
+
+        switch (input) {
+            case "1": {
+                    try {
+                        service.FavoriteRecipe(recipe);
+                        Console.WriteLine("Favorited recipe!");
+                    }
+                    catch (Exception e) {
+                        Console.WriteLine(e.Message);
+                    }
+                    break;
+                }
+            case "2": {
+                    try {
+                        service.UnfavoriteRecipe(recipe);
+                        Console.WriteLine("Unfavorited recipe!");
+                    }
+                    catch (Exception e) {
+                        Console.WriteLine(e.Message);
+                    }
+                    break;
+                }
+            case "3": {
+                    Console.WriteLine("This recipe has " + recipe.FavouriteUsers.Count + " favorites.");
+                    foreach (User user in recipe.FavouriteUsers) {
+                        Console.WriteLine(user.Name);
+                    }
+                    break;
+                }
+        }
+    }
+
+    public static void PromptViewUser() {
+        PrintHeading();
+        Console.WriteLine(">> View user");
+
+        // input name
+        Console.WriteLine("Enter user name (leave blank to cancel):");
+        string? name = Console.ReadLine();
+        if (string.IsNullOrEmpty(name)) return;
+
+        // get user
+        User user = service.GetUserByUsername(name)!;
+        if (user == null) {
+            Console.WriteLine("This user does not exist.");
+            return;
+        }
+
+        // print user
+        Console.WriteLine("Name: " + user.Name);
+        Console.WriteLine("Description: " + user.Description);
+        Console.WriteLine("Country of origin: " + user.CountryOrigin.Name);
+        Console.WriteLine("Country of residence: " + user.CountryCurrent!.Name);
+
+        Console.WriteLine("Created recipes:");
+        foreach (Recipe recipe in user.PersonalRecipes) {
+            Console.WriteLine("\t" + recipe);
+        }
+
+        Console.WriteLine("Favorite recipes:");
+        foreach (Recipe recipe in user.FavouriteRecipies) {
+            Console.WriteLine("\t" + recipe);
+        }
     }
 
     public static void PromptDeleteRecipe() {
@@ -474,6 +545,7 @@ public class Program {
                 Console.WriteLine("3. View recipe");
                 Console.WriteLine("4. Add recipe");
                 Console.WriteLine("5. Delete recipe");
+                Console.WriteLine("6. View a user's profile");
 
                 string? input = Console.ReadLine();
                 if (input == null) continue;
@@ -493,6 +565,9 @@ public class Program {
                         break;
                     case "5":
                         PromptDeleteRecipe();
+                        break;
+                    case "6":
+                        PromptViewUser();
                         break;
                 }
             }
