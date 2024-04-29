@@ -103,6 +103,21 @@ public class Program {
         Console.WriteLine("Welcome to Mondial Munch, " + username + "!");
     }
 
+    private static void PromptLogout() {
+        PrintHeading();
+        Console.WriteLine(">> Logout");
+
+        // prompt confirmation
+        Console.WriteLine("Are you sure you want to log out? Type in 'yes' to confirm.");
+        string? confirmation = Console.ReadLine();
+        if (confirmation != "yes") {
+            Console.WriteLine("Cancelling operation.");
+            return;
+        }
+
+        service.CurrentUser = null;
+    }
+
     private static void PromptUserActionUpdateProfile() {
         PrintHeading();
         Console.WriteLine(">> Update profile");
@@ -546,6 +561,7 @@ public class Program {
                 Console.WriteLine("4. Add recipe");
                 Console.WriteLine("5. Delete recipe");
                 Console.WriteLine("6. View a user's profile");
+                Console.WriteLine("7. Log out");
 
                 string? input = Console.ReadLine();
                 if (input == null) continue;
@@ -568,6 +584,9 @@ public class Program {
                         break;
                     case "6":
                         PromptViewUser();
+                        break;
+                    case "7":
+                        PromptLogout();
                         break;
                 }
             }
