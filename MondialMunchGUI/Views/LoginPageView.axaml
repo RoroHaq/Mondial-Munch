@@ -1,0 +1,33 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:MondialMunchGUI.ViewModels"
+             x:DataType="vm:LoginPageViewModel"
+             mc:Ignorable="d" d:DesignWidth="250" d:DesignHeight="450"
+             x:Class="MondialMunchGUI.Views.LoginPageView">
+  <StackPanel>
+    <TextBox AcceptsReturn="True"
+             Text="{Binding Username}"
+             Watermark="Enter your username"/>
+
+    <TextBox AcceptsReturn="True"
+             Text="{Binding Password}"
+             Watermark="Enter your password"/>
+    
+    <Button DockPanel.Dock="Bottom"
+            HorizontalAlignment="Stretch"
+            HorizontalContentAlignment="Left"
+            x:CompileBindings="False"
+            Command="{Binding Login}">
+        Login
+    </Button>
+    <Button DockPanel.Dock="Bottom"
+            HorizontalAlignment="Stretch"
+            HorizontalContentAlignment="Right"
+            x:CompileBindings="False"
+            Command="{Binding Register}">
+        Register
+    </Button>
+  </StackPanel>
+</UserControl>
