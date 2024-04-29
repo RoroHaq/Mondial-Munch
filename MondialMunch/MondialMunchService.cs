@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+
 namespace MondialMunch;
 
 public class MondialMunchService {
@@ -16,12 +18,37 @@ public class MondialMunchService {
         _context = context;
     }
 
-    public List<Recipe> GetRecipes() => _context.Recipes.ToList();
-    public List<User> GetUsers() => _context.Users.ToList();
+    public List<Recipe> GetRecipes() {
+        return _context.Recipes
+            .Include(r => r.Creator)
+            .Include(r => r.Country)
+            .Include(r => r.Instructions)
+            .Include(r => r.Ingredients)
+            .ToList();
+    }
+    public List<User> GetUsers() {
+        return _context.Users
+            .Include(u => u.CountryOrigin)
+            .Include(u => u.CountryCurrent)
+
+            .Include(u => u.PersonalRecipes).ThenInclude(r => r.Country)
+            .Include(u => u.PersonalRecipes).ThenInclude(r => r.Instructions)
+            .Include(u => u.PersonalRecipes).ThenInclude(r => r.Ingredients)
+
+            .Include(u => u.FavouriteRecipies).ThenInclude(r => r.Country)
+            .Include(u => u.FavouriteRecipies).ThenInclude(r => r.Instructions)
+            .Include(u => u.FavouriteRecipies).ThenInclude(r => r.Ingredients)
+
+            .Include(u => u.TodoRecipies).ThenInclude(r => r.Country)
+            .Include(u => u.TodoRecipies).ThenInclude(r => r.Instructions)
+            .Include(u => u.TodoRecipies).ThenInclude(r => r.Ingredients)
+
+            .ToList();
+    }
     public List<Country> GetCountries() => _context.Countries.ToList();
     public List<DietaryTag> GetDietaryTags() => _context.DietaryTags.ToList();
 
-    public User? GetUserByUsername(string name) => _context.Users.FirstOrDefault(user => user.Name == name);
+    public User? GetUserByUsername(string name) => GetUsers().FirstOrDefault(user => user.Name == name);
     public Country? GetCountryByName(string name) => _context.Countries.FirstOrDefault(country => country.Name == name);
 
     public void AddRecipe(Recipe recipe) {
