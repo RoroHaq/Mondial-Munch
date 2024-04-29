@@ -39,6 +39,7 @@ public class User {
     private byte[] _password { get; set; }
     private byte[] _salt { get; set; }
     private bool _is_authenticated { get; set; } = false;
+    public bool IsAuthenticated => _is_authenticated;
     public List<Recipe> PersonalRecipes { get; internal set; }
     [InverseProperty("FavouriteUsers")]
     public List<Recipe> FavouriteRecipies { get; internal set; }

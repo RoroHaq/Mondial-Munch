@@ -2,13 +2,14 @@
 
 //Milestone 2 Done. 
 public class Program {
-    private static User? currentUser;
+    private static readonly MondialMunchContext context = new();
+    private static readonly MondialMunchService service = new(context);
 
     private static void PrintHeading() {
         Console.WriteLine();
         Console.WriteLine("#### MONDIAL MUNCH ####");
-        if (currentUser != null) {
-            Console.WriteLine("## Hello, " + currentUser.Name);
+        if (service.CurrentUser != null) {
+            Console.WriteLine("## Hello, " + service.CurrentUser.Name);
         }
     }
 
@@ -27,18 +28,18 @@ public class Program {
         // validate login
         if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password)) return;
 
-        User? user = MockData.Users.FirstOrDefault(u => u.Name == username);
+        User? user = service.GetUserByUsername(username);
         if (user == null) {
             Console.WriteLine("This user does not exist.");
             return;
         }
-        if (!user.SamePassword(password)) {
+        if (!user.Authenticate(password)) {
             Console.WriteLine("Wrong password.");
             return;
         }
 
         // establish login
-        currentUser = user;
+        service.CurrentUser = user;
         Console.WriteLine("Welcome back to Mondial Munch, " + username + "!");
     }
 
@@ -85,7 +86,7 @@ public class Program {
         Country country = new(Console.ReadLine());
 
         // prompt current country
-        // Console.WriteLine("Enter the name of your country of origin (leave blank/invalid to cancel):");
+        Console.WriteLine("Enter the name of your country of origin (leave blank/invalid to cancel):");
         // foreach (int c in Enum.GetValues(typeof(Country))) {
         //     Console.Write("( " + c + " " + Enum.GetName(typeof(Country), c) + " ) ");
         // }
@@ -96,8 +97,9 @@ public class Program {
 
         // create user
         User newUser = new(username, "img/something.png", description, country, currentCountry, password, User.GenerateSalt());
-        MockData.Users.Add(newUser);
-        currentUser = newUser;
+        newUser.Authenticate(password);
+        service.AddUser(newUser);
+        service.CurrentUser = newUser;
         Console.WriteLine("Welcome to Mondial Munch, " + username + "!");
     }
 
@@ -123,7 +125,7 @@ public class Program {
         string? currentCountry = Console.ReadLine();
 
         if (!string.IsNullOrEmpty(description)) {
-            // currentUser.ChangeDescription(description);
+            // service.CurrentUser.ChangeDescription(description);
         }
     }
 
@@ -140,7 +142,7 @@ public class Program {
                 Console.WriteLine("Null value entered, cancelling operation.");
                 return;
             }
-            if (!currentUser!.SamePassword(currentPassword)) {
+            if (!service.CurrentUser!.SamePassword(currentPassword)) {
                 Console.WriteLine("Password is wrong. Try again.");
                 currentPassword = Console.ReadLine();
             }
@@ -166,7 +168,7 @@ public class Program {
         }
 
         // reset password
-        if (currentUser.ResetPassword(currentPassword, newPassword) == true) {
+        if (service.CurrentUser.ResetPassword(currentPassword, newPassword) == true) {
             Console.WriteLine("Updated password!");
         }
         else {
@@ -187,7 +189,7 @@ public class Program {
                 Console.WriteLine("Null value entered, cancelling operation.");
                 return;
             }
-            if (!currentUser!.SamePassword(currentPassword)) {
+            if (!service.CurrentUser!.SamePassword(currentPassword)) {
                 Console.WriteLine("Password is wrong. Try again.");
                 currentPassword = Console.ReadLine();
             }
@@ -195,16 +197,16 @@ public class Program {
         }
 
         // prompt confirmation
-        Console.WriteLine("Are you sure you want to delete your account? Type in " + currentUser.Name + " to confirm.");
+        Console.WriteLine("Are you sure you want to delete your account? Type in " + service.CurrentUser.Name + " to confirm.");
         string? username = Console.ReadLine();
 
         // delete account
-        if (username != currentUser.Name) {
+        if (username != service.CurrentUser.Name) {
             Console.WriteLine("Operation cancelled.");
         }
         else {
-            MockData.Users.Remove(currentUser);
-            currentUser = null;
+            service.DeleteUser(service.CurrentUser);
+            service.CurrentUser = null;
             Console.WriteLine("Deleted account.");
         }
     }
@@ -286,7 +288,7 @@ public class Program {
         string? creator = Console.ReadLine();
 
         // filter
-        RecipeList recipes = new(MockData.Recipes);
+        RecipeList recipes = new(service.GetRecipes());
         if (!string.IsNullOrEmpty(keyword)) recipes.FilterByKeyword(keyword);
         if (ingredients.Count > 0) recipes.FilterByIngredients(ingredients);
         if (hasMinTime) recipes.FilterByMinTime(minTime);
@@ -369,8 +371,8 @@ public class Program {
         if (ingredients.Count == 0) return;
 
         // make recipe
-        Recipe recipe = new(name, currentUser!, description!, servings, prepTime, cookTime, country, instructions, ingredients);
-        MockData.Recipes.Add(recipe);
+        Recipe recipe = new(name, service.CurrentUser!, description!, servings, prepTime, cookTime, country, instructions, ingredients);
+        service.AddRecipe(recipe);
         Console.WriteLine("Created recipe!");
     }
 
@@ -384,7 +386,7 @@ public class Program {
         if (string.IsNullOrEmpty(name)) return;
 
         // get recipe
-        Recipe recipe = MockData.Recipes.FirstOrDefault(r => r.Name == name)!;
+        Recipe recipe = service.GetRecipes().FirstOrDefault(r => r.Name == name)!;
         if (recipe == null) {
             Console.WriteLine("This recipe does not exist.");
             return;
@@ -423,12 +425,12 @@ public class Program {
         }
 
         // get recipe
-        Recipe? recipe = MockData.Recipes.FirstOrDefault(r => r.Name == name);
+        Recipe? recipe = service.GetRecipes().FirstOrDefault(r => r.Name == name);
         if (recipe == null) {
             Console.WriteLine("This recipe does not exist.");
             return;
         }
-        if (recipe.Creator != currentUser) {
+        if (recipe.Creator != service.CurrentUser) {
             Console.WriteLine("You do not own this recipe.");
             return;
         }
@@ -442,13 +444,13 @@ public class Program {
         }
 
         // delete recipe
-        MockData.Recipes.Remove(recipe);
+        service.DeleteRecipe(recipe);
         Console.WriteLine("Deleted recipe.");
     }
 
     public static void Main() {
         while (true) {
-            if (currentUser == null) {
+            if (service.CurrentUser == null) {
                 PrintHeading();
                 Console.WriteLine("1. Login");
                 Console.WriteLine("2. Sign up");
