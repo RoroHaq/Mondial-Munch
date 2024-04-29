@@ -19,6 +19,14 @@ public class MondialMunchContext : DbContext {
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder) {
+        modelBuilder.Entity<Recipe>()
+            .HasMany(recipe => recipe.Instructions)
+            .WithOne(instruction => instruction.Recipe)
+            .OnDelete(DeleteBehavior.Cascade);
+        modelBuilder.Entity<Recipe>()
+            .HasMany(recipe => recipe.Ingredients)
+            .WithOne(ingredient => ingredient.Recipe)
+            .OnDelete(DeleteBehavior.Cascade);
         modelBuilder.Entity<Recipe>().HasMany(recipe => recipe.Tags).WithMany(tag => tag.TaggedRecipes);
         modelBuilder.Entity<User>().HasMany(user => user.PersonalRecipes).WithOne(recipe => recipe.Creator);
         modelBuilder.Entity<User>().Property<byte[]>("_password").HasColumnName("Password");

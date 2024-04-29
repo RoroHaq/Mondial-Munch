@@ -136,6 +136,7 @@ public class Recipe {
 public class RecipeInstruction {
     public int Id { get; private set; }
     public string Text { get; private set; }
+    public Recipe Recipe { get; private set; }
 
     public RecipeInstruction(string text) {
         Text = text;
