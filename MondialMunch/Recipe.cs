@@ -131,11 +131,16 @@ public class Recipe {
             _ingredients = value;
         }
     }
+
+    public override string ToString() {
+        return Name + " from " + Country.Name + " by " + Creator.Name + " : " + Description;
+    }
 }
 
 public class RecipeInstruction {
     public int Id { get; private set; }
     public string Text { get; private set; }
+    public Recipe Recipe { get; private set; }
 
     public RecipeInstruction(string text) {
         Text = text;

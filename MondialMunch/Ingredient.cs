@@ -7,6 +7,8 @@ public class Ingredient {
     private string _name;
     private int _quantity;
 
+    public Recipe Recipe { get; private set; }
+
     public Ingredient(string name, int quantity) {
         Name = name;
         Quantity = quantity;
