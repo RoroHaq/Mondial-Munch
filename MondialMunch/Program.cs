@@ -51,7 +51,7 @@ public class Program {
         Console.WriteLine("Enter username (leave blank to cancel):");
         string? username = Console.ReadLine();
         if (string.IsNullOrEmpty(username)) return;
-        if (MockData.Users.FirstOrDefault(u => u.Name == username) != null) {
+        if (service.GetUserByUsername(username) != null) {
             Console.WriteLine("This user already exists.");
             return;
         }
