@@ -23,22 +23,19 @@ public class MainWindowViewModel : ViewModelBase {
 
         LoginPage.Login.Subscribe(user => {
             if (user != null) {
-                // LoginPage.ListUsers.Add(user);
-                // Here the login was successful, so move to login page
+                LoginUser(user);
             }
         });
-
-        LoginPage.Login.Subscribe(newUserInfo => {
-            if (newUserInfo != null) {
-                // LoginPage.ListUsers.Add(newUser);
-                // Here the login was successful, so move to login page
-            }
-        });
-
         _contentViewModel = LoginPage;
     }
 
     public LoginPageViewModel LoginPage { get; }
+
+    public void LoginUser(User user) {
+        HomePageViewModel homePage = new HomePageViewModel(user);
+
+        ContentViewModel = homePage;
+    }
 
     public ViewModelBase ContentViewModel {
         get => _contentViewModel;
