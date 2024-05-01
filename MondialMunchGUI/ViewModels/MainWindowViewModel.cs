@@ -19,11 +19,26 @@ public class MainWindowViewModel : ViewModelBase {
             new("Safin", "img/something.png", "I am Safin.",
                                 new Country("Mexico"), new Country("Canada"), "password123", User.GenerateSalt())
         };
-        UserList = new LoginPageViewModel(Users);
-        _contentViewModel = UserList;
+        LoginPage = new LoginPageViewModel(Users);
+
+        LoginPage.Login.Subscribe(user => {
+            if (user != null) {
+                // LoginPage.ListUsers.Add(user);
+                // Here the login was successful, so move to login page
+            }
+        });
+
+        LoginPage.Login.Subscribe(newUserInfo => {
+            if (newUserInfo != null) {
+                // LoginPage.ListUsers.Add(newUser);
+                // Here the login was successful, so move to login page
+            }
+        });
+
+        _contentViewModel = LoginPage;
     }
 
-    public LoginPageViewModel UserList { get; }
+    public LoginPageViewModel LoginPage { get; }
 
     public ViewModelBase ContentViewModel {
         get => _contentViewModel;

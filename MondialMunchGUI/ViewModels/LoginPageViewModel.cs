@@ -12,7 +12,7 @@ namespace MondialMunchGUI.ViewModels {
         private string? _password;
 
         public ReactiveCommand<Unit, User?> Login { get; }
-        public ReactiveCommand<Unit, Unit> Register { get; }
+        public ReactiveCommand<Unit, Tuple<string, string>> Register { get; }
 
         public LoginPageViewModel(IEnumerable<User> users) {
             ListUsers = new ObservableCollection<User>(users);
@@ -36,10 +36,8 @@ namespace MondialMunchGUI.ViewModels {
                 }, isValidObservable
             );
 
-            // Register = ReactiveCommand.Create(() => { });
-            Register = ReactiveCommand.Create(() => {
-                MainWindowViewModel addItemViewModel = new();
-            });
+            Register = ReactiveCommand.Create(
+                () => new Tuple<string, string>(Username, Password));
         }
 
         public ObservableCollection<User> ListUsers { get; }
