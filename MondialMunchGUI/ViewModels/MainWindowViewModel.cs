@@ -20,6 +20,7 @@ public class MainWindowViewModel : ViewModelBase {
                                 new Country("Mexico"), new Country("Canada"), "password123", User.GenerateSalt())
         };
         LoginPage = new LoginPageViewModel(Users);
+        RegisterPage = new RegisterPageViewModel(Users);
 
         LoginPage.Login.Subscribe(user => {
             if (user != null) {
@@ -28,17 +29,16 @@ public class MainWindowViewModel : ViewModelBase {
             }
         });
 
-        LoginPage.Login.Subscribe(newUserInfo => {
-            if (newUserInfo != null) {
-                // LoginPage.ListUsers.Add(newUser);
-                // Here the login was successful, so move to login page
-            }
+        LoginPage.Register.Subscribe((u) => {
+            ContentViewModel = RegisterPage;
+            LoginPage.ListUsers.Add(new User("John", "img/something.png", "Hello!, I'm Nathan.", new Country("Canada"), new Country("Canada"), "password123", User.GenerateSalt()));
         });
 
-        _contentViewModel = LoginPage;
+        ContentViewModel = LoginPage;
     }
 
     public LoginPageViewModel LoginPage { get; }
+    public RegisterPageViewModel RegisterPage { get; }
 
     public ViewModelBase ContentViewModel {
         get => _contentViewModel;
