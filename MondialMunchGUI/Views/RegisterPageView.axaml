@@ -1,0 +1,52 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:MondialMunchGUI.ViewModels"
+             x:DataType="vm:RegisterPageViewModel"
+             mc:Ignorable="d" d:DesignWidth="250" d:DesignHeight="450"
+             x:Class="MondialMunchGUI.Views.RegisterPageView">
+  <StackPanel>
+    <TextBox AcceptsReturn="True"
+             Text="{Binding Username}"
+             Watermark="Enter your username"/>
+
+    <TextBox AcceptsReturn="True"
+             Text="{Binding Description}"
+             Watermark="Describe yourself and you journey!"/>
+
+    <TextBox AcceptsReturn="True"
+             Text="{Binding CountryOrigin}"
+             Watermark="What country were you born in?"/>
+
+    <TextBox AcceptsReturn="True"
+             Text="{Binding CountryCurrent}"
+             Watermark="What country are you in right now?"/>
+
+    <TextBox AcceptsReturn="True"
+             Text="{Binding Password}"
+             PasswordChar="*"
+             Watermark="Enter your password"/>
+
+    <TextBox AcceptsReturn="True"
+             Text="{Binding CheckPassword}"
+             PasswordChar="*"
+             Watermark="Please re-enter your password"/>
+
+    <Button DockPanel.Dock="Bottom"
+            HorizontalAlignment="Stretch"
+            HorizontalContentAlignment="Center"
+            x:CompileBindings="False"
+            Command="{Binding Register}">
+        Register
+    </Button>
+
+    <Button DockPanel.Dock="Bottom"
+            HorizontalAlignment="Stretch"
+            HorizontalContentAlignment="Center"
+            x:CompileBindings="False"
+            Command="{Binding Back}">
+        Back
+    </Button>
+  </StackPanel>
+</UserControl>
