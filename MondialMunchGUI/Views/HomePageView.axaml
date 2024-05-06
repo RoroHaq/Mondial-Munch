@@ -6,9 +6,28 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="MondialMunchGUI.Views.HomePageView"
              x:DataType="vm:HomePageViewModel">
-  
-
-  <StackPanel>
-    <TextBlock Text="{Binding greet}"/>
-  </StackPanel>
+    
+    <DockPanel>
+    <Menu DockPanel.Dock="Top">
+      <MenuItem Header="Insert Logo Here">
+        <MenuItem Header="Home"/>
+        <Separator/>
+        <MenuItem Header="Favourites"/>
+        <Separator/>
+        <MenuItem Header="My Recipies"/>
+        <Separator/>
+        <MenuItem Header="Events:"/>
+        <Separator/>
+        <MenuItem Header="Followed Countries:"/>
+      </MenuItem>
+      <MenuItem Header="Logo">
+        <MenuItem Header="Profile"/>
+        <Separator/>
+        <MenuItem Header="Settings"/>
+        <Separator/>
+        <MenuItem Header="Log Out"/>
+      </MenuItem>
+    </Menu>
+    <TextBlock/>
+  </DockPanel>
 </UserControl>
