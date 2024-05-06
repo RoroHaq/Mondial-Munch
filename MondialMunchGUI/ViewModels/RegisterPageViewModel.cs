@@ -19,14 +19,6 @@ namespace MondialMunchGUI.ViewModels {
         public RegisterPageViewModel(IEnumerable<User> users) {
             ListUsers = new ObservableCollection<User>(users);
 
-            // var isValidObservable = this.WhenAnyValue(
-            //     x => x.Username,
-            //     x => !string.IsNullOrWhiteSpace(x));
-
-            // var validPassword = this.WhenAnyValue(
-            //     x => x.Password,
-            //     x => x == CheckPassword && x.Length > 3);
-
             var readyToEnter = this.WhenAnyValue(
                 x => x.Username,
                 x => x.Password,
@@ -55,6 +47,7 @@ namespace MondialMunchGUI.ViewModels {
                         }
                     }
                     User user = new(Username, "img/something.png", Description, new Country(CountryOrigin), new Country(CountryCurrent), Password, User.GenerateSalt());
+                    //TODO: Instead of new Country fetch it from the DB
                     if (!user.Authenticate(Password)) {
                         return null;
                     }
