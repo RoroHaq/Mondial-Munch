@@ -10,8 +10,8 @@ public class MainWindowViewModel : ViewModelBase {
     private ViewModelBase _contentViewModel;
 
     public MainWindowViewModel() {
-        // var service = new MondialMunchService(new MondialMunchContext());
-        List<User> Users = new(){
+        /* var service = new MondialMunchService(new MondialMunchContext());
+        List<User> Users1 = new(){
             new("Nathan", "img/something.png", "Hello!, I'm Nathan.",
                                 new Country("Canada"), new Country("Canada"), "password123", User.GenerateSalt()),
             new("Andrew", "img/something.png", "This is Andrew.",
@@ -19,11 +19,19 @@ public class MainWindowViewModel : ViewModelBase {
             new("Safin", "img/something.png", "I am Safin.",
                                 new Country("Mexico"), new Country("Canada"), "password123", User.GenerateSalt())
         };
-        LoginPage = new LoginPageViewModel(Users);
+        
+        */
+
+        MondialMunchContext context = new MondialMunchContext();
+        MondialMunchService service = new MondialMunchService(context);
+
+        List<User> Users2 = service.GetUsers();
+        LoginPage = new LoginPageViewModel(Users2);
 
         LoginPage.Login.Subscribe(user => {
             if (user != null) {
-                LoginUser(user);
+                User? loggedInUser = service.GetUserByUsername(user.Name);
+                LoginUser(loggedInUser);
             }
         });
         _contentViewModel = LoginPage;
