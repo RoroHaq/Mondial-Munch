@@ -31,7 +31,15 @@ public class MainWindowViewModel : ViewModelBase {
 
         LoginPage.Register.Subscribe((u) => {
             ContentViewModel = RegisterPage;
-            LoginPage.ListUsers.Add(new User("John", "img/something.png", "Hello!, I'm Nathan.", new Country("Canada"), new Country("Canada"), "password123", User.GenerateSalt()));
+        });
+
+        RegisterPage.Register.Subscribe((user) => {
+            if (user != null) {
+                LoginPage.ListUsers.Add(user);
+                //Replace with DB access
+
+                ContentViewModel = LoginPage;
+            }
         });
 
         ContentViewModel = LoginPage;
