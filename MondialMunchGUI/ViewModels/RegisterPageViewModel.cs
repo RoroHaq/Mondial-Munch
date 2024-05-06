@@ -7,34 +7,20 @@ using System;
 using System.Reactive.Linq;
 
 namespace MondialMunchGUI.ViewModels {
-    public class LoginPageViewModel : ViewModelBase {
+    public class RegisterPageViewModel : ViewModelBase {
         private string? _username;
+        private string? _description;
+        public string? _country_origin;
+        public string? _country_current;
         private string? _password;
+        public ReactiveCommand<Unit, User?> Register { get; }
 
-        public ReactiveCommand<Unit, User?> Login { get; }
-        public ReactiveCommand<Unit, string?> Register { get; }
-
-        public LoginPageViewModel(IEnumerable<User> users) {
+        public RegisterPageViewModel(IEnumerable<User> users) {
             ListUsers = new ObservableCollection<User>(users);
 
             var isValidObservable = this.WhenAnyValue(
                 x => x.Username,
                 x => !string.IsNullOrWhiteSpace(x));
-
-            Login = ReactiveCommand.Create(
-                () => {
-                    User? user = null;
-                    foreach (User u in users) {
-                        if (u.Name == Username) {
-                            user = u;
-                        }
-                    }
-                    if (!user.Authenticate(Password)) {
-                        return null;
-                    }
-                    return user;
-                }, isValidObservable
-            );
 
             Register = ReactiveCommand.Create(
                 () => {
@@ -43,8 +29,12 @@ namespace MondialMunchGUI.ViewModels {
                             return null;
                         }
                     }
-                    return Username;
-                }
+                    User user = new(Username, "img/something.png", Description, new Country(CountryOrigin), new Country(CountryCurrent), Password, User.GenerateSalt());
+                    if (!user.Authenticate(Password)) {
+                        return null;
+                    }
+                    return user;
+                }, isValidObservable
             );
         }
 
@@ -53,6 +43,21 @@ namespace MondialMunchGUI.ViewModels {
         public string Username {
             get => _username;
             set => this.RaiseAndSetIfChanged(ref _username, value);
+        }
+
+        public string Description {
+            get => _description;
+            set => this.RaiseAndSetIfChanged(ref _description, value);
+        }
+
+        public string CountryOrigin {
+            get => _country_origin;
+            set => this.RaiseAndSetIfChanged(ref _country_origin, value);
+        }
+
+        public string CountryCurrent {
+            get => _country_current;
+            set => this.RaiseAndSetIfChanged(ref _country_current, value);
         }
 
         public string Password {

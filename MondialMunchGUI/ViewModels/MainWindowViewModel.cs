@@ -11,16 +11,16 @@ public class MainWindowViewModel : ViewModelBase {
 
     public MainWindowViewModel() {
         /* var service = new MondialMunchService(new MondialMunchContext());
-        List<User> Users1 = new(){
-            new("Nathan", "img/something.png", "Hello!, I'm Nathan.",
-                                new Country("Canada"), new Country("Canada"), "password123", User.GenerateSalt()),
-            new("Andrew", "img/something.png", "This is Andrew.",
-                                new Country("Canada"), new Country("United States"), "password123", User.GenerateSalt()),
-            new("Safin", "img/something.png", "I am Safin.",
-                                new Country("Mexico"), new Country("Canada"), "password123", User.GenerateSalt())
-        };
-        
-        */
+       List<User> Users1 = new(){
+           new("Nathan", "img/something.png", "Hello!, I'm Nathan.",
+                               new Country("Canada"), new Country("Canada"), "password123", User.GenerateSalt()),
+           new("Andrew", "img/something.png", "This is Andrew.",
+                               new Country("Canada"), new Country("United States"), "password123", User.GenerateSalt()),
+           new("Safin", "img/something.png", "I am Safin.",
+                               new Country("Mexico"), new Country("Canada"), "password123", User.GenerateSalt())
+       };
+
+       */
 
         MondialMunchContext context = new MondialMunchContext();
         MondialMunchService service = new MondialMunchService(context);
@@ -34,19 +34,29 @@ public class MainWindowViewModel : ViewModelBase {
                 LoginUser(loggedInUser);
             }
         });
-        _contentViewModel = LoginPage;
+
+        LoginPage.Register.Subscribe((u) => {
+            ContentViewModel = RegisterPage;
+            LoginPage.ListUsers.Add(new User("John", "img/something.png", "Hello!, I'm Nathan.", new Country("Canada"), new Country("Canada"), "password123", User.GenerateSalt()));
+        });
+
+        ContentViewModel = LoginPage;
     }
 
     public LoginPageViewModel LoginPage { get; }
+    public RegisterPageViewModel RegisterPage { get; }
+
+    public ViewModelBase ContentViewModel {
+        get => _contentViewModel;
+        private set => this.RaiseAndSetIfChanged(ref _contentViewModel, value);
+    }
 
     public void LoginUser(User user) {
         HomePageViewModel homePage = new HomePageViewModel(user);
 
         ContentViewModel = homePage;
     }
-
-    public ViewModelBase ContentViewModel {
-        get => _contentViewModel;
-        private set => this.RaiseAndSetIfChanged(ref _contentViewModel, value);
-    }
 }
+
+
+
