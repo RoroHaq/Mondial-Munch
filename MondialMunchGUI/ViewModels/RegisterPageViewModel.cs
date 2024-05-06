@@ -13,14 +13,39 @@ namespace MondialMunchGUI.ViewModels {
         public string? _country_origin;
         public string? _country_current;
         private string? _password;
+        private string? _check_password;
         public ReactiveCommand<Unit, User?> Register { get; }
 
         public RegisterPageViewModel(IEnumerable<User> users) {
             ListUsers = new ObservableCollection<User>(users);
 
-            var isValidObservable = this.WhenAnyValue(
+            // var isValidObservable = this.WhenAnyValue(
+            //     x => x.Username,
+            //     x => !string.IsNullOrWhiteSpace(x));
+
+            // var validPassword = this.WhenAnyValue(
+            //     x => x.Password,
+            //     x => x == CheckPassword && x.Length > 3);
+
+            var readyToEnter = this.WhenAnyValue(
                 x => x.Username,
-                x => !string.IsNullOrWhiteSpace(x));
+                x => x.Password,
+                x => x.CheckPassword,
+                x => x.Description,
+                x => x.CountryOrigin,
+                x => x.CountryCurrent,
+                (u, p, cp, d, co, cc) => {
+                    bool b;
+                    b = !string.IsNullOrWhiteSpace(u);
+                    b = b && !string.IsNullOrWhiteSpace(p);
+                    b = b && !string.IsNullOrWhiteSpace(cp);
+                    b = b && !string.IsNullOrWhiteSpace(d);
+                    b = b && !string.IsNullOrWhiteSpace(co);
+                    b = b && !string.IsNullOrWhiteSpace(cc);
+                    b = b && p == cp && p.Length > 3;
+                    return b;
+                }
+            );
 
             Register = ReactiveCommand.Create(
                 () => {
@@ -34,7 +59,7 @@ namespace MondialMunchGUI.ViewModels {
                         return null;
                     }
                     return user;
-                }, isValidObservable
+                }, readyToEnter
             );
         }
 
@@ -63,6 +88,11 @@ namespace MondialMunchGUI.ViewModels {
         public string Password {
             get => _password;
             set => this.RaiseAndSetIfChanged(ref _password, value);
+        }
+
+        public string CheckPassword {
+            get => _check_password;
+            set => this.RaiseAndSetIfChanged(ref _check_password, value);
         }
     }
 }

@@ -25,7 +25,13 @@
 
     <TextBox AcceptsReturn="True"
              Text="{Binding Password}"
+             PasswordChar="*"
              Watermark="Enter your password"/>
+
+    <TextBox AcceptsReturn="True"
+             Text="{Binding CheckPassword}"
+             PasswordChar="*"
+             Watermark="Please re-enter your password"/>
 
     <Button DockPanel.Dock="Bottom"
             HorizontalAlignment="Stretch"

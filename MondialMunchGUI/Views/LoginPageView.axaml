@@ -13,6 +13,7 @@
 
     <TextBox AcceptsReturn="True"
              Text="{Binding Password}"
+             PasswordChar="*"
              Watermark="Enter your password"/>
     
     <Button DockPanel.Dock="Bottom"
