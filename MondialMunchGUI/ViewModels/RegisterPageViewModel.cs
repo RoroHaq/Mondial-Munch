@@ -15,6 +15,7 @@ namespace MondialMunchGUI.ViewModels {
         private string? _password;
         private string? _check_password;
         public ReactiveCommand<Unit, User?> Register { get; }
+        public ReactiveCommand<Unit, Unit> Back { get; }
 
         public RegisterPageViewModel(IEnumerable<User> users) {
             ListUsers = new ObservableCollection<User>(users);
@@ -53,6 +54,10 @@ namespace MondialMunchGUI.ViewModels {
                     }
                     return user;
                 }, readyToEnter
+            );
+
+            Back = ReactiveCommand.Create(
+                () => { return new Unit(); }
             );
         }
 

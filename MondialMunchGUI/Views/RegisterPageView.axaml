@@ -40,5 +40,13 @@
             Command="{Binding Register}">
         Register
     </Button>
+
+    <Button DockPanel.Dock="Bottom"
+            HorizontalAlignment="Stretch"
+            HorizontalContentAlignment="Center"
+            x:CompileBindings="False"
+            Command="{Binding Back}">
+        Back
+    </Button>
   </StackPanel>
 </UserControl>

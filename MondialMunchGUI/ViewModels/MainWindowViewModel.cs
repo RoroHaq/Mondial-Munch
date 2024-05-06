@@ -36,6 +36,10 @@ public class MainWindowViewModel : ViewModelBase {
             }
         });
 
+        RegisterPage.Back.Subscribe((u) => {
+            ContentViewModel = LoginPage;
+        });
+
         ContentViewModel = LoginPage;
     }
 
