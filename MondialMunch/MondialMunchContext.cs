@@ -5,6 +5,12 @@ using Microsoft.EntityFrameworkCore;
 namespace MondialMunch;
 
 public class MondialMunchContext : DbContext {
+    private static MondialMunchContext? instance;
+    public static MondialMunchContext GetInstance() {
+        if (instance == null) instance = new();
+        return instance;
+    }
+
     public virtual DbSet<Country> Countries { get; set; }
     public virtual DbSet<DietaryTag> DietaryTags { get; set; }
     public virtual DbSet<Recipe> Recipes { get; set; }

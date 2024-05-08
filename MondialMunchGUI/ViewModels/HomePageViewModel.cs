@@ -8,12 +8,12 @@ using System.Reactive.Linq;
 
 
 namespace MondialMunchGUI.ViewModels {
-  public class HomePageViewModel : ViewModelBase {
+    public class HomePageViewModel : ViewModelBase {
 
-    public string greet { get; set; }
+        public string greet { get; set; }
 
-    public HomePageViewModel(User user) {
-      greet = "Welcome to Mondial Munch " + user.Name + "!";
+        public HomePageViewModel() {
+            greet = "Welcome to Mondial Munch " + MondialMunchService.GetInstance().CurrentUser!.Name + "!";
+        }
     }
-  }
 }

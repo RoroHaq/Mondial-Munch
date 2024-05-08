@@ -10,17 +10,13 @@ public class MainWindowViewModel : ViewModelBase {
     private ViewModelBase _contentViewModel;
 
     public MainWindowViewModel() {
-
-        MondialMunchContext context = new();
-        MondialMunchService service = new(context);
-
-        List<User> Users2 = service.GetUsers();
-        LoginPage = new LoginPageViewModel(Users2);
-        RegisterPage = new RegisterPageViewModel(Users2);
+        LoginPage = new LoginPageViewModel();
+        RegisterPage = new RegisterPageViewModel();
 
         LoginPage.Login.Subscribe(user => {
             if (user != null) {
-                User? loggedInUser = service.GetUserByUsername(user.Name);
+                User? loggedInUser = MondialMunchService.GetInstance().GetUserByUsername(user.Name);
+                if (loggedInUser == null) return;
                 LoginUser(loggedInUser);
             }
         });
@@ -31,7 +27,7 @@ public class MainWindowViewModel : ViewModelBase {
 
         RegisterPage.Register.Subscribe((user) => {
             if (user != null) {
-                service.AddUser(user);
+                MondialMunchService.GetInstance().AddUser(user);
                 LoginUser(user);
             }
         });
@@ -52,8 +48,8 @@ public class MainWindowViewModel : ViewModelBase {
     }
 
     public void LoginUser(User user) {
-        HomePageViewModel homePage = new HomePageViewModel(user);
-
+        MondialMunchService.GetInstance().CurrentUser = user;
+        HomePageViewModel homePage = new();
         ContentViewModel = homePage;
     }
 }

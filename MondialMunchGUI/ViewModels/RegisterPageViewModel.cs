@@ -17,9 +17,7 @@ namespace MondialMunchGUI.ViewModels {
         public ReactiveCommand<Unit, User?> Register { get; }
         public ReactiveCommand<Unit, Unit> Back { get; }
 
-        public RegisterPageViewModel(IEnumerable<User> users) {
-            ListUsers = new ObservableCollection<User>(users);
-
+        public RegisterPageViewModel() {
             var readyToEnter = this.WhenAnyValue(
                 x => x.Username,
                 x => x.Password,
@@ -27,31 +25,24 @@ namespace MondialMunchGUI.ViewModels {
                 x => x.Description,
                 x => x.CountryOrigin,
                 x => x.CountryCurrent,
-                (u, p, cp, d, co, cc) => {
-                    bool b;
-                    b = !string.IsNullOrWhiteSpace(u);
-                    b = b && !string.IsNullOrWhiteSpace(p);
-                    b = b && !string.IsNullOrWhiteSpace(cp);
-                    b = b && !string.IsNullOrWhiteSpace(d);
-                    b = b && !string.IsNullOrWhiteSpace(co);
-                    b = b && !string.IsNullOrWhiteSpace(cc);
-                    b = b && p == cp && p.Length > 3;
-                    return b;
+                (username, password, checkPassword, description, countryOrigin, countryCurrent) => {
+                    return !string.IsNullOrWhiteSpace(username)
+                    && !string.IsNullOrWhiteSpace(password)
+                    && !string.IsNullOrWhiteSpace(checkPassword)
+                    && !string.IsNullOrWhiteSpace(description)
+                    && !string.IsNullOrWhiteSpace(countryOrigin)
+                    && !string.IsNullOrWhiteSpace(countryCurrent)
+                    && password == checkPassword && password.Length > 3;
                 }
             );
 
             Register = ReactiveCommand.Create(
                 () => {
-                    foreach (User u in users) {
-                        if (u.Name == Username) {
-                            return null;
-                        }
-                    }
+                    User? existingUser = MondialMunchService.GetInstance().GetUserByUsername(Username);
+                    if (existingUser != null) return null;
+
                     User user = new(Username, "img/something.png", Description, new Country(CountryOrigin), new Country(CountryCurrent), Password, User.GenerateSalt());
-                    //TODO: Instead of new Country fetch it from the DB
-                    if (!user.Authenticate(Password)) {
-                        return null;
-                    }
+                    if (!user.Authenticate(Password)) return null;
                     return user;
                 }, readyToEnter
             );
@@ -60,8 +51,6 @@ namespace MondialMunchGUI.ViewModels {
                 () => { return new Unit(); }
             );
         }
-
-        public ObservableCollection<User> ListUsers { get; }
 
         public string Username {
             get => _username;

@@ -14,41 +14,28 @@ namespace MondialMunchGUI.ViewModels {
         public ReactiveCommand<Unit, User?> Login { get; }
         public ReactiveCommand<Unit, string?> Register { get; }
 
-        public LoginPageViewModel(IEnumerable<User> users) {
-            ListUsers = new ObservableCollection<User>(users);
-
+        public LoginPageViewModel() {
             var isValidObservable = this.WhenAnyValue(
                 x => x.Username,
                 x => !string.IsNullOrWhiteSpace(x));
 
             Login = ReactiveCommand.Create(
                 () => {
-                    User? user = null;
-                    foreach (User u in users) {
-                        if (u.Name == Username) {
-                            user = u;
-                        }
-                    }
-                    if (!user.Authenticate(Password)) {
-                        return null;
-                    }
+                    User? user = MondialMunchService.GetInstance().GetUserByUsername(Username);
+                    if (user == null) return null;
+                    if (!user.Authenticate(Password)) return null;
                     return user;
                 }, isValidObservable
             );
 
             Register = ReactiveCommand.Create(
                 () => {
-                    foreach (User u in users) {
-                        if (u.Name == Username) {
-                            return null;
-                        }
-                    }
+                    User? user = MondialMunchService.GetInstance().GetUserByUsername(Username);
+                    if (user != null) return null;
                     return Username;
                 }
             );
         }
-
-        public ObservableCollection<User> ListUsers { get; }
 
         public string Username {
             get => _username;
