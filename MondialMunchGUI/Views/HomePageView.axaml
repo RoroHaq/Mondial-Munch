@@ -17,10 +17,10 @@
           <MenuItem Header="Events:"/>
           <Separator/>
           <MenuItem Header="Followed Countries:" IsHitTestVisible="False"/>
-          <ItemsControl ItemsSource="{Binding ListUsers}" IsHitTestVisible="False">
+          <ItemsControl ItemsSource="{Binding ListUsers}">
             <ItemsControl.ItemTemplate>
               <DataTemplate>
-                <MenuItem Header="{Binding Name}" IsHitTestVisible="True"/>
+                <MenuItem Header="{Binding Name}"/>
               </DataTemplate>
             </ItemsControl.ItemTemplate>
           </ItemsControl>
@@ -38,7 +38,8 @@
           <Separator/>
           <MenuItem Header="Settings"/>
           <Separator/>
-          <MenuItem Header="Log Out"/>
+          <MenuItem Header="Log Out" 
+            Command="{Binding LogOut}" />
         </MenuItem>
       </Menu>
   </Grid>
