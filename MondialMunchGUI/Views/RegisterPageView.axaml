@@ -15,9 +15,17 @@
              Text="{Binding Description}"
              Watermark="Describe yourself and you journey!"/>
 
-    <TextBox AcceptsReturn="True"
+    <ComboBox SelectedItem="{Binding SelectedCountry}" MaxDropDownHeight="100" x:Name="countryComboBox" ItemsSource="{Binding Countries}">
+      <ComboBox.ItemTemplate>
+          <DataTemplate>
+            <TextBlock Text="{Binding Name}" />
+          </DataTemplate>
+        </ComboBox.ItemTemplate>
+    </ComboBox>
+
+    <!-- <TextBox AcceptsReturn="True"
              Text="{Binding CountryOrigin}"
-             Watermark="What country were you born in?"/>
+             Watermark="What country were you born in?"/> -->
 
     <TextBox AcceptsReturn="True"
              Text="{Binding CountryCurrent}"

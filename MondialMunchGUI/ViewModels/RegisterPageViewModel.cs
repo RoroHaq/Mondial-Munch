@@ -14,10 +14,13 @@ namespace MondialMunchGUI.ViewModels {
         public string? _country_current;
         private string? _password;
         private string? _check_password;
+        private Country? _selected_country;
         public ReactiveCommand<Unit, User?> Register { get; }
         public ReactiveCommand<Unit, Unit> Back { get; }
 
         public RegisterPageViewModel() {
+            Countries = new ObservableCollection<Country>(MondialMunchService.GetInstance().GetCountries());
+
             var readyToEnter = this.WhenAnyValue(
                 x => x.Username,
                 x => x.Password,
@@ -50,7 +53,10 @@ namespace MondialMunchGUI.ViewModels {
             Back = ReactiveCommand.Create(
                 () => { return new Unit(); }
             );
+
         }
+
+        public ObservableCollection<Country> Countries { get; }
 
         public string Username {
             get => _username;
@@ -70,6 +76,11 @@ namespace MondialMunchGUI.ViewModels {
         public string CountryCurrent {
             get => _country_current;
             set => this.RaiseAndSetIfChanged(ref _country_current, value);
+        }
+
+        public Country SelectedCountry {
+            get => _selected_country;
+            set => this.RaiseAndSetIfChanged(ref _selected_country, value);
         }
 
         public string Password {
