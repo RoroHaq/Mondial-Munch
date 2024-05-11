@@ -1,8 +1,11 @@
+using Microsoft.EntityFrameworkCore;
+
 namespace MondialMunch;
 
+[Index(nameof(Name), IsUnique = true)]
 public class Country {
     public int Id { get; private set; }
-    public string Name { get; private set; }
+    public string Name { get; private set; } = null!;
 
     public Country(string name) {
         Name = name;
@@ -14,8 +17,12 @@ public class Country {
     }
 
     public override bool Equals(object? obj) {
-        // Country c = (Country)obj;
-        // return Name.Equals(c.Name);
-        return true;
+        if (obj is string v) {
+            return Name == v;
+        }
+        else if (obj is Country c) {
+            return Name == c.Name;
+        }
+        return false;
     }
 }
