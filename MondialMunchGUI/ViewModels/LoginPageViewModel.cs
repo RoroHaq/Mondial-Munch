@@ -10,6 +10,8 @@ namespace MondialMunchGUI.ViewModels {
     public class LoginPageViewModel : ViewModelBase {
         private string? _username;
         private string? _password;
+        private bool IsPaneOpen = true;
+
         public string Username {
             get => _username;
             set => this.RaiseAndSetIfChanged(ref _username, value);

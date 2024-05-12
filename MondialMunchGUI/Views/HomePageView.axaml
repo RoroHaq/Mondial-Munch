@@ -20,7 +20,7 @@
           <ItemsControl ItemsSource="{Binding ListUsers}">
             <ItemsControl.ItemTemplate>
               <DataTemplate>
-                <MenuItem Header="{Binding Name}"/>
+                  <MenuItem Header="{Binding Name}"/>
               </DataTemplate>
             </ItemsControl.ItemTemplate>
           </ItemsControl>
@@ -32,15 +32,53 @@
       <Button Content="Search"
           DockPanel.Dock="Bottom"
           Grid.Row="0" Grid.Column="2" />
-      <Menu Grid.Row="0" Grid.Column="3">
+      <SplitView IsPaneOpen="{Binding IsPaneOpen}"
+                 DisplayMode="CompactInline"
+                 PanePlacement="Right"
+                 Grid.Row="0" Grid.Column="3"
+                 Grid.ColumnSpan="3"
+                 PaneBackground="red"
+                 OpenPaneLength="300">
+        <SplitView.Pane>
+            <StackPanel>
+              <Button Command="{Binding PanelToggle}">
+                <Button.Content>
+                  <Image Height="20" Width="20" Source="/Assets/MondialMunchLogo.png"/>
+                </Button.Content>
+              </Button>
+
+              <TextBlock IsHitTestVisible="True"><Run FontSize="24" FontWeight="Bold" Text="#1     "/>Test</TextBlock>
+            </StackPanel>
+        </SplitView.Pane>
+      </SplitView>
+  </Grid>
+</UserControl>
+
+
+<!--
+  Possible use of Pfp Icon
+  <Button>
+        <Button.Content>
+          <Image Source="/Assets/MondialMunchLogo.png"/>
+        </Button.Content>
+  </Button>
+      
+ <Menu Grid.Row="0" Grid.Column="3">
         <MenuItem Header="Insert PFP Here">
-          <MenuItem Header="Profile"/>
+          <MenuItem Header="Profile">
+            <MenuItem.Icon>
+            <Image Source="/Assets/MondialMunchLogo.png"/>
+            </MenuItem.Icon>
+          </MenuItem>
           <Separator/>
           <MenuItem Header="Settings"/>
           <Separator/>
           <MenuItem Header="Log Out" 
             Command="{Binding LogOut}" />
         </MenuItem>
-      </Menu>
-  </Grid>
-</UserControl>
+      </Menu>     
+      
+      
+      
+      
+      -->
