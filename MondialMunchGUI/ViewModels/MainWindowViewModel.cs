@@ -16,22 +16,13 @@ public class MainWindowViewModel : ViewModelBase {
         private set => this.RaiseAndSetIfChanged(ref _contentViewModel, value);
     }
     public MainWindowViewModel() {
-
-        // MondialMunchContext context = new();
-        // MondialMunchService service = new(context);
-
-        // List<User> Users2 = service.GetUsers();
-        List<User> Users2 = new(){
-            new User("Nathan", "w", "d", new Country("Canadia"), new Country("Canadia"), "Hello", User.GenerateSalt())
-        };
-
-        LoginPage = new LoginPageViewModel(Users2);
-        RegisterPage = new RegisterPageViewModel(Users2);
+        LoginPage = new LoginPageViewModel();
+        RegisterPage = new RegisterPageViewModel();
 
         LoginPage.Login.Subscribe(user => {
             if (user != null) {
-                User? loggedInUser = new("Nathan", "w", "d", new Country("Canadia"), new Country("Canadia"), "Hello", User.GenerateSalt());
-                //service.GetUserByUsername(user.Name);
+                User? loggedInUser = MondialMunchService.GetInstance().GetUserByUsername(user.Name);
+                if (loggedInUser == null) return;
                 LoginUser(loggedInUser);
             }
         });
@@ -48,7 +39,7 @@ public class MainWindowViewModel : ViewModelBase {
 
         RegisterPage.Register.Subscribe((user) => {
             if (user != null) {
-                // service.AddUser(user);
+                MondialMunchService.GetInstance().AddUser(user);
                 LoginUser(user);
             }
         });
@@ -61,14 +52,8 @@ public class MainWindowViewModel : ViewModelBase {
         ContentViewModel = LoginPage;
     }
     public void LoginUser(User user) {
-        HomePageViewModel homePage = new HomePageViewModel(user);
-
-        homePage.LogOut.Subscribe((u) => {
-            LoginPage.Username = null;
-            LoginPage.Password = null;
-            ContentViewModel = LoginPage;
-        });
-
+        MondialMunchService.GetInstance().CurrentUser = user;
+        HomePageViewModel homePage = new();
         ContentViewModel = homePage;
     }
 }

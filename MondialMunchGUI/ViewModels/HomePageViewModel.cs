@@ -21,25 +21,12 @@ namespace MondialMunchGUI.ViewModels {
             set => _ = this.RaiseAndSetIfChanged(ref _isPaneOpen, value);
         }
 
-        public HomePageViewModel(User user) {
-            greet = "Welcome to Mondial Munch " + user.Name + "!";
-
-
-            ListUsers = new(){
-                new User("Nathan", "w", "d", new Country("Canadia"), new Country("Canadia"), "Hello", User.GenerateSalt()),
-                new User("John", "w", "d", new Country("Canadia"), new Country("Canadia"), "Hello", User.GenerateSalt()),
-                new User("Pauk", "w", "d", new Country("Canadia"), new Country("Canadia"), "Hello", User.GenerateSalt()),
-                new User("Among Us", "w", "d", new Country("Canadia"), new Country("Canadia"), "Hello", User.GenerateSalt()),
-                new User("Cath", "w", "d", new Country("Canadia"), new Country("Canadia"), "Hello", User.GenerateSalt())
-            };
-
-            LogOut = ReactiveCommand.Create(
-                () => { return new Unit(); }
-            );
-        }
 
         public void PanelToggle() {
             IsPaneOpen = !IsPaneOpen;
+        }
+        public HomePageViewModel() {
+            greet = "Welcome to Mondial Munch " + MondialMunchService.GetInstance().CurrentUser!.Name + "!";
         }
     }
 }

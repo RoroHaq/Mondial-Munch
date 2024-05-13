@@ -3,6 +3,12 @@ using Microsoft.EntityFrameworkCore;
 namespace MondialMunch;
 
 public class MondialMunchService {
+    private static MondialMunchService? instance;
+    public static MondialMunchService GetInstance() {
+        if (instance == null) instance = new(MondialMunchContext.GetInstance());
+        return instance;
+    }
+
     private User? _current_user;
     private readonly MondialMunchContext _context;
 
