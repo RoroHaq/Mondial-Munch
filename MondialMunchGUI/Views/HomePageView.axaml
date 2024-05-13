@@ -8,7 +8,7 @@
              x:DataType="vm:HomePageViewModel">
     
     <Grid ColumnDefinitions="1*, 4*, 0.5*, 1*" RowDefinitions="Auto,Auto"  Margin="4">
-      <Menu Grid.Row="0" Grid.Column="0">
+      <Menu Grid.Row="0" Grid.Column="3">
         <MenuItem Header="Insert Logo Here">
           <MenuItem Header="Home"/>
           <MenuItem Header="Favourites"/>
@@ -34,8 +34,8 @@
           Grid.Row="0" Grid.Column="2" />
       <SplitView IsPaneOpen="{Binding IsPaneOpen}"
                  DisplayMode="CompactInline"
-                 PanePlacement="Right"
-                 Grid.Row="0" Grid.Column="3"
+                 PanePlacement="Left"
+                 Grid.Row="0" Grid.Column="0"
                  Grid.ColumnSpan="3"
                  PaneBackground="red"
                  OpenPaneLength="300">

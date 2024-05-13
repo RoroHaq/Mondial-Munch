@@ -21,6 +21,7 @@ namespace MondialMunchGUI.ViewModels {
         }
         public ReactiveCommand<Unit, User?> Login { get; }
         public ReactiveCommand<Unit, string?> Register { get; }
+        public ObservableCollection<User> ListUsers { get; }
 
         public LoginPageViewModel() {
             var isValidObservable = this.WhenAnyValue(
