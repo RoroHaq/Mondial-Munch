@@ -10,9 +10,11 @@ using System.Reactive.Linq;
 namespace MondialMunchGUI.ViewModels {
     public class HomePageViewModel : ViewModelBase {
 
-        public string greet { get; set; }
+        private string? _search;
         public ReactiveCommand<Unit, Unit> LogOut { get; }
         public ObservableCollection<User> ListUsers { get; }
+
+        public ReactiveCommand<Unit, Unit> Search { get; }
 
         private bool _isPaneOpen;
 
@@ -21,12 +23,21 @@ namespace MondialMunchGUI.ViewModels {
             set => _ = this.RaiseAndSetIfChanged(ref _isPaneOpen, value);
         }
 
+        public string SearchInput {
+            get => _search!;
+            set => _ = this.RaiseAndSetIfChanged(ref _search, value);
+        }
 
-        public void PanelToggle() {
+
+        public void PanelTogglde() {
             IsPaneOpen = !IsPaneOpen;
         }
         public HomePageViewModel() {
-            greet = "Welcome to Mondial Munch " + MondialMunchService.GetInstance().CurrentUser!.Name + "!";
+
+            Search = ReactiveCommand.Create(() => {
+                List<Recipe> Recipes = MondialMunchService.GetInstance().GetRecipes();
+                RecipeList FilteredRecipe = new RecipeList(Recipes);
+            });
         }
     }
 }

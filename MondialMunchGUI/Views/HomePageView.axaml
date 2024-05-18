@@ -28,7 +28,8 @@
       </Menu>
       <TextBox AcceptsReturn="True"
         Watermark="Search Recipies"
-        Grid.Row="0" Grid.Column="1"/>
+        Grid.Row="0" Grid.Column="1"
+        Text="{Binding SearchInput}"/>
       <Button Content="Search"
           DockPanel.Dock="Bottom"
           Grid.Row="0" Grid.Column="2" />
