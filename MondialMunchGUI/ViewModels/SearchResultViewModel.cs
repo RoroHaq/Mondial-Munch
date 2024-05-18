@@ -5,17 +5,16 @@ using ReactiveUI;
 using System.Reactive;
 using System;
 using System.Reactive.Linq;
-using Splat;
 
 namespace MondialMunchGUI.ViewModels {
-  public class SearchResultViewModel {
+  public class SearchResultViewModel : ViewModelBase {
 
 
-    public SearchResultViewModel(IEnumerable<Ingredient> recipes) {
+    public SearchResultViewModel(IEnumerable<Recipe> recipes) {
 
-      Recipes = new ObservableCollection<Ingredient>(recipes);
+      Recipes = new ObservableCollection<Recipe>(recipes);
     }
 
-    public ObservableCollection<Ingredient> Recipes { get; }
+    public ObservableCollection<Recipe> Recipes { get; }
   }
 }

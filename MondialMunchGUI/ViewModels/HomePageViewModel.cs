@@ -5,6 +5,7 @@ using ReactiveUI;
 using System.Reactive;
 using System;
 using System.Reactive.Linq;
+using System.Linq;
 
 
 namespace MondialMunchGUI.ViewModels {
@@ -14,7 +15,7 @@ namespace MondialMunchGUI.ViewModels {
         public ReactiveCommand<Unit, Unit> LogOut { get; }
         public ObservableCollection<User> ListUsers { get; }
 
-        public ReactiveCommand<Unit, Unit> Search { get; }
+        public ReactiveCommand<Unit, IEnumerable<Recipe>> Search { get; }
 
         private bool _isPaneOpen;
 
@@ -37,6 +38,9 @@ namespace MondialMunchGUI.ViewModels {
             Search = ReactiveCommand.Create(() => {
                 List<Recipe> Recipes = MondialMunchService.GetInstance().GetRecipes();
                 RecipeList FilteredRecipe = new RecipeList(Recipes);
+                FilteredRecipe.FilterByKeyword(SearchInput);
+
+                return FilteredRecipe.Recipes;
             });
         }
     }

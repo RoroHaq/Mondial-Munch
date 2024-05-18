@@ -11,6 +11,8 @@ public class MainWindowViewModel : ViewModelBase {
     public LoginPageViewModel LoginPage { get; }
     public RegisterPageViewModel RegisterPage { get; }
 
+    public HomePageViewModel HomePage { get; }
+
     public ViewModelBase ContentViewModel {
         get => _contentViewModel;
         private set => this.RaiseAndSetIfChanged(ref _contentViewModel, value);
@@ -18,6 +20,7 @@ public class MainWindowViewModel : ViewModelBase {
     public MainWindowViewModel() {
         LoginPage = new LoginPageViewModel();
         RegisterPage = new RegisterPageViewModel();
+        HomePage = new HomePageViewModel();
 
         LoginPage.Login.Subscribe(user => {
             if (user != null) {
@@ -47,6 +50,13 @@ public class MainWindowViewModel : ViewModelBase {
         RegisterPage.Back.Subscribe((u) => {
             LoginPage.Password = null;
             ContentViewModel = LoginPage;
+        });
+
+        HomePage.Search.Subscribe(Recipes => {
+
+            SearchResultViewModel results = new SearchResultViewModel(Recipes);
+
+            ContentViewModel = results;
         });
 
         ContentViewModel = LoginPage;
