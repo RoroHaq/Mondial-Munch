@@ -5,33 +5,28 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MondialMunch;
-using Oracle.EntityFrameworkCore.Metadata;
 
 #nullable disable
 
 namespace MondialMunch.Migrations
 {
     [DbContext(typeof(MondialMunchContext))]
-    [Migration("20240429150729_243f4ac0b9e2")]
-    partial class _243f4ac0b9e2
+    [Migration("20240511001338_4db787e19fe5")]
+    partial class _4db787e19fe5
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.0")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128);
-
-            OracleModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+            modelBuilder.HasAnnotation("ProductVersion", "7.0.0");
 
             modelBuilder.Entity("DietaryTagRecipe", b =>
                 {
                     b.Property<int>("TaggedRecipesId")
-                        .HasColumnType("NUMBER(10)");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("TagsId")
-                        .HasColumnType("NUMBER(10)");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("TaggedRecipesId", "TagsId");
 
@@ -44,19 +39,17 @@ namespace MondialMunch.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("NUMBER(10)");
-
-                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("NVARCHAR2(2000)");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("Quantity")
-                        .HasColumnType("NUMBER(10)");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("RecipeId")
-                        .HasColumnType("NUMBER(10)");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
@@ -69,15 +62,16 @@ namespace MondialMunch.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("NUMBER(10)");
-
-                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("NVARCHAR2(2000)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("Countries");
                 });
@@ -86,13 +80,11 @@ namespace MondialMunch.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("NUMBER(10)");
-
-                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Tag")
                         .IsRequired()
-                        .HasColumnType("NVARCHAR2(2000)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -103,34 +95,32 @@ namespace MondialMunch.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("NUMBER(10)");
-
-                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("INTEGER");
 
                     b.Property<int?>("CountryCurrentId")
-                        .HasColumnType("NUMBER(10)");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("CountryOriginId")
-                        .HasColumnType("NUMBER(10)");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Description")
-                        .HasColumnType("NVARCHAR2(2000)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("NVARCHAR2(2000)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ProfilePicturePath")
-                        .HasColumnType("NVARCHAR2(2000)");
+                        .HasColumnType("TEXT");
 
                     b.Property<byte[]>("_password")
                         .IsRequired()
-                        .HasColumnType("RAW(2000)")
+                        .HasColumnType("BLOB")
                         .HasColumnName("Password");
 
                     b.Property<byte[]>("_salt")
                         .IsRequired()
-                        .HasColumnType("RAW(2000)")
+                        .HasColumnType("BLOB")
                         .HasColumnName("Salt");
 
                     b.HasKey("Id");
@@ -146,34 +136,32 @@ namespace MondialMunch.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("NUMBER(10)");
-
-                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("INTEGER");
 
                     b.Property<double>("CookingTime")
-                        .HasColumnType("BINARY_DOUBLE");
+                        .HasColumnType("REAL");
 
                     b.Property<int>("CountryId")
-                        .HasColumnType("NUMBER(10)");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int?>("CreatorId")
-                        .HasColumnType("NUMBER(10)");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Description")
-                        .HasColumnType("NVARCHAR2(2000)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("NVARCHAR2(2000)");
+                        .HasColumnType("TEXT");
 
                     b.Property<double>("PrepTime")
-                        .HasColumnType("BINARY_DOUBLE");
+                        .HasColumnType("REAL");
 
                     b.Property<int>("Servings")
-                        .HasColumnType("NUMBER(10)");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("Stars")
-                        .HasColumnType("NUMBER(10)");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
@@ -188,16 +176,14 @@ namespace MondialMunch.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("NUMBER(10)");
-
-                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("RecipeId")
-                        .HasColumnType("NUMBER(10)");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Text")
                         .IsRequired()
-                        .HasColumnType("NVARCHAR2(2000)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -209,10 +195,10 @@ namespace MondialMunch.Migrations
             modelBuilder.Entity("RecipeUser", b =>
                 {
                     b.Property<int>("FavouriteRecipiesId")
-                        .HasColumnType("NUMBER(10)");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("FavouriteUsersId")
-                        .HasColumnType("NUMBER(10)");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("FavouriteRecipiesId", "FavouriteUsersId");
 
@@ -224,10 +210,10 @@ namespace MondialMunch.Migrations
             modelBuilder.Entity("RecipeUser1", b =>
                 {
                     b.Property<int>("TodoRecipiesId")
-                        .HasColumnType("NUMBER(10)");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("TodoUsersId")
-                        .HasColumnType("NUMBER(10)");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("TodoRecipiesId", "TodoUsersId");
 

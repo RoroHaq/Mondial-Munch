@@ -10,14 +10,16 @@ namespace MondialMunchGUI.ViewModels {
     public class RegisterPageViewModel : ViewModelBase {
         private string? _username;
         private string? _description;
-        public string? _country_origin;
-        public string? _country_current;
+        public Country? _country_origin;
+        public Country? _country_current;
         private string? _password;
         private string? _check_password;
         public ReactiveCommand<Unit, User?> Register { get; }
         public ReactiveCommand<Unit, Unit> Back { get; }
 
         public RegisterPageViewModel() {
+            Countries = MondialMunchService.GetInstance().GetCountries();
+
             var readyToEnter = this.WhenAnyValue(
                 x => x.Username,
                 x => x.Password,
@@ -30,8 +32,8 @@ namespace MondialMunchGUI.ViewModels {
                     && !string.IsNullOrWhiteSpace(password)
                     && !string.IsNullOrWhiteSpace(checkPassword)
                     && !string.IsNullOrWhiteSpace(description)
-                    && !string.IsNullOrWhiteSpace(countryOrigin)
-                    && !string.IsNullOrWhiteSpace(countryCurrent)
+                    // && !string.IsNullOrWhiteSpace(countryOrigin)
+                    // && !string.IsNullOrWhiteSpace(countryCurrent)
                     && password == checkPassword && password.Length > 3;
                 }
             );
@@ -41,7 +43,7 @@ namespace MondialMunchGUI.ViewModels {
                     User? existingUser = MondialMunchService.GetInstance().GetUserByUsername(Username);
                     if (existingUser != null) return null;
 
-                    User user = new(Username, "img/something.png", Description, new Country(CountryOrigin), new Country(CountryCurrent), Password, User.GenerateSalt());
+                    User user = new(Username, "img/something.png", Description, CountryOrigin, CountryCurrent, Password, User.GenerateSalt());
                     if (!user.Authenticate(Password)) return null;
                     return user;
                 }, readyToEnter
@@ -51,6 +53,8 @@ namespace MondialMunchGUI.ViewModels {
                 () => { return new Unit(); }
             );
         }
+
+        public List<Country> Countries { get; }
 
         public string Username {
             get => _username;
@@ -62,12 +66,12 @@ namespace MondialMunchGUI.ViewModels {
             set => this.RaiseAndSetIfChanged(ref _description, value);
         }
 
-        public string CountryOrigin {
+        public Country CountryOrigin {
             get => _country_origin;
             set => this.RaiseAndSetIfChanged(ref _country_origin, value);
         }
 
-        public string CountryCurrent {
+        public Country CountryCurrent {
             get => _country_current;
             set => this.RaiseAndSetIfChanged(ref _country_current, value);
         }

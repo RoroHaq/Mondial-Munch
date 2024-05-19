@@ -30,13 +30,13 @@
             Command="{Binding Register}">
         Register
     </Button>
-    <ItemsControl ItemsSource="{Binding ListUsers}">
+    <!-- <ItemsControl ItemsSource="{Binding ListUsers}">
       <ItemsControl.ItemTemplate>
         <DataTemplate>
           <CheckBox Margin="4"
                     Content="{Binding Name}"/>
         </DataTemplate>
       </ItemsControl.ItemTemplate>
-    </ItemsControl>
+    </ItemsControl> -->
   </StackPanel>
 </UserControl>
