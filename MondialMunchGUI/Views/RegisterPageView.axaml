@@ -8,18 +8,18 @@
              x:Class="MondialMunchGUI.Views.RegisterPageView">
   <StackPanel Spacing="8">
     <StackPanel>
-      <TextBlock Text="Enter your username"/>
+      <TextBlock Text="Username"/>
       <TextBox AcceptsReturn="True" Text="{Binding Username}" Watermark="Enter your username"/>
     </StackPanel>
 
     <StackPanel>
-      <TextBlock Text="Describe yourself and you journey!"/>
-      <TextBox AcceptsReturn="True" Text="{Binding Description}" Watermark="Describe yourself and you journey!"/>
+      <TextBlock Text="Description"/>
+      <TextBox AcceptsReturn="True" Text="{Binding Description}" Height="100" Watermark="Describe yourself and you journey!"/>
     </StackPanel>
 
     <StackPanel>
-      <TextBlock Text="Enter your country of origin"/>
-      <ComboBox SelectedItem="{Binding CountryOrigin}" MaxDropDownHeight="100" ItemsSource="{Binding Countries}">
+      <TextBlock Text="Country of origin"/>
+      <ComboBox SelectedItem="{Binding CountryOrigin}" HorizontalAlignment="Stretch" ItemsSource="{Binding Countries}">
         <ComboBox.ItemTemplate>
             <DataTemplate>
               <TextBlock Text="{Binding Name}" />
@@ -29,8 +29,8 @@
     </StackPanel>
 
     <StackPanel>
-      <TextBlock Text="Enter your country of residence"/>
-      <ComboBox SelectedItem="{Binding CountryCurrent}" MaxDropDownHeight="100" ItemsSource="{Binding Countries}">
+      <TextBlock Text="Country of residence"/>
+      <ComboBox SelectedItem="{Binding CountryCurrent}" HorizontalAlignment="Stretch" ItemsSource="{Binding Countries}">
         <ComboBox.ItemTemplate>
             <DataTemplate>
               <TextBlock Text="{Binding Name}" />
@@ -40,12 +40,12 @@
     </StackPanel>
 
     <StackPanel>
-      <TextBlock Text="Enter your password"/>
+      <TextBlock Text="Password"/>
       <TextBox AcceptsReturn="True" Text="{Binding Password}" PasswordChar="*" Watermark="Enter your password"/>
     </StackPanel>
 
     <StackPanel>
-      <TextBlock Text="Please re-enter your password"/>
+      <TextBlock Text="Password confirmation"/>
       <TextBox AcceptsReturn="True" Text="{Binding CheckPassword}" PasswordChar="*" Watermark="Please re-enter your password"/>
     </StackPanel>
 
