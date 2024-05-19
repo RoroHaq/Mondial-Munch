@@ -32,8 +32,8 @@
         Text="{Binding SearchInput}"/>
       <Button Content="Search"
           DockPanel.Dock="Bottom"
-          Command ="{Binding Search}"
-          Grid.Row="0" Grid.Column="2" />
+          Command ="{Binding $parent[Window].DataContext.SearchRecipe}"
+          Grid.Row="0" Grid.Column="2"/>
       <SplitView IsPaneOpen="{Binding IsPaneOpen}"
                  DisplayMode="CompactInline"
                  PanePlacement="Left"

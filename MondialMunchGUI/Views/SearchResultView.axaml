@@ -2,10 +2,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              xmlns:vm="using:MondialMunchGUI.ViewModels"
-             x:Class="MondialMunchGUI.Views.SearchResultView"
-             x:DataType="vm:SearchResultViewModel">
+             x:DataType="vm:SearchResultViewModel"
+             mc:Ignorable="d" d:DesignWidth="250" d:DesignHeight="450"
+             x:Class="MondialMunchGUI.Views.SearchResultView">
   
     <DockPanel>
       <ItemsControl ItemsSource="{Binding Recipes}">
@@ -16,7 +16,6 @@
               Content="{Binding Name}"/>
           </DataTemplate>
         </ItemsControl.ItemTemplate>
-
       </ItemsControl>
 
     </DockPanel>
