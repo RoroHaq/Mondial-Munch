@@ -43,7 +43,6 @@ namespace MondialMunchGUI.ViewModels {
                 List<Recipe> RecipesFound = MondialMunchService.GetInstance().GetRecipes();
                 RecipeList FilteredRecipe = new RecipeList(RecipesFound);
                 FilteredRecipe.FilterByKeyword(SearchInput);
-
                 return FilteredRecipe.Recipes;
             }, isValidSearch);
         }

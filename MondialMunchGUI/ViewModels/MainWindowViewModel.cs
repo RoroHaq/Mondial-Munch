@@ -52,7 +52,7 @@ public class MainWindowViewModel : ViewModelBase {
             ContentViewModel = LoginPage;
         });
 
-        HomePage.Search.Subscribe(Recipes => {
+        HomePage.Search.Subscribe((Recipes) => {
 
             SearchResultViewModel results = new SearchResultViewModel(Recipes);
 
