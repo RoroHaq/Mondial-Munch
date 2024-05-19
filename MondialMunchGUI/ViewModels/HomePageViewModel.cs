@@ -30,18 +30,22 @@ namespace MondialMunchGUI.ViewModels {
         }
 
 
-        public void PanelTogglde() {
+        public void PanelToggle() {
             IsPaneOpen = !IsPaneOpen;
         }
         public HomePageViewModel() {
 
+            var isValidSearch = this.WhenAnyValue(
+                x => x.SearchInput,
+                x => !string.IsNullOrWhiteSpace(x)
+            );
             Search = ReactiveCommand.Create(() => {
                 List<Recipe> Recipes = MondialMunchService.GetInstance().GetRecipes();
                 RecipeList FilteredRecipe = new RecipeList(Recipes);
                 FilteredRecipe.FilterByKeyword(SearchInput);
 
                 return FilteredRecipe.Recipes;
-            });
+            }, isValidSearch);
         }
     }
 }
