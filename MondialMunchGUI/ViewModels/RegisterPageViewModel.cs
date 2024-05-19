@@ -16,36 +16,6 @@ namespace MondialMunchGUI.ViewModels
         public Country? _country_current;
         private string? _password;
         private string? _check_password;
-        public string Username
-        {
-            get => _username;
-            set => this.RaiseAndSetIfChanged(ref _username, value);
-        }
-        public string Description
-        {
-            get => _description;
-            set => this.RaiseAndSetIfChanged(ref _description, value);
-        }
-        public string CountryOrigin
-        {
-            get => _country_origin;
-            set => this.RaiseAndSetIfChanged(ref _country_origin, value);
-        }
-        public string CountryCurrent
-        {
-            get => _country_current;
-            set => this.RaiseAndSetIfChanged(ref _country_current, value);
-        }
-        public string Password
-        {
-            get => _password;
-            set => this.RaiseAndSetIfChanged(ref _password, value);
-        }
-        public string CheckPassword
-        {
-            get => _check_password;
-            set => this.RaiseAndSetIfChanged(ref _check_password, value);
-        }
         public ReactiveCommand<Unit, User?> Register { get; }
         public ReactiveCommand<Unit, Unit> Back { get; }
 
