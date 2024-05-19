@@ -6,42 +6,53 @@ using System.Reactive;
 using System;
 using System.Reactive.Linq;
 
-namespace MondialMunchGUI.ViewModels {
-    public class RegisterPageViewModel : ViewModelBase {
+namespace MondialMunchGUI.ViewModels
+{
+    public class RegisterPageViewModel : ViewModelBase
+    {
         private string? _username;
         private string? _description;
-        public string? _country_origin;
-        public string? _country_current;
+        public Country? _country_origin;
+        public Country? _country_current;
         private string? _password;
         private string? _check_password;
-        public string Username {
+        public string Username
+        {
             get => _username;
             set => this.RaiseAndSetIfChanged(ref _username, value);
         }
-        public string Description {
+        public string Description
+        {
             get => _description;
             set => this.RaiseAndSetIfChanged(ref _description, value);
         }
-        public string CountryOrigin {
+        public string CountryOrigin
+        {
             get => _country_origin;
             set => this.RaiseAndSetIfChanged(ref _country_origin, value);
         }
-        public string CountryCurrent {
+        public string CountryCurrent
+        {
             get => _country_current;
             set => this.RaiseAndSetIfChanged(ref _country_current, value);
         }
-        public string Password {
+        public string Password
+        {
             get => _password;
             set => this.RaiseAndSetIfChanged(ref _password, value);
         }
-        public string CheckPassword {
+        public string CheckPassword
+        {
             get => _check_password;
             set => this.RaiseAndSetIfChanged(ref _check_password, value);
         }
         public ReactiveCommand<Unit, User?> Register { get; }
         public ReactiveCommand<Unit, Unit> Back { get; }
 
-        public RegisterPageViewModel() {
+        public RegisterPageViewModel()
+        {
+            Countries = MondialMunchService.GetInstance().GetCountries();
+
             var readyToEnter = this.WhenAnyValue(
                 x => x.Username,
                 x => x.Password,
@@ -49,23 +60,25 @@ namespace MondialMunchGUI.ViewModels {
                 x => x.Description,
                 x => x.CountryOrigin,
                 x => x.CountryCurrent,
-                (username, password, checkPassword, description, countryOrigin, countryCurrent) => {
+                (username, password, checkPassword, description, countryOrigin, countryCurrent) =>
+                {
                     return !string.IsNullOrWhiteSpace(username)
                     && !string.IsNullOrWhiteSpace(password)
                     && !string.IsNullOrWhiteSpace(checkPassword)
                     && !string.IsNullOrWhiteSpace(description)
-                    && !string.IsNullOrWhiteSpace(countryOrigin)
-                    && !string.IsNullOrWhiteSpace(countryCurrent)
+                    // && !string.IsNullOrWhiteSpace(countryOrigin)
+                    // && !string.IsNullOrWhiteSpace(countryCurrent)
                     && password == checkPassword && password.Length > 3;
                 }
             );
 
             Register = ReactiveCommand.Create(
-                () => {
+                () =>
+                {
                     User? existingUser = MondialMunchService.GetInstance().GetUserByUsername(Username);
                     if (existingUser != null) return null;
 
-                    User user = new(Username, "img/something.png", Description, new Country(CountryOrigin), new Country(CountryCurrent), Password, User.GenerateSalt());
+                    User user = new(Username, "img/something.png", Description, CountryOrigin, CountryCurrent, Password, User.GenerateSalt());
                     if (!user.Authenticate(Password)) return null;
                     return user;
                 }, readyToEnter
@@ -76,5 +89,42 @@ namespace MondialMunchGUI.ViewModels {
             );
         }
 
+        public List<Country> Countries { get; }
+
+        public string Username
+        {
+            get => _username;
+            set => this.RaiseAndSetIfChanged(ref _username, value);
+        }
+
+        public string Description
+        {
+            get => _description;
+            set => this.RaiseAndSetIfChanged(ref _description, value);
+        }
+
+        public Country CountryOrigin
+        {
+            get => _country_origin;
+            set => this.RaiseAndSetIfChanged(ref _country_origin, value);
+        }
+
+        public Country CountryCurrent
+        {
+            get => _country_current;
+            set => this.RaiseAndSetIfChanged(ref _country_current, value);
+        }
+
+        public string Password
+        {
+            get => _password;
+            set => this.RaiseAndSetIfChanged(ref _password, value);
+        }
+
+        public string CheckPassword
+        {
+            get => _check_password;
+            set => this.RaiseAndSetIfChanged(ref _check_password, value);
+        }
     }
 }

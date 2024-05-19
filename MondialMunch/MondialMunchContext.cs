@@ -21,7 +21,8 @@ public class MondialMunchContext : DbContext {
     private readonly string? oracleSource = Environment.GetEnvironmentVariable("MM_ORACLE_SOURCE");
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
-        optionsBuilder.UseOracle($"User Id={oracleUser}; Password={oraclePassword}; Data source={oracleSource};");
+        // optionsBuilder.UseOracle($"User Id={oracleUser}; Password={oraclePassword}; Data source={oracleSource};");
+        optionsBuilder.UseSqlite($"Data source={"../mondial-munch.sqlite"}");
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder) {
