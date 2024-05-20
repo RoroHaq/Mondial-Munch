@@ -8,15 +8,18 @@
              x:Class="MondialMunchGUI.Views.SearchResultView">
   
     <DockPanel>
+
+    <WrapPanel>
       <ItemsControl ItemsSource="{Binding Recipes}">
         <ItemsControl.ItemTemplate>
           <DataTemplate>
-            <CheckBox Margin="4"
-              IsChecked="True"
-              Content="{Binding Name}"/>
+              <Button Content="{Binding Name}"
+                      CommandParameter="{Binding .}"
+                      Command="{Binding ViewRecipe}">
+            </Button>
           </DataTemplate>
         </ItemsControl.ItemTemplate>
       </ItemsControl>
-
+    </WrapPanel>
     </DockPanel>
 </UserControl>
