@@ -29,9 +29,8 @@
       <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="8" HorizontalAlignment="Right">
         <TextBlock Grid.Column="4" Text="BIND_THIS_PLEASE" VerticalAlignment="Center"/>
         <Border Grid.Column="5" CornerRadius="100" ClipToBounds="true">
-          <Image 
-            asyncImageLoader:ImageLoader.Source="https://cdn.discordapp.com/avatars/671845710098071572/bcd48818ad4d71e1f7043962108dba62.png?size=80" 
-            Height="32" Width="32" />
+          <Image asyncImageLoader:ImageLoader.Source="https://i.imgur.com/JCoYjzH.png" 
+                 Height="32" Width="32" />
         </Border>
       </StackPanel>
     </Grid>

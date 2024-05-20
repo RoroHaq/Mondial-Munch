@@ -2,7 +2,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Reactive;
 using Avalonia.Controls;
+using MondialMunch;
 using MondialMunchGUI.ViewModels;
+using MondialMunchGUI.Views;
 using ReactiveUI;
 
 namespace MondialMunchGUI.ViewModels;
@@ -10,7 +12,7 @@ namespace MondialMunchGUI.ViewModels;
 public class PrimaryPageViewModel : ViewModelBase {
     private const int SIDEBAR_SIZE_OPEN = 200;
 
-    private ViewModelBase _content;
+    private ViewModelBase _content = null!;
     private bool _isSideBarOpen = true;
     private GridLength _sideBarSize = new(SIDEBAR_SIZE_OPEN, GridUnitType.Pixel);
 
@@ -32,7 +34,7 @@ public class PrimaryPageViewModel : ViewModelBase {
     }
 
     public PrimaryPageViewModel() {
-        Content = new HomePageViewModel();
+        Content = new RecipeViewModel(MondialMunchService.GetInstance().GetRecipes()[0]);
 
         ToggleSideBar = ReactiveCommand.Create(
             () => {

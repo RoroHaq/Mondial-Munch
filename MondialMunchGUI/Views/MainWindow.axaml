@@ -9,7 +9,7 @@
         Icon="/Assets/MondialMunchLogo.png"
         Title="MondialMunchGUI"
         Content="{Binding ContentViewModel}"
-        MinWidth="900"
-        MinHeight="560">
+        MinWidth="900" MinHeight="560"
+        FontFamily="Segoe UI">
         
 </Window>

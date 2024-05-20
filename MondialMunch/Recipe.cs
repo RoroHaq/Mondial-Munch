@@ -152,8 +152,13 @@ public class RecipeInstruction {
     }
 
     public override bool Equals(object? obj) {
-        RecipeInstruction c = (RecipeInstruction)obj;
-        return Text.Equals(c.Text);
+        if (obj is string v) {
+            return Text == v;
+        }
+        else if (obj is RecipeInstruction c) {
+            return Text == c.Text;
+        }
+        return false;
     }
 }
 
