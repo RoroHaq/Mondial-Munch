@@ -8,7 +8,7 @@
              x:DataType="vm:EventPageViewModel">
     
     <UserControl.Styles>    
-        <Style Selector="TextBlock.h1">
+        <Style Selector="Run.h1">
             <Setter Property="FontSize" Value="24"/>
             <Setter Property="FontWeight" Value="Bold"/>
         </Style>
@@ -21,7 +21,11 @@
     </UserControl.Styles>
 
     <StackPanel>
-        <TextBlock Classes="h1 padding" Text="Silk Road Event!"/>
+        <TextBlock Classes="padding">
+            <Run Classes="h1" Text="Silk Road Event!"/>
+            <Run Foreground="Red" FontWeight="Bold" Text="{Binding DaysLeft}"/>
+            <Run Foreground="Red" Text="days left"/>
+        </TextBlock>
         <TextBlock Classes="padding" Text="The Silk Road was a series of routes  used for trade between Europe and Asia between the 2nd century BCE until the 15th. It spans ~6,500 kilometers and it played a central role in joining the East and West culturally, economically and religiously. To celebrate this major part of history, Mondial Munch's event this month is to make one recipe from every country on the silk road! Track your progress below and good luck!"
         TextWrapping="WrapWithOverflow"/>
         <ItemsControl Classes="padding" ItemsSource="{Binding ListCountries}">

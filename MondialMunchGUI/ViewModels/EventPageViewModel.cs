@@ -12,6 +12,7 @@ namespace MondialMunchGUI.ViewModels {
         public ReactiveCommand<Unit, User?> Login { get; }
         public ReactiveCommand<Unit, string?> Register { get; }
         public ObservableCollection<Tuple<Country, bool>> ListCountries { get; }
+        public int DaysLeft { get; private set; }
         public List<Tuple<Country, bool>> EventCountries = new List<Tuple<Country, bool>>(){
                 new Tuple<Country, bool>(new("Italy"), false),
                 new Tuple<Country, bool>(new("Greece"), false),
@@ -26,18 +27,10 @@ namespace MondialMunchGUI.ViewModels {
         };
 
         public EventPageViewModel() {
-            // List<Country> EventCountries = new List<Country>(){
-            //     new Country("Italy"),
-            //     new Country("Greece"),
-            //     new Country("Turkey"),
-            //     new Country("Iran"),
-            //     new Country("India"),
-            //     new Country("China"),
-            //     new Country("Syria"),
-            //     new Country("Lebannon"),
-            //     new Country("Jordan"),
-            //     new Country("Israel"),
-            // };
+
+            DateTime Today = DateTime.Today;
+            DateTime DueDate = new DateTime(2024, 06, 1);
+            DaysLeft = (DueDate - Today).Days;
 
             ListCountries = new ObservableCollection<Tuple<Country, bool>>(EventCountries);
         }
