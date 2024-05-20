@@ -8,18 +8,20 @@
              x:Class="MondialMunchGUI.Views.SearchResultView">
   
     <DockPanel>
-
-    <WrapPanel>
-      <ItemsControl ItemsSource="{Binding Recipes}">
-        <ItemsControl.ItemTemplate>
-          <DataTemplate>
-              <Button Content="{Binding Name}"
-                      CommandParameter="{Binding .}"
-                      Command="{Binding $parent[ItemsControl].((vm:SearchResultViewModel)DataContext).ViewRecipe}">
-            </Button>
-          </DataTemplate>
-        </ItemsControl.ItemTemplate>
-      </ItemsControl>
-    </WrapPanel>
+        <ItemsControl ItemsSource="{Binding Recipes}">
+          <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+              <UniformGrid Rows="1" />
+            </ItemsPanelTemplate>
+          </ItemsControl.ItemsPanel>
+          <ItemsControl.ItemTemplate>
+              <DataTemplate>
+                <Button Content="{Binding Name}"
+                        CommandParameter="{Binding .}"
+                        Command="{Binding $parent[ItemsControl].((vm:SearchResultViewModel)DataContext).ViewRecipe}">
+                </Button>
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+        </ItemsControl>
     </DockPanel>
 </UserControl>
