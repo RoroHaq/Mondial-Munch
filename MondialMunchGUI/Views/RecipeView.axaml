@@ -1,0 +1,59 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="MondialMunchGUI.Views.RecipeView"
+             x:DataType="vm:RecipeViewModel"
+             xmlns:vm="using:MondialMunchGUI.ViewModels">
+  
+  <StackPanel>
+    <TextBlock Text="{Binding Name}" FontSize="28" FontWeight="Bold"/>
+
+    <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,8,0,8">
+      <Border CornerRadius="100" ClipToBounds="true">
+        <Image asyncImageLoader:ImageLoader.Source="https://i.imgur.com/JCoYjzH.png" 
+               Height="24" Width="24" />
+      </Border>
+      <TextBlock Text="{Binding CreatorName}" VerticalAlignment="Center"/>
+    </StackPanel>
+
+    <Grid ColumnDefinitions="1*,1*,1*,1*">
+      <TextBlock Grid.Column="0">Serves <Bold><Run Text="{Binding ServingSize}"/></Bold></TextBlock>
+      <TextBlock Grid.Column="1">Prep time: <Bold><Run Text="{Binding PrepTime}"/></Bold> minutes</TextBlock>
+      <TextBlock Grid.Column="2">Cook time: <Bold><Run Text="{Binding CookTime}"/></Bold> minutes</TextBlock>
+      <TextBlock Grid.Column="3">Total time: <Bold><Run Text="{Binding TotalTime}"/></Bold> minutes</TextBlock>
+    </Grid>
+
+    <TextBlock TextWrapping="Wrap" Margin="0,10,0,0">
+      <Bold>Description: </Bold>
+      <LineBreak />
+      <Run Text="{Binding Description}"/>
+    </TextBlock>
+
+    <TextBlock Text="Ingredients:" FontWeight="Bold" Margin="0,10,0,0"/>
+    <ItemsControl ItemsSource="{Binding Ingredients}">
+      <ItemsControl.ItemTemplate>
+        <DataTemplate>
+          <TextBlock>
+            <Run Text="{Binding Name}" />
+            <Run Text=": " />
+            <Bold><Run Text="{Binding Quantity}"/></Bold>
+          </TextBlock>
+        </DataTemplate>
+      </ItemsControl.ItemTemplate>
+    </ItemsControl>
+
+    <TextBlock Text="Instructions:" FontWeight="Bold" Margin="0,10,0,0"/>
+    <ItemsControl ItemsSource="{Binding Instructions}">
+      <ItemsControl.ItemTemplate>
+        <DataTemplate>
+          <StackPanel MaxHeight="24" ClipToBounds="true">
+            <CheckBox Content="{Binding Text}" Margin="0,-4,0,0"/>
+          </StackPanel>
+        </DataTemplate>
+      </ItemsControl.ItemTemplate>
+    </ItemsControl>
+  </StackPanel>
+</UserControl>

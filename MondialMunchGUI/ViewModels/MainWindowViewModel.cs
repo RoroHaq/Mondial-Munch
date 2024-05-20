@@ -3,6 +3,7 @@ using System;
 using System.Reactive.Linq;
 using MondialMunch;
 using System.Collections.Generic;
+using MondialMunchGUI.Views;
 
 namespace MondialMunchGUI.ViewModels;
 
@@ -74,7 +75,8 @@ public class MainWindowViewModel : ViewModelBase {
     }
     public void LoginUser(User user, ViewModelBase model) {
         MondialMunchService.GetInstance().CurrentUser = user;
-        ContentViewModel = model;
+        PrimaryPageViewModel mainPage = new();
+        ContentViewModel = mainPage;
     }
 
 }
