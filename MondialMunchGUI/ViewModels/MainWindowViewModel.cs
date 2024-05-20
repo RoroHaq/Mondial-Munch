@@ -61,7 +61,7 @@ public class MainWindowViewModel : ViewModelBase {
 
             searchResult.ViewRecipe.Subscribe(recipe => {
 
-                ViewRecipeViewModel CurrentRecipe = new ViewRecipeViewModel(recipe);
+                RecipeViewModel CurrentRecipe = new RecipeViewModel(recipe);
 
                 ContentViewModel = CurrentRecipe;
             });
