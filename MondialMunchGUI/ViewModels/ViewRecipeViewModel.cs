@@ -9,12 +9,13 @@ using System.Reactive.Linq;
 namespace MondialMunchGUI.ViewModels {
   public class ViewRecipeViewModel : ViewModelBase {
 
+    public string Name { get; }
 
     public ViewRecipeViewModel(Recipe recipe) {
 
-      SpecificRecipe = recipe;
+      Name = recipe.Name;
+
     }
 
-    public Recipe SpecificRecipe { get; }
   }
 }

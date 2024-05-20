@@ -21,7 +21,6 @@ public class MainWindowViewModel : ViewModelBase {
         LoginPage = new LoginPageViewModel();
         RegisterPage = new RegisterPageViewModel();
         HomePage = new HomePageViewModel();
-        SearchResultViewModel? searchResult = null;
 
         LoginPage.Login.Subscribe(user => {
             if (user != null) {
@@ -55,17 +54,19 @@ public class MainWindowViewModel : ViewModelBase {
 
         HomePage.Search.Subscribe(Recipes => {
 
-            searchResult = new SearchResultViewModel(Recipes);
+            SearchResultViewModel searchResult = new SearchResultViewModel(Recipes);
 
             ContentViewModel = searchResult;
+
+            searchResult.ViewRecipe.Subscribe(recipe => {
+
+                ViewRecipeViewModel CurrentRecipe = new ViewRecipeViewModel(recipe);
+
+                ContentViewModel = CurrentRecipe;
+            });
         });
 
-        searchResult.ViewRecipe.Subscribe(recipe => {
 
-            ViewRecipeViewModel CurrentRecipe = new ViewRecipeViewModel(recipe);
-
-            ContentViewModel = CurrentRecipe;
-        });
 
 
 

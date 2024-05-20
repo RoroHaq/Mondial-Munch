@@ -17,7 +17,7 @@ namespace MondialMunchGUI.ViewModels {
 
         public ReactiveCommand<Unit, IEnumerable<Recipe>> Search { get; }
 
-        public ReactiveCommand<Recipe, Recipe> ViewRecipe { get; }
+
 
         private bool _isPaneOpen;
 
@@ -48,9 +48,6 @@ namespace MondialMunchGUI.ViewModels {
                 return FilteredRecipe.Recipes;
             }, isValidSearch);
 
-            ViewRecipe = ReactiveCommand.Create((Recipe recipe) => {
-                return recipe;
-            });
         }
 
 
