@@ -6,8 +6,10 @@ using System.Reactive;
 using System;
 using System.Reactive.Linq;
 
-namespace MondialMunchGUI.ViewModels {
-    public class RegisterPageViewModel : ViewModelBase {
+namespace MondialMunchGUI.ViewModels
+{
+    public class RegisterPageViewModel : ViewModelBase
+    {
         private string? _username;
         private string? _description;
         public Country? _country_origin;
@@ -17,7 +19,8 @@ namespace MondialMunchGUI.ViewModels {
         public ReactiveCommand<Unit, User?> Register { get; }
         public ReactiveCommand<Unit, Unit> Back { get; }
 
-        public RegisterPageViewModel() {
+        public RegisterPageViewModel()
+        {
             Countries = MondialMunchService.GetInstance().GetCountries();
 
             var readyToEnter = this.WhenAnyValue(
@@ -27,7 +30,8 @@ namespace MondialMunchGUI.ViewModels {
                 x => x.Description,
                 x => x.CountryOrigin,
                 x => x.CountryCurrent,
-                (username, password, checkPassword, description, countryOrigin, countryCurrent) => {
+                (username, password, checkPassword, description, countryOrigin, countryCurrent) =>
+                {
                     return !string.IsNullOrWhiteSpace(username)
                     && !string.IsNullOrWhiteSpace(password)
                     && !string.IsNullOrWhiteSpace(checkPassword)
@@ -39,7 +43,8 @@ namespace MondialMunchGUI.ViewModels {
             );
 
             Register = ReactiveCommand.Create(
-                () => {
+                () =>
+                {
                     User? existingUser = MondialMunchService.GetInstance().GetUserByUsername(Username);
                     if (existingUser != null) return null;
 
@@ -56,32 +61,38 @@ namespace MondialMunchGUI.ViewModels {
 
         public List<Country> Countries { get; }
 
-        public string Username {
+        public string Username
+        {
             get => _username;
             set => this.RaiseAndSetIfChanged(ref _username, value);
         }
 
-        public string Description {
+        public string Description
+        {
             get => _description;
             set => this.RaiseAndSetIfChanged(ref _description, value);
         }
 
-        public Country CountryOrigin {
+        public Country CountryOrigin
+        {
             get => _country_origin;
             set => this.RaiseAndSetIfChanged(ref _country_origin, value);
         }
 
-        public Country CountryCurrent {
+        public Country CountryCurrent
+        {
             get => _country_current;
             set => this.RaiseAndSetIfChanged(ref _country_current, value);
         }
 
-        public string Password {
+        public string Password
+        {
             get => _password;
             set => this.RaiseAndSetIfChanged(ref _password, value);
         }
 
-        public string CheckPassword {
+        public string CheckPassword
+        {
             get => _check_password;
             set => this.RaiseAndSetIfChanged(ref _check_password, value);
         }

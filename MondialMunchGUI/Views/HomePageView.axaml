@@ -6,9 +6,81 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="MondialMunchGUI.Views.HomePageView"
              x:DataType="vm:HomePageViewModel">
-  
+    
+    <Grid ColumnDefinitions="1*, 4*, 0.5*, 1*" RowDefinitions="Auto,Auto"  Margin="4">
+      <Menu Grid.Row="0" Grid.Column="3">
+        <MenuItem Header="Insert Logo Here">
+          <MenuItem Header="Home"/>
+          <MenuItem Header="Favourites"/>
+          <MenuItem Header="My Recipies"/>
+          <Separator/>
+          <MenuItem Header="Events:"/>
+          <Separator/>
+          <MenuItem Header="Followed Countries:" IsHitTestVisible="False"/>
+          <ItemsControl ItemsSource="{Binding ListUsers}">
+            <ItemsControl.ItemTemplate>
+              <DataTemplate>
+                  <MenuItem Header="{Binding Name}"/>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+        </MenuItem>
+      </Menu>
+      <TextBox AcceptsReturn="True"
+        Watermark="Search Recipies"
+        Grid.Row="0" Grid.Column="1"
+        Text="{Binding SearchInput}"/>
+      <Button Content="Search"
+          DockPanel.Dock="Bottom"
+          Command ="{Binding Search}"
+          Grid.Row="0" Grid.Column="2"/>
+      <SplitView IsPaneOpen="{Binding IsPaneOpen}"
+                 DisplayMode="CompactInline"
+                 PanePlacement="Left"
+                 Grid.Row="0" Grid.Column="0"
+                 Grid.ColumnSpan="3"
+                 PaneBackground="red"
+                 OpenPaneLength="300">
+        <SplitView.Pane>
+            <StackPanel>
+              <Button Command="{Binding PanelToggle}">
+                <Button.Content>
+                  <Image Height="20" Width="20" Source="/Assets/MondialMunchLogo.png"/>
+                </Button.Content>
+              </Button>
 
-  <StackPanel>
-    <TextBlock Text="{Binding greet}"/>
-  </StackPanel>
+              <TextBlock IsHitTestVisible="True"><Run FontSize="24" FontWeight="Bold" Text="#1     "/>Test</TextBlock>
+            </StackPanel>
+        </SplitView.Pane>
+      </SplitView>
+  </Grid>
 </UserControl>
+
+
+<!--
+  Possible use of Pfp Icon
+  <Button>
+        <Button.Content>
+          <Image Source="/Assets/MondialMunchLogo.png"/>
+        </Button.Content>
+  </Button>
+      
+ <Menu Grid.Row="0" Grid.Column="3">
+        <MenuItem Header="Insert PFP Here">
+          <MenuItem Header="Profile">
+            <MenuItem.Icon>
+            <Image Source="/Assets/MondialMunchLogo.png"/>
+            </MenuItem.Icon>
+          </MenuItem>
+          <Separator/>
+          <MenuItem Header="Settings"/>
+          <Separator/>
+          <MenuItem Header="Log Out" 
+            Command="{Binding LogOut}" />
+        </MenuItem>
+      </Menu>     
+      
+      
+      
+      
+      -->
