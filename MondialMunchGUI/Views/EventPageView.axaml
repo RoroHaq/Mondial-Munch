@@ -1,0 +1,37 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:MondialMunchGUI.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="MondialMunchGUI.Views.EventPageView"
+             x:DataType="vm:EventPageViewModel">
+    
+    <UserControl.Styles>    
+        <Style Selector="TextBlock.h1">
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+        <Style Selector="TextBlock.padding">
+            <Setter Property="Padding" Value="24"/>
+        </Style>
+        <Style Selector="ItemsControl.padding">
+            <Setter Property="Padding" Value="24"/>
+        </Style>
+    </UserControl.Styles>
+
+    <StackPanel>
+        <TextBlock Classes="h1 padding" Text="Silk Road Event!"/>
+        <TextBlock Classes="padding" Text="The Silk Road was a series of routes  used for trade between Europe and Asia between the 2nd century BCE until the 15th. It spans ~6,500 kilometers and it played a central role in joining the East and West culturally, economically and religiously. To celebrate this major part of history, Mondial Munch's event this month is to make one recipe from every country on the silk road! Track your progress below and good luck!"
+        TextWrapping="WrapWithOverflow"/>
+        <ItemsControl Classes="padding" ItemsSource="{Binding ListCountries}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                <CheckBox Margin="4"
+                            Content="{Binding Item1.Name}"
+                            IsChecked="{Binding Item2}"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </StackPanel>
+</UserControl>

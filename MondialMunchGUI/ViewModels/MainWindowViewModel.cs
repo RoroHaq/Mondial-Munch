@@ -12,6 +12,7 @@ public class MainWindowViewModel : ViewModelBase {
     public MainWindowViewModel() {
         LoginPage = new LoginPageViewModel();
         RegisterPage = new RegisterPageViewModel();
+        EventPage = new EventPageViewModel();
 
         LoginPage.Login.Subscribe(user => {
             if (user != null) {
@@ -36,11 +37,12 @@ public class MainWindowViewModel : ViewModelBase {
             ContentViewModel = LoginPage;
         });
 
-        ContentViewModel = LoginPage;
+        ContentViewModel = EventPage;
     }
 
     public LoginPageViewModel LoginPage { get; }
     public RegisterPageViewModel RegisterPage { get; }
+    public EventPageViewModel EventPage { get; }
 
     public ViewModelBase ContentViewModel {
         get => _contentViewModel;
