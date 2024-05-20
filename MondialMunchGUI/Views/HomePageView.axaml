@@ -8,7 +8,7 @@
              x:DataType="vm:HomePageViewModel">
     
     <Grid ColumnDefinitions="1*, 4*, 0.5*, 1*" RowDefinitions="Auto,Auto"  Margin="4">
-      <Menu Grid.Row="0" Grid.Column="3">
+      <!-- <Menu Grid.Row="0" Grid.Column="3">
         <MenuItem Header="Insert Logo Here">
           <MenuItem Header="Home"/>
           <MenuItem Header="Favourites"/>
@@ -28,8 +28,7 @@
       </Menu>
       <TextBox AcceptsReturn="True"
         Watermark="Search Recipies"
-        Grid.Row="0" Grid.Column="1"
-        Text="{Binding SearchInput}"/>
+        Grid.Row="0" Grid.Column="1"/>
       <Button Content="Search"
           DockPanel.Dock="Bottom"
           Command ="{Binding Search}"
@@ -52,7 +51,7 @@
               <TextBlock IsHitTestVisible="True"><Run FontSize="24" FontWeight="Bold" Text="#1     "/>Test</TextBlock>
             </StackPanel>
         </SplitView.Pane>
-      </SplitView>
+      </SplitView> -->
   </Grid>
 </UserControl>
 
