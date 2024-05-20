@@ -15,7 +15,7 @@
           <DataTemplate>
               <Button Content="{Binding Name}"
                       CommandParameter="{Binding .}"
-                      Command="{Binding ViewRecipe}">
+                      Command="{Binding $parent[ItemsControl].((vm:SearchResultViewModel)DataContext).ViewRecipe}">
             </Button>
           </DataTemplate>
         </ItemsControl.ItemTemplate>

@@ -5,12 +5,11 @@
              xmlns:vm="using:MondialMunchGUI.ViewModels"
              x:DataType="vm:ViewRecipeViewModel"
              mc:Ignorable="d" d:DesignWidth="250" d:DesignHeight="450"
-             x:Class="MondialMunchGUI.Views.ViewRecipeView">
+             x:Class="MondialMunchGUI.Views.ViewRecipeView"
+             x:CompileBindings="True">
+             
   
     <StackPanel>
-    
-    <TextBlock Text="{Binding Name}"></TextBlock>
-    <TextBlock Text="{Binding Description}"></TextBlock>
-
+        <TextBlock Text="{Binding Name, DataType={x:SpecificRecipe vm:ViewRecipeViewModel}}"></TextBlock>
     </StackPanel>
 </UserControl>
