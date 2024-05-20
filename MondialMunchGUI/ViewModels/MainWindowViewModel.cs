@@ -8,7 +8,7 @@ using MondialMunchGUI.Views;
 namespace MondialMunchGUI.ViewModels;
 
 public class MainWindowViewModel : ViewModelBase {
-    private ViewModelBase _contentViewModel;
+    private ViewModelBase _contentViewModel = null!;
     public LoginPageViewModel LoginPage { get; }
     public RegisterPageViewModel RegisterPage { get; }
 
@@ -32,12 +32,12 @@ public class MainWindowViewModel : ViewModelBase {
         });
 
         LoginPage.Register.Subscribe((u) => {
-            RegisterPage.Username = null;
-            RegisterPage.Password = null;
-            RegisterPage.CheckPassword = null;
-            RegisterPage.Description = null;
-            RegisterPage.CountryOrigin = null;
-            RegisterPage.CountryCurrent = null;
+            RegisterPage.Username = null!;
+            RegisterPage.Password = null!;
+            RegisterPage.CheckPassword = null!;
+            RegisterPage.Description = null!;
+            RegisterPage.CountryOrigin = null!;
+            RegisterPage.CountryCurrent = null!;
             ContentViewModel = RegisterPage;
         });
 
@@ -49,27 +49,9 @@ public class MainWindowViewModel : ViewModelBase {
         });
 
         RegisterPage.Back.Subscribe((u) => {
-            LoginPage.Password = null;
+            LoginPage.Password = null!;
             ContentViewModel = LoginPage;
         });
-
-        HomePage.Search.Subscribe(Recipes => {
-
-            SearchResultViewModel searchResult = new SearchResultViewModel(Recipes);
-
-            ContentViewModel = searchResult;
-
-            searchResult.ViewRecipe.Subscribe(recipe => {
-
-                RecipeViewModel CurrentRecipe = new RecipeViewModel(recipe);
-
-                ContentViewModel = CurrentRecipe;
-            });
-        });
-
-
-
-
 
         ContentViewModel = LoginPage;
     }
