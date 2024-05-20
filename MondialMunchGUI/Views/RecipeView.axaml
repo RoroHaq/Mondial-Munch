@@ -37,9 +37,7 @@
       <ItemsControl.ItemTemplate>
         <DataTemplate>
           <TextBlock>
-            <Run Text="{Binding Name}" />
-            <Run Text=": " />
-            <Bold><Run Text="{Binding Quantity}"/></Bold>
+            <Run Text="{Binding Name}" /><Run Text=": " /><Bold><Run Text="{Binding Quantity}"/></Bold>
           </TextBlock>
         </DataTemplate>
       </ItemsControl.ItemTemplate>

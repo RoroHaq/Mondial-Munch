@@ -1,0 +1,113 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="MondialMunchGUI.Views.NewRecipeView"
+             x:DataType="vm:NewRecipeViewModel"
+             xmlns:vm="using:MondialMunchGUI.ViewModels">
+  
+  <Grid RowDefinitions="Auto,1*,Auto" Margin="0,0,10,10">
+    <StackPanel Grid.Row="0" Spacing="8" Margin="0,0,0,8">
+      <TextBlock Text="New Recipe" FontSize="28" FontWeight="Bold"/>
+
+      <StackPanel>
+        <TextBlock Text="Recipe name"/>
+        <TextBox AcceptsReturn="True" Text="{Binding Name}" Watermark="Recipe name"/>
+      </StackPanel>
+
+      <StackPanel>
+        <TextBlock Text="Description"/>
+        <TextBox AcceptsReturn="True" Text="{Binding Description}" Watermark="Description" Height="100"/>
+      </StackPanel>
+
+      <StackPanel Orientation="Horizontal" Spacing="8">
+        <StackPanel>
+          <TextBlock Text="Country"/>
+          <ComboBox SelectedItem="{Binding Country}" Width="150" ItemsSource="{Binding Countries}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                  <TextBlock Text="{Binding Name}" />
+                </DataTemplate>
+              </ComboBox.ItemTemplate>
+          </ComboBox>
+        </StackPanel>
+
+        <StackPanel>
+          <TextBlock Text="Serving size"/>
+          <NumericUpDown Value="{Binding ServingSize}" Minimum="1" Maximum="30" Increment="1" Width="150"/>
+        </StackPanel>
+
+        <StackPanel>
+          <TextBlock Text="Preparation time"/>
+          <NumericUpDown Value="{Binding PrepTime}" Minimum="0" Maximum="300" Increment="0.5" Width="150"/>
+        </StackPanel>
+
+        <StackPanel>
+          <TextBlock Text="Cooking time"/>
+          <NumericUpDown Value="{Binding CookTime}" Minimum="0" Maximum="300" Increment="0.5" Width="150"/>
+        </StackPanel>
+      </StackPanel>
+    </StackPanel>
+
+    <Grid Grid.Row="1" ColumnDefinitions="320,1*" RowDefinitions="Auto,1*,Auto" Margin="0,0,0,8">
+      <TextBlock Text="Ingredients" Margin="0,0,8,0" Grid.Row="0" Grid.Column="0"/>
+      <ScrollViewer Margin="0,0,8,0" Grid.Column="0" Grid.Row="1">
+        <StackPanel>
+          <ItemsControl ItemsSource="{Binding Ingredients}">
+            <ItemsControl.ItemTemplate>
+              <DataTemplate>
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                  <Button Content="X" 
+                          Padding="0,0,0,0" Width="24" Height="24"
+                          HorizontalContentAlignment="Center"
+                          VerticalContentAlignment="Center"
+                          Command="{Binding $parent[ItemsControl].((vm:NewRecipeViewModel)DataContext).RemoveIngredient}" 
+                          CommandParameter="{Binding .}"/>
+                  <TextBlock VerticalAlignment="Center">
+                    <Run Text="{Binding Name}" /><Run Text=": " /><Bold><Run Text="{Binding Quantity}"/></Bold>
+                  </TextBlock>
+                </StackPanel>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+        </StackPanel>
+      </ScrollViewer>
+      <Grid ColumnDefinitions="1*,48,Auto" Margin="0,0,8,2" Grid.Row="2" Grid.Column="0">
+        <TextBox Grid.Column="0" Text="{Binding NewIngredientText}" Watermark="Ingredient"/>
+        <NumericUpDown MinWidth="48" Grid.Column="1" Margin="2,0,2,0"
+                      Value="{Binding NewIngredientQuantity}" ShowButtonSpinner="false"
+                      Minimum="1" Maximum="100" Increment="1" />
+        <Button Grid.Column="2" Content="+" Command="{Binding AddIngredient}"/>
+      </Grid>
+
+      <TextBlock Text="Instructions" Margin="0,0,8,0" Grid.Row="0" Grid.Column="1"/>
+      <ScrollViewer Grid.Row="1" Grid.Column="1">
+        <StackPanel>
+          <ItemsControl ItemsSource="{Binding Instructions}">
+            <ItemsControl.ItemTemplate>
+              <DataTemplate>
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                  <Button Content="X" 
+                          Padding="0,0,0,0" Width="24" Height="24"
+                          HorizontalContentAlignment="Center"
+                          VerticalContentAlignment="Center"
+                          Command="{Binding $parent[ItemsControl].((vm:NewRecipeViewModel)DataContext).RemoveInstruction}" 
+                          CommandParameter="{Binding .}"/>
+                  <TextBlock Text="{Binding Text}" VerticalAlignment="Center"/>
+                </StackPanel>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+        </StackPanel>
+      </ScrollViewer>
+      <Grid ColumnDefinitions="1*,Auto" Margin="0,0,0,2" Grid.Row="2" Grid.Column="1">
+        <TextBox Grid.Column="0" Text="{Binding NewInstructionText}" Watermark="Instruction" Margin="0,0,2,0"/>
+        <Button Grid.Column="1" Content="+" Command="{Binding AddInstruction}"/>
+      </Grid>
+    </Grid>
+
+    <Button Command="{Binding AddRecipe}" Grid.Row="2" Content="Add Recipe" />
+  </Grid>
+</UserControl>
