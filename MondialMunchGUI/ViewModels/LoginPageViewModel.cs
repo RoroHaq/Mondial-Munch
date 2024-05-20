@@ -11,8 +11,17 @@ namespace MondialMunchGUI.ViewModels {
         private string? _username;
         private string? _password;
 
+        public string Username {
+            get => _username;
+            set => this.RaiseAndSetIfChanged(ref _username, value);
+        }
+        public string Password {
+            get => _password;
+            set => this.RaiseAndSetIfChanged(ref _password, value);
+        }
         public ReactiveCommand<Unit, User?> Login { get; }
         public ReactiveCommand<Unit, string?> Register { get; }
+        public ObservableCollection<User> ListUsers { get; }
 
         public LoginPageViewModel() {
             var isValidObservable = this.WhenAnyValue(
@@ -35,16 +44,6 @@ namespace MondialMunchGUI.ViewModels {
                     return Username;
                 }
             );
-        }
-
-        public string Username {
-            get => _username;
-            set => this.RaiseAndSetIfChanged(ref _username, value);
-        }
-
-        public string Password {
-            get => _password;
-            set => this.RaiseAndSetIfChanged(ref _password, value);
         }
     }
 }

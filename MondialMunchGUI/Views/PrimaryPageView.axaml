@@ -1,0 +1,55 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
+             xmlns:vm="using:MondialMunchGUI.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="MondialMunchGUI.Views.PrimaryPageView"
+             x:DataType="vm:PrimaryPageViewModel">
+             
+  <Grid RowDefinitions="Auto,1*">
+    <Grid ColumnDefinitions="1*,2*,1*" Margin="10">
+      <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="8">
+        <ToggleButton Width="24" Height="24" 
+                      HorizontalAlignment="Center" 
+                      IsChecked="{Binding IsSideBarOpen}" 
+                      Command="{Binding ToggleSideBar}"
+                      Padding="0,0,0,0"
+                      Background="#00000000"
+                      BorderThickness="0,0,0,0">
+          <Image Source="/Assets/hamburger.png"/>
+        </ToggleButton>
+        <Image Source="/Assets/WideLogoTransparent.png" Height="32"/>
+      </StackPanel>
+      <Grid Grid.Column="1" ColumnDefinitions="1*,Auto">
+        <TextBox Grid.Column="0" Watermark="Search" Margin="0,0,8,0" Text="{Binding SearchInput}"/>
+        <Button Grid.Column="1" Command="{Binding Search}">Search</Button>
+      </Grid>
+      <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="8" HorizontalAlignment="Right">
+        <TextBlock Grid.Column="4" Text="BIND_THIS_PLEASE" VerticalAlignment="Center"/>
+        <Border Grid.Column="5" CornerRadius="100" ClipToBounds="true">
+          <Image asyncImageLoader:ImageLoader.Source="https://i.imgur.com/JCoYjzH.png" 
+                 Height="32" Width="32" />
+        </Border>
+      </StackPanel>
+    </Grid>
+    <Grid Grid.Row="1">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="{Binding SideBarSize}" />
+        <ColumnDefinition Width="1*" />
+      </Grid.ColumnDefinitions>
+      <StackPanel Grid.Column="0" Grid.Row="0" Background="#eee">
+        <StackPanel Margin="10">
+          <Button>Home</Button>
+          <TextBlock Text="Recipes"/>
+          <Button>To do</Button>
+          <Button>Favorites</Button>
+          <Button>My recipes</Button>
+          <TextBlock Text="Events"/>
+        </StackPanel>
+      </StackPanel>
+      <ContentControl Grid.Column="1" Margin="10,0,0,0" Content="{Binding Content}" />
+    </Grid>
+  </Grid>
+</UserControl>

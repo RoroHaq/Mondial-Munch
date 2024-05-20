@@ -5,15 +5,15 @@ using ReactiveUI;
 using System.Reactive;
 using System;
 using System.Reactive.Linq;
+using System.Linq;
 
 
 namespace MondialMunchGUI.ViewModels {
     public class HomePageViewModel : ViewModelBase {
-
-        public string greet { get; set; }
+        public ReactiveCommand<Unit, Unit> LogOut { get; }
+        public ObservableCollection<User> ListUsers { get; }
 
         public HomePageViewModel() {
-            greet = "Welcome to Mondial Munch " + MondialMunchService.GetInstance().CurrentUser!.Name + "!";
         }
     }
 }

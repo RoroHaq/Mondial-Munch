@@ -8,6 +8,8 @@
         x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/MondialMunchLogo.png"
         Title="MondialMunchGUI"
-        Content="{Binding ContentViewModel}">
+        Content="{Binding ContentViewModel}"
+        MinWidth="900" MinHeight="560"
+        FontFamily="Segoe UI">
         
 </Window>

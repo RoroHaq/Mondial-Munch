@@ -357,7 +357,7 @@ public class Program {
         // bool hasCountryNumber = int.TryParse(Console.ReadLine(), out int countryNumber);
         // if (!hasCountryNumber) return;
         // if (!Enum.IsDefined(typeof(Country), countryNumber)) return;
-        Country country = new(Console.ReadLine());
+        Country country = service.GetCountryByName(Console.ReadLine());
 
         // input instructions
         Console.WriteLine("Enter instructions (leave blank to cancel/continue)");
