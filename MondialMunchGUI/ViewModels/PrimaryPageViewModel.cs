@@ -71,6 +71,11 @@ public class PrimaryPageViewModel : ViewModelBase {
                 Content = CurrentRecipe;
             });
 
+            searchResult.Filter.Subscribe((recipe) => {
+                searchResult = new SearchResultViewModel(recipe);
+                Content = searchResult;
+            });
+
             return recipes;
         }, isValidSearch);
 

@@ -10,16 +10,23 @@
     <StackPanel>
         <StackPanel Orientation="Horizontal">
           <StackPanel>
-            <TextBlock>Country</TextBlock>
-            <AutoCompleteBox ItemsSource="{Binding Countries}" FilterMode="StartsWith">
-              <AutoCompleteBox.ItemTemplate>
-                <DataTemplate>
-                  <TextBlock Text="{Binding Name}"/>
-                </DataTemplate>
-              </AutoCompleteBox.ItemTemplate>
-            </AutoCompleteBox>
+            <TextBlock Text="Min. Serving"/>
+            <NumericUpDown Value="{Binding MinServing}" Minimum="1" Maximum="30" Increment="1" Width="150"/>
           </StackPanel>
-            <Button>Filter</Button>
+          <StackPanel>
+            <TextBlock Text="Max. Serving"/>
+            <NumericUpDown Value="{Binding MaxServing}" Minimum="1" Maximum="30" Increment="1" Width="150"/>
+          </StackPanel>
+          <StackPanel>
+            <TextBlock Text="Min. Time"/>
+            <NumericUpDown Value="{Binding MinTime}" Minimum="1" Maximum="30" Increment="1" Width="150"/>
+          </StackPanel>
+          <StackPanel>
+            <TextBlock Text="Max. Time"/>
+            <NumericUpDown Value="{Binding MaxTime}" Minimum="1" Maximum="30" Increment="1" Width="150"/>
+          </StackPanel>
+            <Button Content="Filter"
+                    Command="{Binding Filter}"></Button>
         </StackPanel>
         <ItemsControl ItemsSource="{Binding Recipes}">
           <ItemsControl.ItemsPanel>

@@ -44,10 +44,12 @@ namespace MondialMunchGUI.ViewModels {
             set => this.RaiseAndSetIfChanged(ref _maxTime, value);
         }
 
-        public List<Country> Countries;
+        public List<Country> Countries { get; }
         public List<User> Users;
 
-        private List<string> Usernames = new List<string>();
+        public List<string> Usernames = new List<string>();
+
+        public List<string> CountryNames = new List<string>();
         public ReactiveCommand<Unit, IEnumerable<Recipe>> Filter { get; }
 
         public SearchResultViewModel(IEnumerable<Recipe> recipes) {
@@ -60,10 +62,33 @@ namespace MondialMunchGUI.ViewModels {
                 Usernames.Add(user.Name);
             }
 
+            foreach (Country country in Countries) {
+                CountryNames.Add(country.Name);
+            }
+
             Recipes = new ObservableCollection<Recipe>(recipes);
 
             ViewRecipe = ReactiveCommand.Create((Recipe recipe) => {
                 return recipe;
+            });
+
+            Filter = ReactiveCommand.Create(() => {
+                List<Recipe> RecipesFound = MondialMunchService.GetInstance().GetRecipes();
+                RecipeList FilteredRecipe = new RecipeList(RecipesFound);
+
+                if (MinServing > 0 || MinServing != null) {
+                    FilteredRecipe.FilterByMinServings(MinServing);
+                }
+                if (MaxServing > 0 || MaxServing != null) {
+                    FilteredRecipe.FilterByMaxServings(MaxServing);
+                }
+                if (MinTime > 0 || MinTime != null) {
+                    FilteredRecipe.FilterByMinTime(MinTime);
+                }
+                if (MaxTime > 0 || MaxTime != null) {
+                    FilteredRecipe.FilterByMaxTime(MaxTime);
+                }
+                return FilteredRecipe.Recipes;
             });
 
 
