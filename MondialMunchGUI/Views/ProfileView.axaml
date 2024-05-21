@@ -1,0 +1,33 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="MondialMunchGUI.Views.ProfileView"
+             x:DataType="vm:ProfileViewModel"
+             xmlns:vm="using:MondialMunchGUI.ViewModels">
+  
+  <StackPanel Spacing="8" Margin="10,10,0,0">
+    <StackPanel Orientation="Horizontal" Spacing="16">
+      <Border Grid.Column="5" CornerRadius="128" ClipToBounds="true">
+        <Image asyncImageLoader:ImageLoader.Source="https://i.imgur.com/JCoYjzH.png" 
+              Height="128" Width="128" />
+      </Border>
+      <StackPanel VerticalAlignment="Center">
+        <TextBlock Text="{Binding Name}" FontSize="28" FontWeight="Bold"/>
+        <TextBlock>
+          <Run Text="Born in "/><Bold><Run Text="{Binding CountryOriginName}"/></Bold>
+        </TextBlock>
+        <TextBlock>
+          <Run Text="Living in "/><Bold><Run Text="{Binding CountryOriginName}"/></Bold>
+        </TextBlock>
+      </StackPanel>
+    </StackPanel>
+    <TextBlock TextWrapping="Wrap" Margin="0,8,0,0">
+      <Bold>Description: </Bold>
+      <LineBreak />
+      <Run Text="{Binding Description}"/>
+    </TextBlock>
+  </StackPanel>
+</UserControl>

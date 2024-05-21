@@ -20,6 +20,7 @@ public class PrimaryPageViewModel : ViewModelBase {
     public ReactiveCommand<Unit, bool> ToggleSideBar { get; }
     public ReactiveCommand<Unit, IEnumerable<Recipe>> Search { get; }
     public ReactiveCommand<Unit, Unit> NewRecipe { get; }
+    public ReactiveCommand<User?, Unit> OpenProfile { get; }
 
     public ViewModelBase Content {
         get => _content;
@@ -81,6 +82,12 @@ public class PrimaryPageViewModel : ViewModelBase {
                 RecipeViewModel CurrentRecipe = new RecipeViewModel(recipe);
                 Content = CurrentRecipe;
             });
+        });
+
+        OpenProfile = ReactiveCommand.Create((User? user) => {
+            if (user == null) user = MondialMunchService.GetInstance().CurrentUser;
+            ProfileViewModel profilePage = new ProfileViewModel(user);
+            Content = profilePage;
         });
     }
 }
