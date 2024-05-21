@@ -88,12 +88,14 @@ namespace MondialMunchGUI.ViewModels {
                 if (MaxTime > 0 || MaxTime != null) {
                     FilteredRecipe.FilterByMaxTime(MaxTime);
                 }
-                return FilteredRecipe.Recipes;
+                return recipes;
             });
 
-
+            Filter.Subscribe((recipe) => {
+                Recipes = new ObservableCollection<Recipe>(recipe);
+            });
         }
 
-        public ObservableCollection<Recipe> Recipes { get; }
+        public ObservableCollection<Recipe> Recipes { get; set; }
     }
 }
