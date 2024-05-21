@@ -62,16 +62,6 @@ namespace MondialMunchGUI.ViewModels {
 
             Countries = MondialMunchService.GetInstance().GetCountries();
 
-            Users = MondialMunchService.GetInstance().GetUsers();
-
-            foreach (User user in Users) {
-                Usernames.Add(user.Name);
-            }
-
-            foreach (Country country in Countries) {
-                CountryNames.Add(country.Name);
-            }
-
             Recipes = new List<Recipe>(recipes);
 
             ViewRecipe = ReactiveCommand.Create((Recipe recipe) => {
