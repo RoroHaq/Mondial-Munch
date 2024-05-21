@@ -8,6 +8,16 @@
              x:Class="MondialMunchGUI.Views.SearchResultView">
   
     <StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Button></Button>
+            <Button></Button>
+            <Button></Button>
+            <Button></Button>
+            <Button></Button>
+            <Button></Button>
+            <Button></Button>
+            <Button>Filter</Button>
+        </StackPanel>
         <ItemsControl ItemsSource="{Binding Recipes}">
           <ItemsControl.ItemsPanel>
             <ItemsPanelTemplate>

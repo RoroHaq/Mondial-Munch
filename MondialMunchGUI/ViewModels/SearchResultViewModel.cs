@@ -4,17 +4,69 @@ using MondialMunch;
 using System;
 using System.Reactive.Linq;
 using ReactiveUI;
+using System.Reactive;
 
 namespace MondialMunchGUI.ViewModels {
     public class SearchResultViewModel : ViewModelBase {
         public ReactiveCommand<Recipe, Recipe> ViewRecipe { get; }
 
+        private Country _country;
+        private int _minServings;
+
+        private int _maxServing;
+        private double _minTime;
+        private double _maxTime;
+
+
+
+        public Country Country {
+            get => _country;
+            set => this.RaiseAndSetIfChanged(ref _country, value);
+        }
+
+        public int MinServing {
+            get => _minServings;
+            set => this.RaiseAndSetIfChanged(ref _minServings, value);
+        }
+
+        public int MaxServing {
+            get => _maxServing;
+            set => this.RaiseAndSetIfChanged(ref _maxServing, value);
+        }
+
+        public double MinTime {
+            get => _minTime;
+            set => this.RaiseAndSetIfChanged(ref _minTime, value);
+        }
+
+        public double MaxTime {
+            get => _maxTime;
+            set => this.RaiseAndSetIfChanged(ref _maxTime, value);
+        }
+
+        private List<Country> Countries;
+        private List<User> Users;
+
+        private List<string> Usernames = new List<string>();
+        public ReactiveCommand<Unit, IEnumerable<Recipe>> Filter { get; }
+
         public SearchResultViewModel(IEnumerable<Recipe> recipes) {
+
+            Countries = MondialMunchService.GetInstance().GetCountries();
+
+            Users = MondialMunchService.GetInstance().GetUsers();
+
+            foreach (User user in Users) {
+                Usernames.Add(user.Name);
+            }
+
             Recipes = new ObservableCollection<Recipe>(recipes);
 
             ViewRecipe = ReactiveCommand.Create((Recipe recipe) => {
                 return recipe;
             });
+
+
         }
 
         public ObservableCollection<Recipe> Recipes { get; }
