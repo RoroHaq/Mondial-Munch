@@ -23,6 +23,7 @@ public class PrimaryPageViewModel : ViewModelBase {
     public ReactiveCommand<Unit, IEnumerable<Recipe>> Search { get; }
     public ReactiveCommand<Unit, Unit> SilkRoadButton { get; }
     public ReactiveCommand<Unit, Unit> BananaRepublicButton { get; }
+    public ReactiveCommand<Unit, Unit> NewRecipe { get; }
 
     public ViewModelBase Content {
         get => _content;
@@ -95,6 +96,15 @@ public class PrimaryPageViewModel : ViewModelBase {
 
         BananaRepublicButton = ReactiveCommand.Create(() => {
             Content = BananaEventPage;
+        });
+
+        NewRecipe = ReactiveCommand.Create(() => {
+            NewRecipeViewModel newRecipePage = new NewRecipeViewModel();
+            Content = newRecipePage;
+            newRecipePage.AddRecipe.Subscribe((recipe) => {
+                RecipeViewModel CurrentRecipe = new RecipeViewModel(recipe);
+                Content = CurrentRecipe;
+            });
         });
     }
 }
