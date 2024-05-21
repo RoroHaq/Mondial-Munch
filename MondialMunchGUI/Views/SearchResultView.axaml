@@ -9,13 +9,16 @@
   
     <StackPanel>
         <StackPanel Orientation="Horizontal">
-            <Button></Button>
-            <Button></Button>
-            <Button></Button>
-            <Button></Button>
-            <Button></Button>
-            <Button></Button>
-            <Button></Button>
+          <StackPanel>
+            <TextBlock>Country</TextBlock>
+            <AutoCompleteBox ItemsSource="{Binding Countries}" FilterMode="StartsWith">
+              <AutoCompleteBox.ItemTemplate>
+                <DataTemplate>
+                  <TextBlock Text="{Binding Name}"/>
+                </DataTemplate>
+              </AutoCompleteBox.ItemTemplate>
+            </AutoCompleteBox>
+          </StackPanel>
             <Button>Filter</Button>
         </StackPanel>
         <ItemsControl ItemsSource="{Binding Recipes}">

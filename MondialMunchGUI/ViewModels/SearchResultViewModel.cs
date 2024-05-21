@@ -44,8 +44,8 @@ namespace MondialMunchGUI.ViewModels {
             set => this.RaiseAndSetIfChanged(ref _maxTime, value);
         }
 
-        private List<Country> Countries;
-        private List<User> Users;
+        public List<Country> Countries;
+        public List<User> Users;
 
         private List<string> Usernames = new List<string>();
         public ReactiveCommand<Unit, IEnumerable<Recipe>> Filter { get; }
