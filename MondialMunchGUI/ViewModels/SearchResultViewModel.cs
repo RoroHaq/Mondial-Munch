@@ -76,19 +76,20 @@ namespace MondialMunchGUI.ViewModels {
                 List<Recipe> RecipesFound = MondialMunchService.GetInstance().GetRecipes();
                 RecipeList FilteredRecipe = new RecipeList(RecipesFound);
 
-                if (MinServing > 0 || MinServing != null) {
+                if (MinServing > 0) {
                     FilteredRecipe.FilterByMinServings(MinServing);
                 }
-                if (MaxServing > 0 || MaxServing != null) {
+                if (MaxServing > 0) {
                     FilteredRecipe.FilterByMaxServings(MaxServing);
                 }
-                if (MinTime > 0 || MinTime != null) {
+                if (MinTime > 0) {
                     FilteredRecipe.FilterByMinTime(MinTime);
                 }
-                if (MaxTime > 0 || MaxTime != null) {
+                if (MaxTime > 0) {
                     FilteredRecipe.FilterByMaxTime(MaxTime);
                 }
-                return recipes;
+
+                return FilteredRecipe.Recipes;
             });
 
             Filter.Subscribe((recipe) => {
