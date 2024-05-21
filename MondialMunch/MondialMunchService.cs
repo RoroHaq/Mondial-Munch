@@ -100,4 +100,20 @@ public class MondialMunchService {
         _context.Users.Remove(user);
         _context.SaveChanges();
     }
+
+    public void AddReviewToRecipe(Recipe recipe, int stars, string? reviewText) {
+        if (_current_user == null) throw new Exception("Not logged in.");
+        if (recipe.Reviews.FirstOrDefault(r => r.User == _current_user) != null) throw new Exception("You already reviewed this recipe.");
+
+        RecipeReview review = new(_current_user, stars, reviewText);
+        recipe.Reviews.Add(review);
+        _context.SaveChanges();
+    }
+
+    public void DeleteReviewFromRecipe(Recipe recipe, RecipeReview review) {
+        if (_current_user == null) throw new Exception("Not logged in.");
+        if (review.User != _current_user) throw new Exception("You cannot remove this review.");
+        recipe.Reviews.Remove(review);
+        _context.SaveChanges();
+    }
 }

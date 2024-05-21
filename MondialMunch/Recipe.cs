@@ -17,9 +17,10 @@ public class Recipe {
     public List<Ingredient> _ingredients;
     // public Dictionary<string, string[]>? Substitutions { get; internal set; } // entity framework doesn't like this
     public List<DietaryTag>? Tags { get; internal set; }
-    public int Stars { get; internal set; }
     public List<User> FavouriteUsers { get; internal set; }
     public List<User> TodoUsers { get; internal set; }
+    public List<RecipeReview> Reviews { get; private set; }
+    public double Stars => Reviews.Average(r => r.Stars);
 
     public Recipe(string name, User creator, string description, int servings,
                     double preptime, double cookingTime, Country country, List<RecipeInstruction> instructions, List<Ingredient> ingredients) {
@@ -157,6 +158,36 @@ public class RecipeInstruction {
         }
         else if (obj is RecipeInstruction c) {
             return Text == c.Text;
+        }
+        return false;
+    }
+}
+
+public class RecipeReview {
+    private int _stars;
+
+    public int Id { get; private set; }
+    public Recipe Recipe { get; private set; } = null!;
+    public User User { get; private set; } = null!;
+    public int Stars {
+        get => _stars;
+        private set {
+            if (value < 1 || value > 5) throw new Exception("Star ratings must be between 1 and 5.");
+            _stars = value;
+        }
+    }
+    public string? Review { get; private set; }
+
+    private RecipeReview() { }
+    public RecipeReview(User user, int stars, string? review) {
+        User = user;
+        Stars = stars;
+        Review = review;
+    }
+
+    public override bool Equals(object? obj) {
+        if (obj is RecipeReview rr) {
+            return rr.Recipe == Recipe && rr.User == User;
         }
         return false;
     }
