@@ -84,6 +84,9 @@ namespace MondialMunchGUI.ViewModels {
                 if (MaxTime > 0) {
                     FilteredRecipe.FilterByMaxTime(MaxTime);
                 }
+                if (Country != null) {
+                    FilteredRecipe.FilterByCountry(Country);
+                }
 
                 Recipes = new(FilteredRecipe.Recipes);
             });
