@@ -50,6 +50,8 @@ public class MondialMunchService {
             .Include(u => u.TodoRecipies).ThenInclude(r => r.Instructions)
             .Include(u => u.TodoRecipies).ThenInclude(r => r.Ingredients)
 
+            .Include(u => u.CompletedRecipies).ThenInclude(cr => cr.RecipeCompleted)
+
             .ToList();
     }
     public List<Country> GetCountries() => _context.Countries.ToList();
