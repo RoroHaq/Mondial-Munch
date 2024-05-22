@@ -11,8 +11,8 @@ using MondialMunch;
 namespace MondialMunch.Migrations
 {
     [DbContext(typeof(MondialMunchContext))]
-    [Migration("20240522044536_facc0b7c0c70")]
-    partial class facc0b7c0c70
+    [Migration("20240522051540_f3e73ac5e943")]
+    partial class f3e73ac5e943
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -134,9 +134,6 @@ namespace MondialMunch.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("DaysLeft")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Description")
