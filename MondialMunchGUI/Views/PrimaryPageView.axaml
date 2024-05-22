@@ -6,7 +6,8 @@
              xmlns:vm="using:MondialMunchGUI.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="MondialMunchGUI.Views.PrimaryPageView"
-             x:DataType="vm:PrimaryPageViewModel">
+             x:DataType="vm:PrimaryPageViewModel"
+             Name="primaryView">
              
   <Grid RowDefinitions="Auto,1*">
     <Grid ColumnDefinitions="1*,2*,1*" Margin="10">

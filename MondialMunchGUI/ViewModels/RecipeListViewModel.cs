@@ -60,7 +60,7 @@ namespace MondialMunchGUI.ViewModels {
 
             Filter = ReactiveCommand.Create(() => {
                 List<Recipe> RecipesFound = RecipeSource;
-                RecipeList FilteredRecipe = new(RecipesFound);
+                RecipeList FilteredRecipe = new RecipeList(RecipesFound);
 
                 if (MinServing > 0) FilteredRecipe.FilterByMinServings(MinServing);
                 if (MaxServing > 0) FilteredRecipe.FilterByMaxServings(MaxServing);

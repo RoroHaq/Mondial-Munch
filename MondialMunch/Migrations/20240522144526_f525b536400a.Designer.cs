@@ -11,13 +11,8 @@ using MondialMunch;
 namespace MondialMunch.Migrations
 {
     [DbContext(typeof(MondialMunchContext))]
-<<<<<<<< HEAD:MondialMunch/Migrations/20240522021447_725429106af4.Designer.cs
-    [Migration("20240522021447_725429106af4")]
-    partial class _725429106af4
-========
-    [Migration("20240522051540_f3e73ac5e943")]
-    partial class f3e73ac5e943
->>>>>>>> 418574e1056331bcc9da14f186520c4c5351ff40:MondialMunch/Migrations/20240522051540_f3e73ac5e943.Designer.cs
+    [Migration("20240522144526_f525b536400a")]
+    partial class f525b536400a
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

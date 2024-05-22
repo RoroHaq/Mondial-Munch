@@ -18,7 +18,7 @@ public class PrimaryPageViewModel : ViewModelBase {
     private GridLength _sideBarSize = new(SIDEBAR_SIZE_OPEN, GridUnitType.Pixel);
 
     public ReactiveCommand<Unit, bool> ToggleSideBar { get; }
-    public ReactiveCommand<Unit, IEnumerable<Recipe>> Search { get; }
+    public ReactiveCommand<Unit, List<Recipe>> Search { get; }
     public ReactiveCommand<Unit, Unit> SilkRoadButton { get; }
     public ReactiveCommand<Unit, Unit> BananaRepublicButton { get; }
     public ReactiveCommand<Unit, Unit> NewRecipe { get; }
@@ -65,16 +65,10 @@ public class PrimaryPageViewModel : ViewModelBase {
             List<Recipe> RecipesFound = MondialMunchService.GetInstance().GetRecipes();
             RecipeList FilteredRecipe = new RecipeList(RecipesFound);
             FilteredRecipe.FilterByKeyword(SearchInput);
-            IEnumerable<Recipe> recipes = FilteredRecipe.Recipes;
+            List<Recipe> recipes = new(FilteredRecipe.Recipes);
 
-            RecipeListViewModel searchResult = new RecipeListViewModel(recipes);
+            RecipeListViewModel searchResult = MakeRecipeListPage(recipes);
             Content = searchResult;
-
-            searchResult.ViewRecipe.Subscribe((recipe) => {
-                RecipeViewModel CurrentRecipe = new RecipeViewModel(recipe);
-                Content = CurrentRecipe;
-            });
-
 
             return recipes;
         }, isValidSearch);
@@ -113,5 +107,26 @@ public class PrimaryPageViewModel : ViewModelBase {
             ProfileViewModel profilePage = new ProfileViewModel(user);
             Content = profilePage;
         });
+
+        OpenPage = ReactiveCommand.Create((string page) => {
+            Content = page switch {
+                "home" => new HomePageViewModel(),
+                "profile" => new ProfileViewModel(MondialMunchService.GetInstance().CurrentUser!),
+                "todo" => MakeRecipeListPage(MondialMunchService.GetInstance().CurrentUser!.TodoRecipies),
+                "favorites" => MakeRecipeListPage(MondialMunchService.GetInstance().CurrentUser!.FavouriteRecipies),
+                "myRecipes" => MakeRecipeListPage(MondialMunchService.GetInstance().CurrentUser!.PersonalRecipes),
+                _ => Content
+            };
+        });
+
+    }
+
+    public RecipeListViewModel MakeRecipeListPage(List<Recipe> recipes) {
+        RecipeListViewModel recipeListViewModel = new(recipes);
+        recipeListViewModel.ViewRecipe.Subscribe((recipe) => {
+            RecipeViewModel CurrentRecipe = new RecipeViewModel(recipe);
+            Content = CurrentRecipe;
+        });
+        return recipeListViewModel;
     }
 }
