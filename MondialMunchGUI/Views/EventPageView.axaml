@@ -24,7 +24,7 @@
         <TextBlock Classes="padding">
             <Run Classes="h1" Text="{Binding Title}"/>
             <Run Foreground="Red" FontWeight="Bold" Text="{Binding DaysLeft}"/>
-            <Run Foreground="Red" Text="days left"/>
+            <Run Foreground="Red" Text="{Binding DaysLeftText}"/>
         </TextBlock>
         <TextBlock Classes="padding" Text="{Binding Description}"
         TextWrapping="WrapWithOverflow"/>

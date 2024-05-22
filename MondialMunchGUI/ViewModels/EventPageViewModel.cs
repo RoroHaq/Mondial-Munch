@@ -20,6 +20,7 @@ namespace MondialMunchGUI.ViewModels {
         public string Title { get; private set; }
         public string Description { get; private set; }
         public int DaysLeft { get; private set; }
+        public string DaysLeftText => DaysLeft > 0 ? "days left" : "days ago";
         public EventPageViewModel(string shortEventTitle, string EventTitle, DateTime StartDate, DateTime DueDate, List<Country> EventCountries, string EventDescription) {
 
             ShortTitle = shortEventTitle;

@@ -6,7 +6,6 @@ public class MondialMunchEvent {
     public string Title { get; private set; }
     public string ShortTitle { get; private set; }
     public string Description { get; private set; }
-    public int DaysLeft => (DueDate - DateTime.Today).Days;
     public DateTime StartDate { get; private set; }
     public DateTime DueDate { get; private set; }
     public List<Country> EventCountries { get; private set; }
