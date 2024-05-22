@@ -12,6 +12,15 @@ using System.Linq;
 namespace MondialMunchGUI.ViewModels;
 
 public class PrimaryPageViewModel : ViewModelBase {
+    private static PrimaryPageViewModel? instance;
+    public static PrimaryPageViewModel GetInstance() {
+        if (instance == null) instance = new();
+        return instance;
+    }
+    public static void ClearInstance() {
+        instance = null;
+    }
+
     private const int SIDEBAR_SIZE_OPEN = 200;
 
     private string? _search;
@@ -26,13 +35,14 @@ public class PrimaryPageViewModel : ViewModelBase {
     public ReactiveCommand<User?, Unit> OpenProfile { get; }
     public ReactiveCommand<Unit, Unit> EditProfile { get; }
     public ReactiveCommand<string, Unit> OpenPage { get; }
+    public ReactiveCommand<Recipe, Unit> DeleteRecipe { get; }
     public ReactiveCommand<Unit, Unit> LogOut { get; }
 
     public User CurrentUser { get; }
 
     public ViewModelBase Content {
         get => _content;
-        private set => this.RaiseAndSetIfChanged(ref _content, value);
+        set => this.RaiseAndSetIfChanged(ref _content, value);
     }
     public bool IsSideBarOpen {
         get => _isSideBarOpen;
@@ -117,6 +127,10 @@ public class PrimaryPageViewModel : ViewModelBase {
             };
         });
 
+        DeleteRecipe = ReactiveCommand.Create((Recipe recipe) => {
+            MondialMunchService.GetInstance().DeleteRecipe(recipe);
+            Content = new HomePageViewModel();
+        });
         LogOut = ReactiveCommand.Create(() => { });
     }
 

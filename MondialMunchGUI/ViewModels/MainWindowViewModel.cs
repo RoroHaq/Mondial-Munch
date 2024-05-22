@@ -56,7 +56,7 @@ public class MainWindowViewModel : ViewModelBase {
 
     public void LoginUser(User user) {
         MondialMunchService.GetInstance().CurrentUser = user;
-        PrimaryPageViewModel MainPage = new PrimaryPageViewModel();
+        PrimaryPageViewModel MainPage = PrimaryPageViewModel.GetInstance();
         MainPage.LogOut.Subscribe((u) => {
             MondialMunchService.GetInstance().CurrentUser = null;
             LoginPage.Username = null;

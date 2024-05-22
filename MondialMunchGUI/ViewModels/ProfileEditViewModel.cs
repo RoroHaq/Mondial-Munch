@@ -54,6 +54,10 @@ public class ProfileEditViewModel : ViewModelBase {
     public List<Country> Countries { get; }
     public ProfileEditViewModel() {
         Countries = MondialMunchService.GetInstance().GetCountries();
+        User CurrentUser = MondialMunchService.GetInstance().CurrentUser;
+        Description = CurrentUser.Description;
+        CountryOrigin = CurrentUser.CountryOrigin;
+        CountryLive = CurrentUser.CountryCurrent;
 
         EditGeneral = ReactiveCommand.Create(() => {
             MondialMunchService.GetInstance().UpdateUserProfile(Description, CountryOrigin, CountryLive);
