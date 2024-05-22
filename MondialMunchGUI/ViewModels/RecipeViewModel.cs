@@ -27,6 +27,8 @@ public class RecipeViewModel : ViewModelBase {
     public double PrepTime { get; }
     public double CookTime { get; }
     public double TotalTime { get; }
+    public bool CanDelete { get; }
+    public Country Country { get; }
     public List<Ingredient> Ingredients { get; }
     public List<RecipeInstruction> Instructions { get; }
 
@@ -65,6 +67,7 @@ public class RecipeViewModel : ViewModelBase {
     public ReactiveCommand<Unit, Unit> FavoriteButton { get; }
     public ReactiveCommand<Unit, Unit> ToDoButton { get; }
     public ReactiveCommand<Unit, Unit> CompleteButton { get; }
+    public ReactiveCommand<Unit, bool> DeleteRecipe { get; }
 
     public RecipeViewModel(Recipe recipe) {
         Name = recipe.Name;
@@ -74,6 +77,8 @@ public class RecipeViewModel : ViewModelBase {
         PrepTime = recipe.PrepTime;
         CookTime = recipe.CookingTime;
         TotalTime = recipe.TotalTime;
+        Country = recipe.Country;
+        CanDelete = recipe.Creator == MondialMunchService.GetInstance().CurrentUser;
         Ingredients = recipe.Ingredients;
         Instructions = recipe.Instructions;
         Stars = recipe.Stars;
@@ -101,6 +106,11 @@ public class RecipeViewModel : ViewModelBase {
         CompleteButton = ReactiveCommand.Create(() => {
             bool isComplete = MondialMunchService.GetInstance().ToggleRecipeComplete(recipe);
             CompleteButtonText = isComplete ? "Unmark Complete" : "Mark Complete";
+        });
+
+        DeleteRecipe = ReactiveCommand.Create(() => {
+            MondialMunchService.GetInstance().DeleteRecipe(recipe);
+            return true;
         });
     }
 }
