@@ -110,6 +110,10 @@ public class PrimaryPageViewModel : ViewModelBase {
         OpenPage = ReactiveCommand.Create((string page) => {
             Content = page switch {
                 "home" => new HomePageViewModel(),
+                // "profile" => 
+                "todo" => new RecipeListViewModel(MondialMunchService.GetInstance().CurrentUser!.TodoRecipies),
+                "favorites" => new RecipeListViewModel(MondialMunchService.GetInstance().CurrentUser!.FavouriteRecipies),
+                "myRecipes" => new RecipeListViewModel(MondialMunchService.GetInstance().CurrentUser!.PersonalRecipes),
                 _ => Content
             };
         });
