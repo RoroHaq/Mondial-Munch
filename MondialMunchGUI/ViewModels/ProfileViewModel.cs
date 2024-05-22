@@ -18,6 +18,8 @@ public class ProfileViewModel : ViewModelBase {
     public string CompletedCountriesCssString { get; }
     public List<MondialMunchEvent> CompletedEvents { get; }
 
+    public ReactiveCommand<Recipe, Unit> OpenRecipePage { get; }
+
     public ObservableCollection<Recipe> CreatedRecipes {
         get => _createdRecipes;
         set => this.RaiseAndSetIfChanged(ref _createdRecipes, value);
@@ -58,5 +60,9 @@ public class ProfileViewModel : ViewModelBase {
 
         List<Country> completedCountries = MondialMunchService.GetInstance().GetCompletedCountriesForUser(user);
         CompletedCountriesCssString = Country.MakeGuiMapCssForCountries(completedCountries, "#005aff");
+
+        OpenRecipePage = ReactiveCommand.Create((Recipe recipe) => {
+            PrimaryPageViewModel.GetInstance().Content = new RecipeViewModel(recipe);
+        });
     }
 }

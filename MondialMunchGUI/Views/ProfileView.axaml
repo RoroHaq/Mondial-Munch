@@ -41,7 +41,9 @@
           <ItemsControl ItemsSource="{Binding CreatedRecipes}">
             <ItemsControl.ItemTemplate>
               <DataTemplate>
-                <Button HorizontalAlignment="Stretch" Background="#eee">
+                <Button HorizontalAlignment="Stretch" Background="#eee"
+                        Command="{Binding $parent[ItemsControl].((vm:ProfileViewModel)DataContext).OpenRecipePage}"
+                        CommandParameter="{Binding .}">
                   <StackPanel>
                     <TextBlock FontWeight="Bold" Text="{Binding Name}"/>
                     <DockPanel>
@@ -64,7 +66,9 @@
           <ItemsControl ItemsSource="{Binding CompletedRecipes}">
             <ItemsControl.ItemTemplate>
               <DataTemplate>
-                <Button HorizontalAlignment="Stretch" Background="#eee">
+                <Button HorizontalAlignment="Stretch" Background="#eee"
+                        Command="{Binding $parent[ItemsControl].((vm:ProfileViewModel)DataContext).OpenRecipePage}"
+                        CommandParameter="{Binding RecipeCompleted}">
                   <StackPanel>
                     <TextBlock FontWeight="Bold" Text="{Binding RecipeCompleted.Name}"/>
                     <DockPanel>
