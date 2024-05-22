@@ -10,10 +10,12 @@ using System.Linq;
 
 namespace MondialMunchGUI.ViewModels {
     public class HomePageViewModel : ViewModelBase {
-        public ReactiveCommand<Unit, Unit> LogOut { get; }
-        public ObservableCollection<User> ListUsers { get; }
+        public string CompletedCountriesCssString { get; }
 
         public HomePageViewModel() {
+            User currentUser = MondialMunchService.GetInstance().CurrentUser!;
+            List<Country> completedCountries = MondialMunchService.GetInstance().GetCompletedCountriesForUser(currentUser);
+            CompletedCountriesCssString = Country.MakeGuiMapCssForCountries(completedCountries, "#005aff");
         }
     }
 }

@@ -42,11 +42,12 @@
       </Grid.ColumnDefinitions>
       <StackPanel Grid.Column="0" Grid.Row="0" Background="#eee">
         <StackPanel Margin="10">
-          <Button>Home</Button>
+          <Button Command="{Binding OpenPage}" CommandParameter="home">Home</Button>
+          <Button Command="{Binding OpenPage}" CommandParameter="profile">Profile</Button>
           <TextBlock Text="Recipes"/>
-          <Button>To do</Button>
-          <Button>Favorites</Button>
-          <Button>My recipes</Button>
+          <Button Command="{Binding OpenPage}" CommandParameter="todo">ToDo</Button>
+          <Button Command="{Binding OpenPage}" CommandParameter="favorites">Favorites</Button>
+          <Button Command="{Binding OpenPage}" CommandParameter="myRecipes">My Recipes</Button>
           <TextBlock Text="Events"/>
           <ItemsControl ItemsSource="{Binding Events}">
             <ItemsControl.ItemTemplate>

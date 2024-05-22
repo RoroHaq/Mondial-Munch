@@ -140,7 +140,6 @@ public class MondialMunchService {
     }
 
     public bool ToggleRecipeComplete(Recipe recipe) {
-
         if (_current_user == null) throw new Exception("Not logged in.");
 
         CompletedRecipe r = new(recipe, _current_user, DateTime.Today);
@@ -154,6 +153,11 @@ public class MondialMunchService {
 
         _context.SaveChanges();
         return _current_user.CompletedRecipies.Contains(r);
+    }
+
+    public List<Country> GetCompletedCountriesForUser(User user) {
+        if (_current_user == null) throw new Exception("Not logged in.");
+        return user.CompletedRecipies.Select(cr => cr.RecipeCompleted.Country).Distinct().ToList();
     }
 
     public void DeleteRecipe(Recipe recipe) {

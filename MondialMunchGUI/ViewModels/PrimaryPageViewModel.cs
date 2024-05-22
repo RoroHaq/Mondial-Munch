@@ -23,6 +23,7 @@ public class PrimaryPageViewModel : ViewModelBase {
     public ReactiveCommand<Unit, IEnumerable<Recipe>> Search { get; }
     public ReactiveCommand<MondialMunchEvent, Unit> EventButton { get; }
     public ReactiveCommand<Unit, Unit> NewRecipe { get; }
+    public ReactiveCommand<string, Unit> OpenPage { get; }
 
     public ViewModelBase Content {
         get => _content;
@@ -70,7 +71,7 @@ public class PrimaryPageViewModel : ViewModelBase {
             FilteredRecipe.FilterByKeyword(SearchInput);
             IEnumerable<Recipe> recipes = FilteredRecipe.Recipes;
 
-            SearchResultViewModel searchResult = new SearchResultViewModel(recipes);
+            RecipeListViewModel searchResult = new RecipeListViewModel(recipes);
             Content = searchResult;
 
             searchResult.ViewRecipe.Subscribe((recipe) => {
@@ -96,6 +97,17 @@ public class PrimaryPageViewModel : ViewModelBase {
                 RecipeViewModel CurrentRecipe = new RecipeViewModel(recipe);
                 Content = CurrentRecipe;
             });
+        });
+
+        OpenPage = ReactiveCommand.Create((string page) => {
+            Content = page switch {
+                "home" => new HomePageViewModel(),
+                // "profile" => 
+                "todo" => new RecipeListViewModel(MondialMunchService.GetInstance().CurrentUser!.TodoRecipies),
+                "favorites" => new RecipeListViewModel(MondialMunchService.GetInstance().CurrentUser!.FavouriteRecipies),
+                "myRecipes" => new RecipeListViewModel(MondialMunchService.GetInstance().CurrentUser!.PersonalRecipes),
+                _ => Content
+            };
         });
     }
 }
