@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using MondialMunchGUI.Views;
 using Avalonia.Controls;
 using System.Reactive;
+using System.Diagnostics.Tracing;
+using System.Linq;
 
 namespace MondialMunchGUI.ViewModels;
 
@@ -19,8 +21,7 @@ public class PrimaryPageViewModel : ViewModelBase {
 
     public ReactiveCommand<Unit, bool> ToggleSideBar { get; }
     public ReactiveCommand<Unit, List<Recipe>> Search { get; }
-    public ReactiveCommand<Unit, Unit> SilkRoadButton { get; }
-    public ReactiveCommand<Unit, Unit> BananaRepublicButton { get; }
+    public ReactiveCommand<MondialMunchEvent, Unit> EventButton { get; }
     public ReactiveCommand<Unit, Unit> NewRecipe { get; }
     public ReactiveCommand<User?, Unit> OpenProfile { get; }
     public ReactiveCommand<string, Unit> OpenPage { get; }
@@ -45,8 +46,12 @@ public class PrimaryPageViewModel : ViewModelBase {
         set => this.RaiseAndSetIfChanged(ref _search, value);
     }
 
+    public IEnumerable<MondialMunchEvent> Events { get; set; }
+
     public PrimaryPageViewModel() {
         Content = new HomePageViewModel();
+
+        Events = MondialMunchService.GetInstance().GetMMEvents().Where(e => e.DueDate >= DateTime.Today);
 
         ToggleSideBar = ReactiveCommand.Create(
             () => {
@@ -73,24 +78,11 @@ public class PrimaryPageViewModel : ViewModelBase {
             return recipes;
         }, isValidSearch);
 
-        SilkRoadButton = ReactiveCommand.Create(() => {
-            List<string> SilkEventCountries = new List<string>(){
-            "Italy", "Greece", "Turkey", "Iran", "India", "China", "Syria", "Lebanon", "Jordan", "Israel",
-            };
+        EventButton = ReactiveCommand.Create((MondialMunchEvent e) => {
 
-            EventPageViewModel SilkEventPage = new EventPageViewModel("Silk Road Event!", new DateTime(2024, 05, 1), new DateTime(2024, 06, 1), SilkEventCountries, "The Silk Road was a series of routes  used for trade between Europe and Asia between the 2nd century BCE until the 15th. It spans ~6,500 kilometers and it played a central role in joining the East and West culturally, economically and religiously. To celebrate this major part of history, Mondial Munch's event this month is to make one recipe from every country on the silk road! Track your progress below and good luck!");
+            EventPageViewModel SpecificEventPage = new EventPageViewModel(e.ShortTitle, e.Title, e.StartDate, e.DueDate, e.EventCountries, e.Description);
 
-            Content = SilkEventPage;
-        });
-
-        BananaRepublicButton = ReactiveCommand.Create(() => {
-            List<string> BananaEventCountries = new List<string>(){
-                "Honduras", "Guatemala", "Costa Rica", "Panama", "Cuba"
-            };
-
-            EventPageViewModel BananaEventPage = new EventPageViewModel("Banana Republic Week!", new DateTime(2024, 05, 11), new DateTime(2024, 05, 25), BananaEventCountries, "The banana republics were (in some cases still are) politaclly and economically unstable countries where the government is in part or totally controlled by a private for-profit company, making the country an asset for the profit of it's ruling class. Some of these countries are being featured here as Mondial Munch's bi-weekly event to bring help bring some awareness to these regimes. Track your progress below and consider reading up some of the history of these countries.");
-
-            Content = BananaEventPage;
+            Content = SpecificEventPage;
         });
 
         NewRecipe = ReactiveCommand.Create(() => {
