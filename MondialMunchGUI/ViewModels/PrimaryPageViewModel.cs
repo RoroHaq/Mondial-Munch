@@ -26,21 +26,20 @@ public class PrimaryPageViewModel : ViewModelBase {
     public ReactiveCommand<User?, Unit> OpenProfile { get; }
     public ReactiveCommand<string, Unit> OpenPage { get; }
 
+    public User CurrentUser { get; }
+
     public ViewModelBase Content {
         get => _content;
         private set => this.RaiseAndSetIfChanged(ref _content, value);
     }
-
     public bool IsSideBarOpen {
         get => _isSideBarOpen;
         private set => this.RaiseAndSetIfChanged(ref _isSideBarOpen, value);
     }
-
     public GridLength SideBarSize {
         get => _sideBarSize;
         private set => this.RaiseAndSetIfChanged(ref _sideBarSize, value);
     }
-
     public string SearchInput {
         get => _search!;
         set => this.RaiseAndSetIfChanged(ref _search, value);
@@ -50,7 +49,7 @@ public class PrimaryPageViewModel : ViewModelBase {
 
     public PrimaryPageViewModel() {
         Content = new HomePageViewModel();
-
+        CurrentUser = MondialMunchService.GetInstance().CurrentUser!;
         Events = MondialMunchService.GetInstance().GetMMEvents().Where(e => e.DueDate >= DateTime.Today);
 
         ToggleSideBar = ReactiveCommand.Create(
