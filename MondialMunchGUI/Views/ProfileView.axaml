@@ -31,86 +31,92 @@
         <Run Text="{Binding Description}"/>
       </TextBlock>
       <TextBlock FontWeight="Bold" Text="Progress:" />
-      <Svg Path="/Assets/world-map.svg" Css="{Binding CompletedCountriesCssString}"/>
+      <Svg Path="/Assets/world-map.svg" Css="{Binding CompletedCountriesCssString}" Margin="0,0,10,10"/>
     </StackPanel>
     
-    <Grid RowDefinitions="1*,1*,1*" Grid.Column="1">
-      <StackPanel Grid.Row="0" Spacing="8">
-        <TextBlock Text="Created recipes" FontWeight="Bold"/>
-        <ItemsControl ItemsSource="{Binding CreatedRecipes}">
-          <ItemsControl.ItemTemplate>
-            <DataTemplate>
-              <Button HorizontalAlignment="Stretch" Background="#eee">
-                <StackPanel>
-                  <TextBlock FontWeight="Bold" Text="{Binding Name}"/>
-                  <DockPanel>
-                    <TextBlock Text="{Binding Country}" DockPanel.Dock="Left" />
-                    <TextBlock DockPanel.Dock="Right" HorizontalAlignment="Right">
-                      <Run Text="{Binding Stars}"/><Run Text="/5"/>
-                    </TextBlock>
-                  </DockPanel>
-                </StackPanel>
-              </Button>
-            </DataTemplate>
-          </ItemsControl.ItemTemplate>
-        </ItemsControl>
-      </StackPanel>
+    <Grid RowDefinitions="Auto,1*,Auto,1*,Auto,1*" Grid.Column="1">
+      <TextBlock Text="Created recipes" FontWeight="Bold" Grid.Row="0"/>
+      <ScrollViewer Grid.Row="1">
+        <StackPanel Spacing="8">
+          <ItemsControl ItemsSource="{Binding CreatedRecipes}">
+            <ItemsControl.ItemTemplate>
+              <DataTemplate>
+                <Button HorizontalAlignment="Stretch" Background="#eee">
+                  <StackPanel>
+                    <TextBlock FontWeight="Bold" Text="{Binding Name}"/>
+                    <DockPanel>
+                      <TextBlock Text="{Binding Country}" DockPanel.Dock="Left" />
+                      <TextBlock DockPanel.Dock="Right" HorizontalAlignment="Right">
+                        <Run Text="{Binding Stars}"/><Run Text="/5"/>
+                      </TextBlock>
+                    </DockPanel>
+                  </StackPanel>
+                </Button>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+        </StackPanel>
+      </ScrollViewer>
 
-      <StackPanel Grid.Row="1" Spacing="8">
-        <TextBlock Text="Completed recipes" FontWeight="Bold"/>
-        <ItemsControl ItemsSource="{Binding CompletedRecipes}">
-          <ItemsControl.ItemTemplate>
-            <DataTemplate>
-              <Button HorizontalAlignment="Stretch" Background="#eee">
-                <StackPanel>
-                  <TextBlock FontWeight="Bold" Text="{Binding RecipeCompleted.Name}"/>
-                  <DockPanel>
-                    <StackPanel Spacing="8" Orientation="Horizontal" DockPanel.Dock="Left">
-                      <Border CornerRadius="16" ClipToBounds="true">
-                        <Image asyncImageLoader:ImageLoader.Source="https://i.imgur.com/JCoYjzH.png" 
-                              Height="16" Width="16" />
-                      </Border>
-                      <TextBlock Text="{Binding UserCompleting.Name}"/>
-                    </StackPanel>
-                    <TextBlock Text="{Binding DateCompleted}" DockPanel.Dock="Right" HorizontalAlignment="Right"/>
-                  </DockPanel>
-                  <DockPanel>
-                    <TextBlock Text="{Binding RecipeCompleted.Country}" DockPanel.Dock="Left" />
-                    <TextBlock DockPanel.Dock="Right" HorizontalAlignment="Right">
-                      <Run Text="{Binding RecipeCompleted.Stars}"/><Run Text="/5"/>
-                    </TextBlock>
-                  </DockPanel>
-                </StackPanel>
-              </Button>
-            </DataTemplate>
-          </ItemsControl.ItemTemplate>
-        </ItemsControl>
-      </StackPanel>
+      <TextBlock Text="Completed recipes" FontWeight="Bold" Grid.Row="2"/>
+      <ScrollViewer Grid.Row="3">
+        <StackPanel Spacing="8">
+          <ItemsControl ItemsSource="{Binding CompletedRecipes}">
+            <ItemsControl.ItemTemplate>
+              <DataTemplate>
+                <Button HorizontalAlignment="Stretch" Background="#eee">
+                  <StackPanel>
+                    <TextBlock FontWeight="Bold" Text="{Binding RecipeCompleted.Name}"/>
+                    <DockPanel>
+                      <StackPanel Spacing="8" Orientation="Horizontal" DockPanel.Dock="Left">
+                        <Border CornerRadius="16" ClipToBounds="true">
+                          <Image asyncImageLoader:ImageLoader.Source="https://i.imgur.com/JCoYjzH.png" 
+                                Height="16" Width="16" />
+                        </Border>
+                        <TextBlock Text="{Binding UserCompleting.Name}"/>
+                      </StackPanel>
+                      <TextBlock Text="{Binding DateCompleted}" DockPanel.Dock="Right" HorizontalAlignment="Right"/>
+                    </DockPanel>
+                    <DockPanel>
+                      <TextBlock Text="{Binding RecipeCompleted.Country}" DockPanel.Dock="Left" />
+                      <TextBlock DockPanel.Dock="Right" HorizontalAlignment="Right">
+                        <Run Text="{Binding RecipeCompleted.Stars}"/><Run Text="/5"/>
+                      </TextBlock>
+                    </DockPanel>
+                  </StackPanel>
+                </Button>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+        </StackPanel>
+      </ScrollViewer>
 
-      <StackPanel Grid.Row="2" Spacing="8">
-        <TextBlock Text="Completed events" FontWeight="Bold"/>
-        <ItemsControl ItemsSource="{Binding CompletedEvents}">
-          <ItemsControl.ItemTemplate>
-            <DataTemplate>
-              <Button HorizontalAlignment="Stretch" Background="#eee">
-                <StackPanel>
-                  <TextBlock FontWeight="Bold" Text="{Binding ShortTitle}"/>
-                  <DockPanel>
-                    <StackPanel Spacing="8" Orientation="Horizontal" DockPanel.Dock="Left">
-                      <Border CornerRadius="16" ClipToBounds="true">
-                      </Border>
-                    </StackPanel>
-                    <TextBlock Text="Event from:" DockPanel.Dock="Right" HorizontalAlignment="Right"/>
-                  </DockPanel>
-                  <DockPanel>
-                    <TextBlock Text="{Binding DueDate.Date}" DockPanel.Dock="Right" HorizontalAlignment="Right"/>
-                  </DockPanel>
-                </StackPanel>
-              </Button>
-            </DataTemplate>
-          </ItemsControl.ItemTemplate>
-        </ItemsControl>
-      </StackPanel>
+      <TextBlock Text="Completed events" FontWeight="Bold" Grid.Row="4"/>
+      <ScrollViewer Grid.Row="5">
+        <StackPanel Spacing="8">
+          <ItemsControl ItemsSource="{Binding CompletedEvents}">
+            <ItemsControl.ItemTemplate>
+              <DataTemplate>
+                <Button HorizontalAlignment="Stretch" Background="#eee">
+                  <StackPanel>
+                    <TextBlock FontWeight="Bold" Text="{Binding ShortTitle}"/>
+                    <DockPanel>
+                      <StackPanel Spacing="8" Orientation="Horizontal" DockPanel.Dock="Left">
+                        <Border CornerRadius="16" ClipToBounds="true">
+                        </Border>
+                      </StackPanel>
+                      <TextBlock Text="Event from:" DockPanel.Dock="Right" HorizontalAlignment="Right"/>
+                    </DockPanel>
+                    <DockPanel>
+                      <TextBlock Text="{Binding DueDate.Date}" DockPanel.Dock="Right" HorizontalAlignment="Right"/>
+                    </DockPanel>
+                  </StackPanel>
+                </Button>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+        </StackPanel>
+      </ScrollViewer>
     </Grid>
   </Grid>
 </UserControl>
