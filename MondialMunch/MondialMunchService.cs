@@ -30,6 +30,7 @@ public class MondialMunchService {
             .Include(r => r.Country)
             .Include(r => r.Instructions)
             .Include(r => r.Ingredients)
+            .Include(r => r.Reviews)
             .ToList();
     }
     public List<User> GetUsers() {
@@ -69,6 +70,24 @@ public class MondialMunchService {
         _context.SaveChanges();
     }
 
+    public bool IsRecipeFavorited(Recipe recipe) {
+        if (_current_user == null) throw new Exception("Not logged in.");
+        return _current_user.FavouriteRecipies.Contains(recipe);
+    }
+
+    public bool ToggleRecipeFavorite(Recipe recipe) {
+        if (_current_user == null) throw new Exception("Not logged in.");
+        if (_current_user.FavouriteRecipies.Contains(recipe)) {
+            _current_user.FavouriteRecipies.Remove(recipe);
+        }
+        else {
+            _current_user.FavouriteRecipies.Add(recipe);
+        }
+
+        _context.SaveChanges();
+        return _current_user.FavouriteRecipies.Contains(recipe);
+    }
+
     public void FavoriteRecipe(Recipe recipe) {
         if (_current_user == null) throw new Exception("Not logged in.");
         if (_current_user.FavouriteRecipies.Contains(recipe)) throw new Exception("Recipe is already in favorites.");
@@ -85,6 +104,24 @@ public class MondialMunchService {
         _context.SaveChanges();
     }
 
+    public bool IsRecipeToDo(Recipe recipe) {
+        if (_current_user == null) throw new Exception("Not logged in.");
+        return _current_user.TodoRecipies.Contains(recipe);
+    }
+
+    public bool ToggleRecipeToDo(Recipe recipe) {
+        if (_current_user == null) throw new Exception("Not logged in.");
+        if (_current_user.TodoRecipies.Contains(recipe)) {
+            _current_user.TodoRecipies.Remove(recipe);
+        }
+        else {
+            _current_user.TodoRecipies.Add(recipe);
+        }
+
+        _context.SaveChanges();
+        return _current_user.TodoRecipies.Contains(recipe);
+    }
+
     public void DeleteRecipe(Recipe recipe) {
         if (_current_user == null) throw new Exception("Not logged in.");
         if (_current_user.Name != recipe.Creator.Name) throw new Exception("You do not own this recipe.");
@@ -98,6 +135,30 @@ public class MondialMunchService {
         if (_current_user.Name != user.Name) throw new Exception("You cannot delete this user.");
 
         _context.Users.Remove(user);
+        _context.SaveChanges();
+    }
+
+    public void AddOrEditRecipeReview(Recipe recipe, int stars, string? reviewText) {
+        if (_current_user == null) throw new Exception("Not logged in.");
+
+        var existingReview = recipe.Reviews.FirstOrDefault(r => r.User == _current_user);
+
+        if (existingReview != null) {
+            existingReview.Stars = stars;
+            existingReview.Review = reviewText;
+        }
+        else {
+            RecipeReview review = new(_current_user, stars, reviewText);
+            recipe.Reviews.Add(review);
+        }
+
+        _context.SaveChanges();
+    }
+
+    public void DeleteRecipeReview(Recipe recipe, RecipeReview review) {
+        if (_current_user == null) throw new Exception("Not logged in.");
+        if (review.User != _current_user) throw new Exception("You cannot remove this review.");
+        recipe.Reviews.Remove(review);
         _context.SaveChanges();
     }
 }

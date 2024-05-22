@@ -34,6 +34,7 @@ public class MondialMunchContext : DbContext {
             .HasMany(recipe => recipe.Ingredients)
             .WithOne(ingredient => ingredient.Recipe)
             .OnDelete(DeleteBehavior.Cascade);
+        modelBuilder.Entity<Recipe>().HasMany(recipe => recipe.Reviews).WithOne(review => review.Recipe);
         modelBuilder.Entity<Recipe>().HasMany(recipe => recipe.Tags).WithMany(tag => tag.TaggedRecipes);
         modelBuilder.Entity<User>().HasMany(user => user.PersonalRecipes).WithOne(recipe => recipe.Creator);
         modelBuilder.Entity<User>().Property<byte[]>("_password").HasColumnName("Password");
