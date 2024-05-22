@@ -4,10 +4,8 @@ using Avalonia.Markup.Xaml;
 
 namespace MondialMunchGUI.Views;
 
-public partial class SearchResultView : UserControl
-{
-    public SearchResultView()
-    {
+public partial class RecipeListView : UserControl {
+    public RecipeListView() {
         InitializeComponent();
     }
 }
