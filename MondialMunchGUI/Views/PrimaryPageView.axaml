@@ -42,7 +42,7 @@
       </Grid.ColumnDefinitions>
       <StackPanel Grid.Column="0" Grid.Row="0" Background="#eee">
         <StackPanel Margin="10">
-          <Button>Home</Button>
+          <Button Command="{Binding OpenPage}" CommandParameter="home">Home</Button>
           <TextBlock Text="Recipes"/>
           <Button>To do</Button>
           <Button>Favorites</Button>

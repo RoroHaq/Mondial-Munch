@@ -22,6 +22,7 @@ public class PrimaryPageViewModel : ViewModelBase {
     public ReactiveCommand<Unit, Unit> SilkRoadButton { get; }
     public ReactiveCommand<Unit, Unit> BananaRepublicButton { get; }
     public ReactiveCommand<Unit, Unit> NewRecipe { get; }
+    public ReactiveCommand<string, Unit> OpenPage { get; }
 
     public ViewModelBase Content {
         get => _content;
@@ -104,6 +105,13 @@ public class PrimaryPageViewModel : ViewModelBase {
                 RecipeViewModel CurrentRecipe = new RecipeViewModel(recipe);
                 Content = CurrentRecipe;
             });
+        });
+
+        OpenPage = ReactiveCommand.Create((string page) => {
+            Content = page switch {
+                "home" => new HomePageViewModel(),
+                _ => Content
+            };
         });
     }
 }
