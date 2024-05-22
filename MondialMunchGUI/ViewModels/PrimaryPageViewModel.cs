@@ -24,6 +24,7 @@ public class PrimaryPageViewModel : ViewModelBase {
     public ReactiveCommand<MondialMunchEvent, Unit> EventButton { get; }
     public ReactiveCommand<Unit, Unit> NewRecipe { get; }
     public ReactiveCommand<User?, Unit> OpenProfile { get; }
+    public ReactiveCommand<Unit, Unit> EditProfile { get; }
     public ReactiveCommand<string, Unit> OpenPage { get; }
 
     public User CurrentUser { get; }
@@ -97,6 +98,11 @@ public class PrimaryPageViewModel : ViewModelBase {
             if (user == null) user = MondialMunchService.GetInstance().CurrentUser;
             ProfileViewModel profilePage = new ProfileViewModel(user);
             Content = profilePage;
+        });
+
+        EditProfile = ReactiveCommand.Create(() => {
+            ProfileEditViewModel editPage = new ProfileEditViewModel();
+            Content = editPage;
         });
 
         OpenPage = ReactiveCommand.Create((string page) => {
