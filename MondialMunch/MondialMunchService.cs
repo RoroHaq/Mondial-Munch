@@ -199,4 +199,12 @@ public class MondialMunchService {
         recipe.Reviews.Remove(review);
         _context.SaveChanges();
     }
+
+    public void UpdateUserProfile(string Description, Country countryOrigin, Country countryLive) {
+        if (_current_user == null) throw new Exception("Not logged in.");
+        _current_user.Description = Description;
+        _current_user.CountryOrigin = countryOrigin;
+        _current_user.CountryCurrent = countryLive;
+        _context.SaveChanges();
+    }
 }

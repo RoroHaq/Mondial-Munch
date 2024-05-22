@@ -33,8 +33,10 @@ public class PrimaryPageViewModel : ViewModelBase {
     public ReactiveCommand<MondialMunchEvent, Unit> EventButton { get; }
     public ReactiveCommand<Unit, Unit> NewRecipe { get; }
     public ReactiveCommand<User?, Unit> OpenProfile { get; }
+    public ReactiveCommand<Unit, Unit> EditProfile { get; }
     public ReactiveCommand<string, Unit> OpenPage { get; }
     public ReactiveCommand<Recipe, Unit> DeleteRecipe { get; }
+    public ReactiveCommand<Unit, Unit> LogOut { get; }
 
     public User CurrentUser { get; }
 
@@ -109,6 +111,11 @@ public class PrimaryPageViewModel : ViewModelBase {
             Content = profilePage;
         });
 
+        EditProfile = ReactiveCommand.Create(() => {
+            ProfileEditViewModel editPage = new ProfileEditViewModel();
+            Content = editPage;
+        });
+
         OpenPage = ReactiveCommand.Create((string page) => {
             Content = page switch {
                 "home" => new HomePageViewModel(),
@@ -124,6 +131,7 @@ public class PrimaryPageViewModel : ViewModelBase {
             MondialMunchService.GetInstance().DeleteRecipe(recipe);
             Content = new HomePageViewModel();
         });
+        LogOut = ReactiveCommand.Create(() => { });
     }
 
     public RecipeListViewModel MakeRecipeListPage(List<Recipe> recipes) {

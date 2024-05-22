@@ -8,6 +8,43 @@
              x:DataType="vm:ProfileEditViewModel"
              xmlns:vm="using:MondialMunchGUI.ViewModels">
   
-  <Grid ColumnDefinitions="1*,300" Margin="10,10,10,0">
+  <Grid RowDefinitions="Auto,1*,Auto" Margin="0,0,10,10">
+    <StackPanel Grid.Row="0" Spacing="8" Margin="0,0,0,8">
+      <TextBlock Text="Edit Profile" FontSize="28" FontWeight="Bold"/>
+
+      <StackPanel>
+        <TextBlock Text="Description"/>
+        <TextBox AcceptsReturn="True" Text="{Binding Description}" Watermark="Description" Height="100"/>
+      </StackPanel>
+
+      <StackPanel Orientation="Horizontal" Spacing="8">
+        <StackPanel>
+          <TextBlock Text="Country Origin"/>
+          <ComboBox SelectedItem="{Binding CountryOrigin}" Width="150" ItemsSource="{Binding Countries}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                  <TextBlock Text="{Binding Name}" />
+                </DataTemplate>
+              </ComboBox.ItemTemplate>
+          </ComboBox>
+        </StackPanel>
+      </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Spacing="8">
+          <StackPanel>
+            <TextBlock Text="Country Current"/>
+            <ComboBox SelectedItem="{Binding CountryLive}" Width="150" ItemsSource="{Binding Countries}">
+              <ComboBox.ItemTemplate>
+                  <DataTemplate>
+                    <TextBlock Text="{Binding Name}" />
+                  </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+          </StackPanel>
+          <StackPanel>
+            <Button Content="Edit" Command="{Binding EditGeneral}"/>
+          </StackPanel>
+       </StackPanel>
+    </StackPanel>
   </Grid>
 </UserControl>

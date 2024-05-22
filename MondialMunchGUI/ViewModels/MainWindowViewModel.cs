@@ -12,7 +12,6 @@ public class MainWindowViewModel : ViewModelBase {
 
     public LoginPageViewModel LoginPage { get; }
     public RegisterPageViewModel RegisterPage { get; }
-    public HomePageViewModel HomePage { get; }
 
     public ViewModelBase ContentViewModel {
         get => _contentViewModel;
@@ -57,6 +56,14 @@ public class MainWindowViewModel : ViewModelBase {
 
     public void LoginUser(User user) {
         MondialMunchService.GetInstance().CurrentUser = user;
-        ContentViewModel = PrimaryPageViewModel.GetInstance();
+        PrimaryPageViewModel MainPage = PrimaryPageViewModel.GetInstance();
+        MainPage.LogOut.Subscribe((u) => {
+            MondialMunchService.GetInstance().CurrentUser = null;
+            LoginPage.Username = null;
+            LoginPage.Password = null;
+            ContentViewModel = LoginPage;
+        });
+
+        ContentViewModel = MainPage;
     }
 }

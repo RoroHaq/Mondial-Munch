@@ -26,7 +26,7 @@ public class User {
     private string? _description;
     public string? Description {
         get { return _description; }
-        private set {
+        internal set {
             if (value != null && value.Length > 5000) {
                 throw new ValidationException("Description is too long");
             }
@@ -34,8 +34,8 @@ public class User {
             _description = value;
         }
     }
-    public Country CountryOrigin { get; private set; }
-    public Country? CountryCurrent { get; private set; }
+    public Country CountryOrigin { get; internal set; }
+    public Country? CountryCurrent { get; internal set; }
     private byte[] _password { get; set; }
     private byte[] _salt { get; set; }
     private bool _is_authenticated { get; set; } = false;
