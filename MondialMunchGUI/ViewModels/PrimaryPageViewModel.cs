@@ -66,7 +66,7 @@ public class PrimaryPageViewModel : ViewModelBase {
             FilteredRecipe.FilterByKeyword(SearchInput);
             IEnumerable<Recipe> recipes = FilteredRecipe.Recipes;
 
-            SearchResultViewModel searchResult = new SearchResultViewModel(recipes);
+            RecipeListViewModel searchResult = new RecipeListViewModel(recipes);
             Content = searchResult;
 
             searchResult.ViewRecipe.Subscribe((recipe) => {

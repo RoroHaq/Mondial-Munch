@@ -3,9 +3,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="using:MondialMunchGUI.ViewModels"
-             x:DataType="vm:SearchResultViewModel"
+             x:DataType="vm:RecipeListViewModel"
              mc:Ignorable="d" d:DesignWidth="250" d:DesignHeight="450"
-             x:Class="MondialMunchGUI.Views.SearchResultView">
+             x:Class="MondialMunchGUI.Views.RecipeListView">
   
     <StackPanel>
         <StackPanel Orientation="Horizontal" Spacing="10">
@@ -55,7 +55,7 @@
                 <Border BorderBrush="#5dbea3" BorderThickness="5">
                   <StackPanel>
                     <Button CommandParameter="{Binding .}"
-                            Command="{Binding $parent[ItemsControl].((vm:SearchResultViewModel)DataContext).ViewRecipe}"
+                            Command="{Binding $parent[ItemsControl].((vm:RecipeListViewModel)DataContext).ViewRecipe}"
                             Width="130" Height="50">
                           <StackPanel>
                               <StackPanel Orientation="Horizontal">
