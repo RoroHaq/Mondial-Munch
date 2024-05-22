@@ -70,6 +70,24 @@ public class MondialMunchService {
         _context.SaveChanges();
     }
 
+    public bool IsRecipeFavorited(Recipe recipe) {
+        if (_current_user == null) throw new Exception("Not logged in.");
+        return _current_user.FavouriteRecipies.Contains(recipe);
+    }
+
+    public bool ToggleRecipeFavorite(Recipe recipe) {
+        if (_current_user == null) throw new Exception("Not logged in.");
+        if (_current_user.FavouriteRecipies.Contains(recipe)) {
+            _current_user.FavouriteRecipies.Remove(recipe);
+        }
+        else {
+            _current_user.FavouriteRecipies.Add(recipe);
+        }
+
+        _context.SaveChanges();
+        return _current_user.FavouriteRecipies.Contains(recipe);
+    }
+
     public void FavoriteRecipe(Recipe recipe) {
         if (_current_user == null) throw new Exception("Not logged in.");
         if (_current_user.FavouriteRecipies.Contains(recipe)) throw new Exception("Recipe is already in favorites.");
@@ -84,6 +102,24 @@ public class MondialMunchService {
 
         _current_user.FavouriteRecipies.Remove(recipe);
         _context.SaveChanges();
+    }
+
+    public bool IsRecipeToDo(Recipe recipe) {
+        if (_current_user == null) throw new Exception("Not logged in.");
+        return _current_user.TodoRecipies.Contains(recipe);
+    }
+
+    public bool ToggleRecipeToDo(Recipe recipe) {
+        if (_current_user == null) throw new Exception("Not logged in.");
+        if (_current_user.TodoRecipies.Contains(recipe)) {
+            _current_user.TodoRecipies.Remove(recipe);
+        }
+        else {
+            _current_user.TodoRecipies.Add(recipe);
+        }
+
+        _context.SaveChanges();
+        return _current_user.TodoRecipies.Contains(recipe);
     }
 
     public void DeleteRecipe(Recipe recipe) {
