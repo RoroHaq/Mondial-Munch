@@ -7,8 +7,15 @@
              x:Class="MondialMunchGUI.Views.HomePageView"
              x:DataType="vm:HomePageViewModel">
     
-  <StackPanel>
-    <Svg Path="/Assets/world-map.svg" Css="#Canada { fill: #ffe545; } [id='United States']{ fill: #ff0000 }"/>
+  <StackPanel Margin="0,0,10,0">
+    <TextBlock Text="Home" FontSize="28" FontWeight="Bold"/>
+
+    <Grid ColumnDefinitions="1*,300">
+      <StackPanel Grid.Column="0" Spacing="8">
+        <TextBlock Text="Your progress" FontWeight="Bold"/>
+        <Svg Path="/Assets/world-map.svg" Css="{Binding CompletedCountriesCssString}"/>
+      </StackPanel>
+    </Grid>
   </StackPanel>
 </UserControl>
 

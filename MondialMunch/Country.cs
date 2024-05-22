@@ -27,7 +27,7 @@ public class Country {
         return false;
     }
 
-    public static string MakeGuiMapCssForCountries(List<Country> countries) {
-        return string.Join(" ", countries.Select(c => string.Format("[id='{0}']{{ fill: #f00; }")));
+    public static string MakeGuiMapCssForCountries(List<Country> countries, string colorCode) {
+        return string.Join(" ", countries.Select(c => string.Format("[id='{0}']{{ fill: {1}; }}", c, colorCode)));
     }
 }

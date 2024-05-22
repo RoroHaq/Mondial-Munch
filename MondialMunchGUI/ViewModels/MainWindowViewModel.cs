@@ -9,9 +9,11 @@ namespace MondialMunchGUI.ViewModels;
 
 public class MainWindowViewModel : ViewModelBase {
     private ViewModelBase _contentViewModel = null!;
+
     public LoginPageViewModel LoginPage { get; }
     public RegisterPageViewModel RegisterPage { get; }
     public HomePageViewModel HomePage { get; }
+
     public ViewModelBase ContentViewModel {
         get => _contentViewModel;
         private set => this.RaiseAndSetIfChanged(ref _contentViewModel, value);
@@ -19,7 +21,6 @@ public class MainWindowViewModel : ViewModelBase {
     public MainWindowViewModel() {
         LoginPage = new LoginPageViewModel();
         RegisterPage = new RegisterPageViewModel();
-        HomePage = new HomePageViewModel();
 
         LoginPage.Login.Subscribe(user => {
             if (user != null) {
@@ -50,8 +51,6 @@ public class MainWindowViewModel : ViewModelBase {
             LoginPage.Password = null!;
             ContentViewModel = LoginPage;
         });
-
-
 
         ContentViewModel = LoginPage;
     }
