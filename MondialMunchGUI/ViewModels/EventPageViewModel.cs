@@ -11,8 +11,8 @@ namespace MondialMunchGUI.ViewModels {
 
         public ReactiveCommand<Unit, User?> Login { get; }
         public ReactiveCommand<Unit, string?> Register { get; }
-        private ObservableCollection<Tuple<Country, bool>> _list_countries;
-        public ObservableCollection<Tuple<Country, bool>> ListCountries {
+        private ObservableCollection<Tuple<Country?, bool>> _list_countries;
+        public ObservableCollection<Tuple<Country?, bool>> ListCountries {
             get => _list_countries;
             set => this.RaiseAndSetIfChanged(ref _list_countries, value);
         }
@@ -27,16 +27,25 @@ namespace MondialMunchGUI.ViewModels {
             DateTime Today = DateTime.Today;
             DaysLeft = (DueDate - Today).Days;
 
-            List<Tuple<Country, bool>> EventCountriesList = new List<Tuple<Country, bool>>();
+            List<Tuple<Country?, bool>> EventCountriesList = new List<Tuple<Country?, bool>>();
 
             foreach (string c in EventCountries) {
-                Country NextCountry = new(c);
+                // Country NextCountry = new(c);
+                Country? NextCountry = MondialMunchService.GetInstance().GetCountryByName(c);
                 bool complete = false;
+                if (MondialMunchService.GetInstance().CurrentUser!.CompletedRecipies != null) {
+                    foreach (CompletedRecipe r in MondialMunchService.GetInstance().CurrentUser!.CompletedRecipies) {
+                        if (r.RecipeCompleted.Country == NextCountry) {
+                            complete = true;
+                            break;
+                        }
+                    }
+                }
 
-                EventCountriesList.Add(new Tuple<Country, bool>(NextCountry, complete));
+                EventCountriesList.Add(new Tuple<Country?, bool>(NextCountry, complete));
             }
 
-            ListCountries = new ObservableCollection<Tuple<Country, bool>>(EventCountriesList);
+            ListCountries = new ObservableCollection<Tuple<Country?, bool>>(EventCountriesList);
         }
     }
 }

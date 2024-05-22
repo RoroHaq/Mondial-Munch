@@ -49,7 +49,7 @@ public class PrimaryPageViewModel : ViewModelBase {
         Content = new HomePageViewModel();
 
         List<string> SilkEventCountries = new List<string>(){
-            "Italy", "Greece", "Turkey", "Iran", "India", "China", "Syria", "Lebannon", "Jordan", "Israel",
+            "Italy", "Greece", "Turkey", "Iran", "India", "China", "Syria", "Lebanon", "Jordan", "Israel",
         };
 
         SilkEventPage = new EventPageViewModel("Silk Road Event!", new DateTime(2024, 06, 1), SilkEventCountries, "The Silk Road was a series of routes  used for trade between Europe and Asia between the 2nd century BCE until the 15th. It spans ~6,500 kilometers and it played a central role in joining the East and West culturally, economically and religiously. To celebrate this major part of history, Mondial Munch's event this month is to make one recipe from every country on the silk road! Track your progress below and good luck!");

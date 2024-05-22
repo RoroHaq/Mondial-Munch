@@ -57,6 +57,7 @@ public class User {
         PersonalRecipes = new List<Recipe>();
         FavouriteRecipies = new List<Recipe>();
         TodoRecipies = new List<Recipe>();
+        CompletedRecipies = new List<CompletedRecipe>();
 
         _salt = salt;
         Rfc2898DeriveBytes key = new(unhashed_password, _salt, 1000);

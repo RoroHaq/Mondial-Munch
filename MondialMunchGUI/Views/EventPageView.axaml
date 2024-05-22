@@ -39,7 +39,9 @@
                     <CheckBox Margin="20"
                                 Content="{Binding Item1.Name}"
                                 IsChecked="{Binding Item2}"
-                                HorizontalAlignment="Center"/>
+                                HorizontalAlignment="Center"
+                                IsHitTestVisible="False"
+                                Focusable="False"/>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
