@@ -57,7 +57,6 @@ public class MainWindowViewModel : ViewModelBase {
 
     public void LoginUser(User user) {
         MondialMunchService.GetInstance().CurrentUser = user;
-        PrimaryPageViewModel mainPage = new();
-        ContentViewModel = mainPage;
+        ContentViewModel = PrimaryPageViewModel.GetInstance();
     }
 }
