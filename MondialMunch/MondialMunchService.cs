@@ -50,10 +50,13 @@ public class MondialMunchService {
             .Include(u => u.TodoRecipies).ThenInclude(r => r.Instructions)
             .Include(u => u.TodoRecipies).ThenInclude(r => r.Ingredients)
 
+            .Include(u => u.CompletedRecipies).ThenInclude(cr => cr.RecipeCompleted)
+
             .ToList();
     }
     public List<Country> GetCountries() => _context.Countries.ToList();
     public List<DietaryTag> GetDietaryTags() => _context.DietaryTags.ToList();
+    public List<MondialMunchEvent> GetMMEvents() => _context.MondialMunchEvents.ToList();
 
     public User? GetUserByUsername(string name) => GetUsers().FirstOrDefault(user => user.Name == name);
     public Country? GetCountryByName(string name) => _context.Countries.FirstOrDefault(country => country.Name == name);
@@ -120,6 +123,33 @@ public class MondialMunchService {
 
         _context.SaveChanges();
         return _current_user.TodoRecipies.Contains(recipe);
+    }
+
+    public bool IsRecipeComplete(Recipe recipe) {
+        if (_current_user == null) throw new Exception("Not logged in.");
+        foreach (CompletedRecipe cr in _current_user.CompletedRecipies) {
+            if (cr.RecipeCompleted == recipe) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public bool ToggleRecipeComplete(Recipe recipe) {
+
+        if (_current_user == null) throw new Exception("Not logged in.");
+
+        CompletedRecipe r = new(recipe, _current_user, DateTime.Today);
+
+        if (_current_user.CompletedRecipies.Contains(r)) {
+            _current_user.CompletedRecipies.Remove(r);
+        }
+        else {
+            _current_user.AddCompletedRecipe(r);
+        }
+
+        _context.SaveChanges();
+        return _current_user.CompletedRecipies.Contains(r);
     }
 
     public void DeleteRecipe(Recipe recipe) {

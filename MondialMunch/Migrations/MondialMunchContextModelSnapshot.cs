@@ -17,6 +17,21 @@ namespace MondialMunch.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.0");
 
+            modelBuilder.Entity("CountryMondialMunchEvent", b =>
+                {
+                    b.Property<int>("EventCountriesId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("EventsId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("EventCountriesId", "EventsId");
+
+                    b.HasIndex("EventsId");
+
+                    b.ToTable("CountryMondialMunchEvent");
+                });
+
             modelBuilder.Entity("DietaryTagRecipe", b =>
                 {
                     b.Property<int>("TaggedRecipesId")
@@ -55,6 +70,30 @@ namespace MondialMunch.Migrations
                     b.ToTable("Ingredient");
                 });
 
+            modelBuilder.Entity("MondialMunch.CompletedRecipe", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("DateCompleted")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("RecipeCompletedId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("UserCompletingId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RecipeCompletedId");
+
+                    b.HasIndex("UserCompletingId");
+
+                    b.ToTable("CompletedRecipe");
+                });
+
             modelBuilder.Entity("MondialMunch.Country", b =>
                 {
                     b.Property<int>("Id")
@@ -86,6 +125,31 @@ namespace MondialMunch.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("DietaryTags");
+                });
+
+            modelBuilder.Entity("MondialMunch.MondialMunchEvent", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DueDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MondialMunchEvents");
                 });
 
             modelBuilder.Entity("MondialMunch.User", b =>
@@ -243,6 +307,21 @@ namespace MondialMunch.Migrations
                     b.ToTable("RecipeUser1");
                 });
 
+            modelBuilder.Entity("CountryMondialMunchEvent", b =>
+                {
+                    b.HasOne("MondialMunch.Country", null)
+                        .WithMany()
+                        .HasForeignKey("EventCountriesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MondialMunch.MondialMunchEvent", null)
+                        .WithMany()
+                        .HasForeignKey("EventsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("DietaryTagRecipe", b =>
                 {
                     b.HasOne("Recipe", null)
@@ -267,6 +346,25 @@ namespace MondialMunch.Migrations
                         .IsRequired();
 
                     b.Navigation("Recipe");
+                });
+
+            modelBuilder.Entity("MondialMunch.CompletedRecipe", b =>
+                {
+                    b.HasOne("Recipe", "RecipeCompleted")
+                        .WithMany()
+                        .HasForeignKey("RecipeCompletedId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MondialMunch.User", "UserCompleting")
+                        .WithMany("CompletedRecipies")
+                        .HasForeignKey("UserCompletingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("RecipeCompleted");
+
+                    b.Navigation("UserCompleting");
                 });
 
             modelBuilder.Entity("MondialMunch.User", b =>
@@ -365,6 +463,8 @@ namespace MondialMunch.Migrations
 
             modelBuilder.Entity("MondialMunch.User", b =>
                 {
+                    b.Navigation("CompletedRecipies");
+
                     b.Navigation("PersonalRecipes");
                 });
 

@@ -52,6 +52,8 @@
           <Button>Favorites</Button>
           <Button>My recipes</Button>
           <TextBlock Text="Events"/>
+          <Button Command="{Binding SilkRoadButton}">Silk Road</Button>
+          <Button Command="{Binding BananaRepublicButton}">Banana Republic</Button>
         </StackPanel>
       </StackPanel>
       <ContentControl Grid.Column="1" Margin="10,0,0,0" Content="{Binding Content}" />
