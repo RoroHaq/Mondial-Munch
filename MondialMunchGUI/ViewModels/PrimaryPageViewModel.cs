@@ -26,6 +26,7 @@ public class PrimaryPageViewModel : ViewModelBase {
     public ReactiveCommand<User?, Unit> OpenProfile { get; }
     public ReactiveCommand<Unit, Unit> EditProfile { get; }
     public ReactiveCommand<string, Unit> OpenPage { get; }
+    public ReactiveCommand<Unit, Unit> LogOut { get; }
 
     public User CurrentUser { get; }
 
@@ -116,6 +117,7 @@ public class PrimaryPageViewModel : ViewModelBase {
             };
         });
 
+        LogOut = ReactiveCommand.Create(() => { });
     }
 
     public RecipeListViewModel MakeRecipeListPage(List<Recipe> recipes) {
