@@ -203,9 +203,22 @@ INSERT INTO DietaryTags VALUES (5, 'Halal');
 
 INSERT INTO MondialMunchEvents VALUES (1, 'Silk Road Event!', TO_DATE('2024-05-01', 'YYYY-MM-DD'), TO_DATE('2024-06-01', 'YYYY-MM-DD'), 'The Silk Road was a series of routes  used for trade between Europe and Asia between the 2nd century BCE until the 15th. It spans ~6,500 kilometers and it played a central role in joining the East and West culturally, economically and religiously. To celebrate this major part of history, the Mondial Munch monthly event this month is to make one recipe from every country on the silk road! Track your progress below and good luck!');
 
-"Italy", "Greece", "Turkey", "Iran", "India", "China", "Syria", "Lebanon", "Jordan", "Israel",
+INSERT INTO CountryMondialMunchEvent(78, 1); --Italy
+INSERT INTO CountryMondialMunchEvent(62, 1); --Greece
+INSERT INTO CountryMondialMunchEvent(166, 1); --Turkey
+INSERT INTO CountryMondialMunchEvent(74, 1); --Iran
+INSERT INTO CountryMondialMunchEvent(72, 1); --India
+INSERT INTO CountryMondialMunchEvent(32, 1); --China
+INSERT INTO CountryMondialMunchEvent(157, 1); --Syria
+INSERT INTO CountryMondialMunchEvent(88, 1); --Lebanon
+INSERT INTO CountryMondialMunchEvent(81, 1); --Jordan
+INSERT INTO CountryMondialMunchEvent(77, 1); --Israel
 
 
 INSERT INTO MondialMunchEvents VALUES (2, 'Banana Republic Week!', TO_DATE('2024-05-11', 'YYYY-MM-DD'), TO_DATE('2024-05-25', 'YYYY-MM-DD'), 'The banana republics were (in some cases still are) politaclly and economically unstable countries where the government is in part or totally controlled by a private for-profit company, making the country an asset for the profit of its ruling class. Some of these countries are being featured here as the Mondial Munch bi-weekly event to bring help bring some awareness to these regimes. Track your progress below and consider reading up some of the history of these countries.');
 
-"Honduras", "Guatemala", "Costa Rica", "Panama", "Cuba"
+INSERT INTO CountryMondialMunchEvent(69, 2); --Honduras
+INSERT INTO CountryMondialMunchEvent(64, 2); --Guatemala
+INSERT INTO CountryMondialMunchEvent(36, 2); --Costa Rica
+INSERT INTO CountryMondialMunchEvent(122, 2); --Panama
+INSERT INTO CountryMondialMunchEvent(39, 2); --Cuba
