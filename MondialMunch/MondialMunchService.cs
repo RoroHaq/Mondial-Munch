@@ -126,11 +126,9 @@ public class MondialMunchService {
 
     public bool IsRecipeComplete(Recipe recipe) {
         if (_current_user == null) throw new Exception("Not logged in.");
-        if (_current_user.CompletedRecipies != null) {
-            foreach (CompletedRecipe cr in _current_user.CompletedRecipies) {
-                if (cr.RecipeCompleted == recipe) {
-                    return true;
-                }
+        foreach (CompletedRecipe cr in _current_user.CompletedRecipies) {
+            if (cr.RecipeCompleted == recipe) {
+                return true;
             }
         }
         return false;
@@ -142,20 +140,15 @@ public class MondialMunchService {
 
         CompletedRecipe r = new(recipe, _current_user, DateTime.Today);
 
-        if (_current_user.CompletedRecipies != null && _current_user.CompletedRecipies.Contains(r)) {
+        if (_current_user.CompletedRecipies.Contains(r)) {
             _current_user.CompletedRecipies.Remove(r);
         }
         else {
             _current_user.AddCompletedRecipe(r);
         }
 
-        if (_current_user.CompletedRecipies != null) {
-            _context.SaveChanges();
-            return _current_user.CompletedRecipies.Contains(r);
-        }
-        else {
-            return false;
-        }
+        _context.SaveChanges();
+        return _current_user.CompletedRecipies.Contains(r);
     }
 
     public void DeleteRecipe(Recipe recipe) {

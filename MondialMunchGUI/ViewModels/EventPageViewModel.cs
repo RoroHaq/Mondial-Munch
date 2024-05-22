@@ -32,13 +32,11 @@ namespace MondialMunchGUI.ViewModels {
             foreach (string c in EventCountries) {
                 Country? NextCountry = MondialMunchService.GetInstance().GetCountryByName(c);
                 bool complete = false;
-                if (MondialMunchService.GetInstance().CurrentUser!.CompletedRecipies != null) {
-                    foreach (CompletedRecipe r in MondialMunchService.GetInstance().CurrentUser!.CompletedRecipies) {
-                        if (r.RecipeCompleted.Country == NextCountry &&
-                            StartDate <= r.DateCompleted) {
-                            complete = true;
-                            break;
-                        }
+                foreach (CompletedRecipe r in MondialMunchService.GetInstance().CurrentUser!.CompletedRecipies) {
+                    if (r.RecipeCompleted.Country == NextCountry &&
+                        StartDate <= r.DateCompleted) {
+                        complete = true;
+                        break;
                     }
                 }
 
