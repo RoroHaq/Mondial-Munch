@@ -86,6 +86,31 @@
           </ItemsControl.ItemTemplate>
         </ItemsControl>
       </StackPanel>
+
+      <StackPanel Grid.Row="2" Spacing="8">
+        <TextBlock Text="Completed events" FontWeight="Bold"/>
+        <ItemsControl ItemsSource="{Binding CompletedEvents}">
+          <ItemsControl.ItemTemplate>
+            <DataTemplate>
+              <Button HorizontalAlignment="Stretch" Background="#eee">
+                <StackPanel>
+                  <TextBlock FontWeight="Bold" Text="{Binding ShortTitle}"/>
+                  <DockPanel>
+                    <StackPanel Spacing="8" Orientation="Horizontal" DockPanel.Dock="Left">
+                      <Border CornerRadius="16" ClipToBounds="true">
+                      </Border>
+                    </StackPanel>
+                    <TextBlock Text="Event from:" DockPanel.Dock="Right" HorizontalAlignment="Right"/>
+                  </DockPanel>
+                  <DockPanel>
+                    <TextBlock Text="{Binding DueDate.Date}" DockPanel.Dock="Right" HorizontalAlignment="Right"/>
+                  </DockPanel>
+                </StackPanel>
+              </Button>
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+        </ItemsControl>
+      </StackPanel>
     </Grid>
   </Grid>
 </UserControl>
