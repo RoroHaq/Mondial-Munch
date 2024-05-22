@@ -54,9 +54,6 @@
                     <Setter Property="Background" Value="Black"/>
                     <Setter Property="Foreground" Value="White"/>
                 </Style>
-                <Style Selector="TextBlock">
-                    <Setter Property="Opacity" Value="1"/>
-                </Style>
               </StackPanel.Styles>
           </StackPanel>
         </StackPanel>
