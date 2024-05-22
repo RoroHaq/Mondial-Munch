@@ -29,14 +29,16 @@
       </Grid>
       <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="8" HorizontalAlignment="Right">
         <Button Content="New" Command="{Binding NewRecipe}"/>
-        <Button Command="{Binding OpenProfile}" Padding="0,0,0,0" Background="#00000000">
-          <StackPanel Orientation="Horizontal" Spacing="8">
-            <TextBlock Grid.Column="4" Text="{Binding CurrentUser.Name}" VerticalAlignment="Center"/>
-            <Border Grid.Column="5" CornerRadius="100" ClipToBounds="true">
-              <Image asyncImageLoader:ImageLoader.Source="https://i.imgur.com/JCoYjzH.png" 
-                    Height="32" Width="32" />
-            </Border>
-          </StackPanel>
+        <Menu Margin="0,0,0,0">
+            <MenuItem Header="{Binding CurrentUser.Name}">
+                <MenuItem Header="Profile" Command="{Binding OpenProfile}"/>
+                <MenuItem Header="Edit Profile"/>
+                <MenuItem Header="Log Out"/>
+            </MenuItem>
+        </Menu>
+        <Button Command="{Binding OpenProfile}" Padding="0,0,0,0" Margin="0,0,0,0" Background="#00000000">
+            <Image asyncImageLoader:ImageLoader.Source="https://i.imgur.com/JCoYjzH.png" 
+                Height="32" Width="32" Margin="0,0,0,0"/>
         </Button>
       </StackPanel>
     </Grid>
