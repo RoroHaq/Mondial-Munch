@@ -20,17 +20,19 @@
         <TextBlock Text="{Binding CreatorName}" VerticalAlignment="Center"/>
       </StackPanel>
       <StackPanel Spacing="8" DockPanel.Dock="Right" HorizontalAlignment="Right" Orientation="Horizontal">
+        <Button Content="Delete" IsEnabled="{Binding CanDelete}" Command="{Binding DeleteRecipe}"/>
         <Button Content="{Binding CompleteButtonText}" Command="{Binding CompleteButton}"/>
         <Button Content="{Binding FavoriteButtonText}" Command="{Binding FavoriteButton}"/>
         <Button Content="{Binding ToDoButtonText}" Command="{Binding ToDoButton}"/>
       </StackPanel>
     </DockPanel>
 
-    <Grid ColumnDefinitions="1*,1*,1*,1*">
-      <TextBlock Grid.Column="0">Serves <Bold><Run Text="{Binding ServingSize}"/></Bold></TextBlock>
-      <TextBlock Grid.Column="1">Prep time: <Bold><Run Text="{Binding PrepTime}"/></Bold> minutes</TextBlock>
-      <TextBlock Grid.Column="2">Cook time: <Bold><Run Text="{Binding CookTime}"/></Bold> minutes</TextBlock>
-      <TextBlock Grid.Column="3">Total time: <Bold><Run Text="{Binding TotalTime}"/></Bold> minutes</TextBlock>
+    <Grid ColumnDefinitions="1*,1*,1*,1*,1*">
+      <TextBlock Grid.Column="0">From <Bold><Run Text="{Binding Country.Name}"/></Bold></TextBlock>
+      <TextBlock Grid.Column="1">Serves <Bold><Run Text="{Binding ServingSize}"/></Bold></TextBlock>
+      <TextBlock Grid.Column="2">Prep time: <Bold><Run Text="{Binding PrepTime}"/></Bold> minutes</TextBlock>
+      <TextBlock Grid.Column="3">Cook time: <Bold><Run Text="{Binding CookTime}"/></Bold> minutes</TextBlock>
+      <TextBlock Grid.Column="4">Total time: <Bold><Run Text="{Binding TotalTime}"/></Bold> minutes</TextBlock>
     </Grid>
 
     <Grid ColumnDefinitions="1*,300">
