@@ -7,19 +7,80 @@
              mc:Ignorable="d" d:DesignWidth="250" d:DesignHeight="450"
              x:Class="MondialMunchGUI.Views.SearchResultView">
   
-    <DockPanel>
-
-    <WrapPanel>
-      <ItemsControl ItemsSource="{Binding Recipes}">
-        <ItemsControl.ItemTemplate>
-          <DataTemplate>
-              <Button Content="{Binding Name}"
-                      CommandParameter="{Binding .}"
-                      Command="{Binding $parent[ItemsControl].((vm:SearchResultViewModel)DataContext).ViewRecipe}">
-            </Button>
-          </DataTemplate>
-        </ItemsControl.ItemTemplate>
-      </ItemsControl>
-    </WrapPanel>
-    </DockPanel>
+    <StackPanel>
+        <StackPanel Orientation="Horizontal" Spacing="10">
+            <StackPanel>
+              <TextBlock Text="Country"/>
+              <ComboBox SelectedItem="{Binding Country}" Width="150" ItemsSource="{Binding Countries}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                      <TextBlock Text="{Binding Name}" />
+                    </DataTemplate>
+                  </ComboBox.ItemTemplate>
+              </ComboBox>
+            </StackPanel>
+          <StackPanel>
+            <TextBlock Text="Min. Serving"/>
+            <NumericUpDown Value="{Binding MinServing}" Minimum="1" Maximum="30" Increment="1" Width="150"/>
+          </StackPanel>
+          <StackPanel>
+            <TextBlock Text="Max. Serving"/>
+            <NumericUpDown Value="{Binding MaxServing}" Minimum="1" Maximum="30" Increment="1" Width="150"/>
+          </StackPanel>
+          <StackPanel>
+            <TextBlock Text="Min. Time"/>
+            <NumericUpDown Value="{Binding MinTime}" Minimum="1" Maximum="30" Increment="1" Width="150"/>
+          </StackPanel>
+          <StackPanel>
+            <TextBlock Text="Max. Time"/>
+            <NumericUpDown Value="{Binding MaxTime}" Minimum="1" Maximum="30" Increment="1" Width="150"/>
+          </StackPanel>
+          <StackPanel>
+            <Button Content="Filter"
+                    Command="{Binding Filter}"
+                    Width="120"
+                    Margin="0, 20, 0, 0"></Button>
+          </StackPanel>
+        </StackPanel>
+        <ItemsControl ItemsSource="{Binding Recipes}">
+          <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+              <WrapPanel>
+                <StackPanel Orientation="Horizontal"/>
+              </WrapPanel>
+            </ItemsPanelTemplate>
+          </ItemsControl.ItemsPanel>
+          <ItemsControl.ItemTemplate>
+              <DataTemplate>
+                <Border BorderBrush="#5dbea3" BorderThickness="5">
+                  <StackPanel>
+                    <Button CommandParameter="{Binding .}"
+                            Command="{Binding $parent[ItemsControl].((vm:SearchResultViewModel)DataContext).ViewRecipe}"
+                            Width="130" Height="50">
+                          <StackPanel>
+                              <StackPanel Orientation="Horizontal">
+                                <TextBlock>Owner:</TextBlock>
+                                <TextBlock Text="{Binding Creator.Name}"/>
+                              </StackPanel>
+                            <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
+                          </StackPanel>
+                        <Button.Styles>
+                            <Style Selector="Button">
+                              <Setter Property="Background" Value="#5783db"/>
+                            </Style>
+                        </Button.Styles>
+                    </Button>
+                    
+                  </StackPanel>
+                  <Border.Styles>
+                    <Style Selector="Border">
+                      <Setter Property="Margin" Value="10, 10, 10, 10"/>
+                    </Style>
+                  </Border.Styles>
+                </Border>
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </StackPanel>
+    
 </UserControl>

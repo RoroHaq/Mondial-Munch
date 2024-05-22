@@ -40,4 +40,8 @@ public class RecipeList {
     public void FilterByCreator(string username) {
         this.Recipes = this.Recipes.Where(r => r.Creator.Name == username);
     }
+
+    public void FilterByCountry(Country country) {
+        this.Recipes = this.Recipes.Where(r => r.Country.Name == country.Name);
+    }
 }

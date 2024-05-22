@@ -51,6 +51,8 @@ public class MainWindowViewModel : ViewModelBase {
             ContentViewModel = LoginPage;
         });
 
+
+
         ContentViewModel = LoginPage;
     }
 
