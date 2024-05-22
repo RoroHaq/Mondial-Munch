@@ -19,7 +19,7 @@ namespace MondialMunchGUI.ViewModels {
         public string Title { get; private set; }
         public string Description { get; private set; }
         public int DaysLeft { get; private set; }
-        public EventPageViewModel(string EventTitle, DateTime DueDate, List<string> EventCountries, string EventDescription) {
+        public EventPageViewModel(string EventTitle, DateTime StartDate, DateTime DueDate, List<string> EventCountries, string EventDescription) {
 
             Title = EventTitle;
             Description = EventDescription;
@@ -30,12 +30,12 @@ namespace MondialMunchGUI.ViewModels {
             List<Tuple<Country?, bool>> EventCountriesList = new List<Tuple<Country?, bool>>();
 
             foreach (string c in EventCountries) {
-                // Country NextCountry = new(c);
                 Country? NextCountry = MondialMunchService.GetInstance().GetCountryByName(c);
                 bool complete = false;
                 if (MondialMunchService.GetInstance().CurrentUser!.CompletedRecipies != null) {
                     foreach (CompletedRecipe r in MondialMunchService.GetInstance().CurrentUser!.CompletedRecipies) {
-                        if (r.RecipeCompleted.Country == NextCountry) {
+                        if (r.RecipeCompleted.Country == NextCountry &&
+                            StartDate <= r.DateCompleted) {
                             complete = true;
                             break;
                         }
