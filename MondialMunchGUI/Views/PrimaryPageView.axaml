@@ -32,7 +32,7 @@
         <Menu Margin="0,0,0,0">
             <MenuItem Header="{Binding CurrentUser.Name}">
                 <MenuItem Header="Profile" Command="{Binding OpenProfile}"/>
-                <MenuItem Header="Edit Profile"/>
+                <MenuItem Header="Edit Profile" Command="{Binding EditProfile}" />
                 <MenuItem Header="Log Out" Command="{Binding LogOut}"/>
             </MenuItem>
         </Menu>
