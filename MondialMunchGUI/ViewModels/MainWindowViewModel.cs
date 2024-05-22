@@ -53,6 +53,8 @@ public class MainWindowViewModel : ViewModelBase {
             ContentViewModel = LoginPage;
         });
 
+
+
         ContentViewModel = LoginPage;
     }
     public void LoginUser(User user, ViewModelBase model) {

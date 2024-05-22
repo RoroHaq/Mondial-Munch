@@ -72,6 +72,7 @@ public class PrimaryPageViewModel : ViewModelBase {
                 Content = CurrentRecipe;
             });
 
+
             return recipes;
         }, isValidSearch);
 

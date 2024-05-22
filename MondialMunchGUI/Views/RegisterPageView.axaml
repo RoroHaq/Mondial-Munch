@@ -6,63 +6,91 @@
              x:DataType="vm:RegisterPageViewModel"
              mc:Ignorable="d" d:DesignWidth="250" d:DesignHeight="450"
              x:Class="MondialMunchGUI.Views.RegisterPageView">
-  <StackPanel Spacing="8">
-    <StackPanel>
-      <TextBlock Text="Username"/>
-      <TextBox AcceptsReturn="True" Text="{Binding Username}" Watermark="Enter your username"/>
-    </StackPanel>
+  <StackPanel VerticalAlignment="Center"
+              HorizontalAlignment="Center"
+              Width="250">
+    <Border BorderBrush="White" BorderThickness="5">
+      <StackPanel>
+        <StackPanel HorizontalAlignment="Center" Width="200" Height="100">
+          <TextBlock FontSize="24" 
+                     Foreground="Black" 
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center"
+                     Margin="0, 50, 0, 0">Registration</TextBlock>
+        </StackPanel>
+        <StackPanel>
+          <TextBlock Text="Username"/>
+          <TextBox AcceptsReturn="True" Text="{Binding Username}" Watermark="Enter your username"/>
+        </StackPanel>
 
-    <StackPanel>
-      <TextBlock Text="Description"/>
-      <TextBox AcceptsReturn="True" Text="{Binding Description}" Height="100" Watermark="Describe yourself and you journey!"/>
-    </StackPanel>
+        <StackPanel>
+          <TextBlock Text="Description"/>
+          <TextBox AcceptsReturn="True" Text="{Binding Description}" Height="100" Watermark="Describe yourself and you journey!"/>
+        </StackPanel>
 
-    <StackPanel>
-      <TextBlock Text="Country of origin"/>
-      <ComboBox SelectedItem="{Binding CountryOrigin}" HorizontalAlignment="Stretch" ItemsSource="{Binding Countries}">
-        <ComboBox.ItemTemplate>
-            <DataTemplate>
-              <TextBlock Text="{Binding Name}" />
-            </DataTemplate>
-          </ComboBox.ItemTemplate>
-      </ComboBox>
-    </StackPanel>
+        <StackPanel>
+          <TextBlock Text="Country of origin"/>
+          <ComboBox SelectedItem="{Binding CountryOrigin}" HorizontalAlignment="Stretch" ItemsSource="{Binding Countries}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                  <TextBlock Text="{Binding Name}" />
+                </DataTemplate>
+              </ComboBox.ItemTemplate>
+          </ComboBox>
+        </StackPanel>
 
-    <StackPanel>
-      <TextBlock Text="Country of residence"/>
-      <ComboBox SelectedItem="{Binding CountryCurrent}" HorizontalAlignment="Stretch" ItemsSource="{Binding Countries}">
-        <ComboBox.ItemTemplate>
-            <DataTemplate>
-              <TextBlock Text="{Binding Name}" />
-            </DataTemplate>
-          </ComboBox.ItemTemplate>
-      </ComboBox>
-    </StackPanel>
+        <StackPanel>
+          <TextBlock Text="Country of residence"/>
+          <ComboBox SelectedItem="{Binding CountryCurrent}" HorizontalAlignment="Stretch" ItemsSource="{Binding Countries}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                  <TextBlock Text="{Binding Name}" />
+                </DataTemplate>
+              </ComboBox.ItemTemplate>
+          </ComboBox>
+        </StackPanel>
 
-    <StackPanel>
-      <TextBlock Text="Password"/>
-      <TextBox AcceptsReturn="True" Text="{Binding Password}" PasswordChar="*" Watermark="Enter your password"/>
-    </StackPanel>
+        <StackPanel>
+          <TextBlock Text="Password"/>
+          <TextBox AcceptsReturn="True" Text="{Binding Password}" PasswordChar="*" Watermark="Enter your password"/>
+        </StackPanel>
 
-    <StackPanel>
-      <TextBlock Text="Password confirmation"/>
-      <TextBox AcceptsReturn="True" Text="{Binding CheckPassword}" PasswordChar="*" Watermark="Please re-enter your password"/>
-    </StackPanel>
+        <StackPanel>
+          <TextBlock Text="Password confirmation"/>
+          <TextBox AcceptsReturn="True" Text="{Binding CheckPassword}" PasswordChar="*" Watermark="Please re-enter your password"/>
+        </StackPanel>
 
-    <Button DockPanel.Dock="Bottom"
-            HorizontalAlignment="Stretch"
-            HorizontalContentAlignment="Center"
-            x:CompileBindings="False"
-            Command="{Binding Register}">
-        Register
-    </Button>
+        <StackPanel Width="200">
+          <Button DockPanel.Dock="Bottom"
+                  HorizontalAlignment="Stretch"
+                  HorizontalContentAlignment="Center"
+                  x:CompileBindings="False"
+                  Command="{Binding Register}"
+                  Margin="0, 20, 0, 10">
+              Register
+          </Button>
 
-    <Button DockPanel.Dock="Bottom"
-            HorizontalAlignment="Stretch"
-            HorizontalContentAlignment="Center"
-            x:CompileBindings="False"
-            Command="{Binding Back}">
-        Back
-    </Button>
+          <Button DockPanel.Dock="Bottom"
+                  HorizontalAlignment="Stretch"
+                  HorizontalContentAlignment="Center"
+                  x:CompileBindings="False"
+                  Command="{Binding Back}">
+              Back
+          </Button>
+        </StackPanel>
+        <StackPanel.Styles>
+            <Style Selector="StackPanel">
+              <Setter Property="Background" Value="White"/>
+            </Style>
+            <Style Selector="Button">
+              <Setter Property="Background" Value="Black"/>
+              <Setter Property="Foreground" Value="White"/>
+            </Style>
+        </StackPanel.Styles>
+      </StackPanel>
+    </Border>
   </StackPanel>
+  <UserControl.Background>
+      <ImageBrush Source="/Assets/login-background.jpg" Stretch="3"/>
+  </UserControl.Background>
 </UserControl>
