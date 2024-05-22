@@ -11,8 +11,8 @@ using MondialMunch;
 namespace MondialMunch.Migrations
 {
     [DbContext(typeof(MondialMunchContext))]
-    [Migration("20240522030332_b24fdb0a9dfe")]
-    partial class b24fdb0a9dfe
+    [Migration("20240522044207_83ceac409f28")]
+    partial class _83ceac409f28
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -88,11 +88,16 @@ namespace MondialMunch.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int?>("EventId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EventId");
 
                     b.HasIndex("Name")
                         .IsUnique();
@@ -113,6 +118,34 @@ namespace MondialMunch.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("DietaryTags");
+                });
+
+            modelBuilder.Entity("MondialMunch.MondialMunchEvent", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("DaysLeft")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DueDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MondialMunchEvents");
                 });
 
             modelBuilder.Entity("MondialMunch.User", b =>
@@ -315,6 +348,15 @@ namespace MondialMunch.Migrations
                     b.Navigation("UserCompleting");
                 });
 
+            modelBuilder.Entity("MondialMunch.Country", b =>
+                {
+                    b.HasOne("MondialMunch.MondialMunchEvent", "Event")
+                        .WithMany("EventCountries")
+                        .HasForeignKey("EventId");
+
+                    b.Navigation("Event");
+                });
+
             modelBuilder.Entity("MondialMunch.User", b =>
                 {
                     b.HasOne("MondialMunch.Country", "CountryCurrent")
@@ -407,6 +449,11 @@ namespace MondialMunch.Migrations
                         .HasForeignKey("TodoUsersId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("MondialMunch.MondialMunchEvent", b =>
+                {
+                    b.Navigation("EventCountries");
                 });
 
             modelBuilder.Entity("MondialMunch.User", b =>

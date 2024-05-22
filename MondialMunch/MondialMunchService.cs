@@ -56,6 +56,7 @@ public class MondialMunchService {
     }
     public List<Country> GetCountries() => _context.Countries.ToList();
     public List<DietaryTag> GetDietaryTags() => _context.DietaryTags.ToList();
+    public List<MondialMunchEvent> GetMMEvents() => _context.MondialMunchEvents.ToList();
 
     public User? GetUserByUsername(string name) => GetUsers().FirstOrDefault(user => user.Name == name);
     public Country? GetCountryByName(string name) => _context.Countries.FirstOrDefault(country => country.Name == name);
