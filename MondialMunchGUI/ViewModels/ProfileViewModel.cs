@@ -15,6 +15,7 @@ public class ProfileViewModel : ViewModelBase {
     public string Name { get; }
     public string Description { get; }
     public string CountryOriginName { get; }
+    public string CountryCurrentName { get; }
     public string CompletedCountriesCssString { get; }
     public List<MondialMunchEvent> CompletedEvents { get; }
 
@@ -33,6 +34,7 @@ public class ProfileViewModel : ViewModelBase {
         Name = user.Name;
         Description = user.Description;
         CountryOriginName = user.CountryOrigin.Name;
+        CountryCurrentName = user.CountryCurrent!.Name;
         CreatedRecipes = new(user.PersonalRecipes);
         CompletedRecipes = new(user.CompletedRecipies);
         CompletedEvents = new List<MondialMunchEvent>();

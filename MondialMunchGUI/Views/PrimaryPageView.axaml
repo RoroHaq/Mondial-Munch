@@ -52,6 +52,7 @@
           <Button Command="{Binding OpenPage}" CommandParameter="home">Home</Button>
           <Button Command="{Binding OpenPage}" CommandParameter="profile">Profile</Button>
           <TextBlock Text="Recipes"/>
+          <Button Command="{Binding OpenPage}" CommandParameter="allRecipes">All</Button>
           <Button Command="{Binding OpenPage}" CommandParameter="todo">ToDo</Button>
           <Button Command="{Binding OpenPage}" CommandParameter="favorites">Favorites</Button>
           <Button Command="{Binding OpenPage}" CommandParameter="myRecipes">My Recipes</Button>

@@ -56,12 +56,13 @@
                   <StackPanel>
                     <Button CommandParameter="{Binding .}"
                             Command="{Binding $parent[ItemsControl].((vm:RecipeListViewModel)DataContext).ViewRecipe}"
-                            Width="130" Height="50">
+                            Width="130" Height="76">
                           <StackPanel>
                               <StackPanel Orientation="Horizontal">
                                 <TextBlock>Owner:</TextBlock>
                                 <TextBlock Text="{Binding Creator.Name}"/>
                               </StackPanel>
+                            <TextBlock Text="{Binding Country.Name}"/>
                             <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
                           </StackPanel>
                         <Button.Styles>

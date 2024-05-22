@@ -120,6 +120,7 @@ public class PrimaryPageViewModel : ViewModelBase {
             Content = page switch {
                 "home" => new HomePageViewModel(),
                 "profile" => new ProfileViewModel(MondialMunchService.GetInstance().CurrentUser!),
+                "allRecipes" => MakeRecipeListPage(MondialMunchService.GetInstance().GetRecipes()),
                 "todo" => MakeRecipeListPage(MondialMunchService.GetInstance().CurrentUser!.TodoRecipies),
                 "favorites" => MakeRecipeListPage(MondialMunchService.GetInstance().CurrentUser!.FavouriteRecipies),
                 "myRecipes" => MakeRecipeListPage(MondialMunchService.GetInstance().CurrentUser!.PersonalRecipes),

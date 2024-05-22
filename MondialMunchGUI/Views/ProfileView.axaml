@@ -21,7 +21,7 @@
             <Run Text="Born in "/><Bold><Run Text="{Binding CountryOriginName}"/></Bold>
           </TextBlock>
           <TextBlock>
-            <Run Text="Living in "/><Bold><Run Text="{Binding CountryOriginName}"/></Bold>
+            <Run Text="Living in "/><Bold><Run Text="{Binding CountryCurrentName}"/></Bold>
           </TextBlock>
         </StackPanel>
       </StackPanel>
