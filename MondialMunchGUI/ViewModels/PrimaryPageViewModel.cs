@@ -20,9 +20,10 @@ public class PrimaryPageViewModel : ViewModelBase {
     private GridLength _sideBarSize = new(SIDEBAR_SIZE_OPEN, GridUnitType.Pixel);
 
     public ReactiveCommand<Unit, bool> ToggleSideBar { get; }
-    public ReactiveCommand<Unit, IEnumerable<Recipe>> Search { get; }
+    public ReactiveCommand<Unit, List<Recipe>> Search { get; }
     public ReactiveCommand<MondialMunchEvent, Unit> EventButton { get; }
     public ReactiveCommand<Unit, Unit> NewRecipe { get; }
+    public ReactiveCommand<User?, Unit> OpenProfile { get; }
     public ReactiveCommand<string, Unit> OpenPage { get; }
 
     public ViewModelBase Content {
@@ -69,16 +70,10 @@ public class PrimaryPageViewModel : ViewModelBase {
             List<Recipe> RecipesFound = MondialMunchService.GetInstance().GetRecipes();
             RecipeList FilteredRecipe = new RecipeList(RecipesFound);
             FilteredRecipe.FilterByKeyword(SearchInput);
-            IEnumerable<Recipe> recipes = FilteredRecipe.Recipes;
+            List<Recipe> recipes = new(FilteredRecipe.Recipes);
 
-            RecipeListViewModel searchResult = new RecipeListViewModel(recipes);
+            RecipeListViewModel searchResult = MakeRecipeListPage(recipes);
             Content = searchResult;
-
-            searchResult.ViewRecipe.Subscribe((recipe) => {
-                RecipeViewModel CurrentRecipe = new RecipeViewModel(recipe);
-                Content = CurrentRecipe;
-            });
-
 
             return recipes;
         }, isValidSearch);
@@ -99,15 +94,31 @@ public class PrimaryPageViewModel : ViewModelBase {
             });
         });
 
+        OpenProfile = ReactiveCommand.Create((User? user) => {
+            if (user == null) user = MondialMunchService.GetInstance().CurrentUser;
+            ProfileViewModel profilePage = new ProfileViewModel(user);
+            Content = profilePage;
+        });
+
         OpenPage = ReactiveCommand.Create((string page) => {
             Content = page switch {
                 "home" => new HomePageViewModel(),
-                // "profile" => 
-                "todo" => new RecipeListViewModel(MondialMunchService.GetInstance().CurrentUser!.TodoRecipies),
-                "favorites" => new RecipeListViewModel(MondialMunchService.GetInstance().CurrentUser!.FavouriteRecipies),
-                "myRecipes" => new RecipeListViewModel(MondialMunchService.GetInstance().CurrentUser!.PersonalRecipes),
+                "profile" => new ProfileViewModel(MondialMunchService.GetInstance().CurrentUser!),
+                "todo" => MakeRecipeListPage(MondialMunchService.GetInstance().CurrentUser!.TodoRecipies),
+                "favorites" => MakeRecipeListPage(MondialMunchService.GetInstance().CurrentUser!.FavouriteRecipies),
+                "myRecipes" => MakeRecipeListPage(MondialMunchService.GetInstance().CurrentUser!.PersonalRecipes),
                 _ => Content
             };
         });
+
+    }
+
+    public RecipeListViewModel MakeRecipeListPage(List<Recipe> recipes) {
+        RecipeListViewModel recipeListViewModel = new(recipes);
+        recipeListViewModel.ViewRecipe.Subscribe((recipe) => {
+            RecipeViewModel CurrentRecipe = new RecipeViewModel(recipe);
+            Content = CurrentRecipe;
+        });
+        return recipeListViewModel;
     }
 }

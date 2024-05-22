@@ -1,0 +1,91 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="MondialMunchGUI.Views.ProfileView"
+             x:DataType="vm:ProfileViewModel"
+             xmlns:vm="using:MondialMunchGUI.ViewModels">
+  
+  <Grid ColumnDefinitions="1*,300" Margin="10,10,10,0">
+    <StackPanel Spacing="8" Grid.Column="0">
+      <StackPanel Orientation="Horizontal" Spacing="16">
+        <Border Grid.Column="5" CornerRadius="128" ClipToBounds="true">
+          <Image asyncImageLoader:ImageLoader.Source="https://i.imgur.com/JCoYjzH.png" 
+                Height="128" Width="128" />
+        </Border>
+        <StackPanel VerticalAlignment="Center">
+          <TextBlock Text="{Binding Name}" FontSize="28" FontWeight="Bold"/>
+          <TextBlock>
+            <Run Text="Born in "/><Bold><Run Text="{Binding CountryOriginName}"/></Bold>
+          </TextBlock>
+          <TextBlock>
+            <Run Text="Living in "/><Bold><Run Text="{Binding CountryOriginName}"/></Bold>
+          </TextBlock>
+        </StackPanel>
+      </StackPanel>
+      <TextBlock TextWrapping="Wrap" Margin="0,8,0,0">
+        <Bold>Description: </Bold>
+        <LineBreak />
+        <Run Text="{Binding Description}"/>
+      </TextBlock>
+      <TextBlock FontWeight="Bold" Text="Progress:" />
+      <Svg Path="/Assets/world-map.svg" Css="{Binding CompletedCountriesCssString}"/>
+    </StackPanel>
+    
+    <Grid RowDefinitions="1*,1*,1*" Grid.Column="1">
+      <StackPanel Grid.Row="0" Spacing="8">
+        <TextBlock Text="Created recipes" FontWeight="Bold"/>
+        <ItemsControl ItemsSource="{Binding CreatedRecipes}">
+          <ItemsControl.ItemTemplate>
+            <DataTemplate>
+              <Button HorizontalAlignment="Stretch" Background="#eee">
+                <StackPanel>
+                  <TextBlock FontWeight="Bold" Text="{Binding Name}"/>
+                  <DockPanel>
+                    <TextBlock Text="{Binding Country}" DockPanel.Dock="Left" />
+                    <TextBlock DockPanel.Dock="Right" HorizontalAlignment="Right">
+                      <Run Text="{Binding Stars}"/><Run Text="/5"/>
+                    </TextBlock>
+                  </DockPanel>
+                </StackPanel>
+              </Button>
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+        </ItemsControl>
+      </StackPanel>
+
+      <StackPanel Grid.Row="1" Spacing="8">
+        <TextBlock Text="Completed recipes" FontWeight="Bold"/>
+        <ItemsControl ItemsSource="{Binding CompletedRecipes}">
+          <ItemsControl.ItemTemplate>
+            <DataTemplate>
+              <Button HorizontalAlignment="Stretch" Background="#eee">
+                <StackPanel>
+                  <TextBlock FontWeight="Bold" Text="{Binding RecipeCompleted.Name}"/>
+                  <DockPanel>
+                    <StackPanel Spacing="8" Orientation="Horizontal" DockPanel.Dock="Left">
+                      <Border CornerRadius="16" ClipToBounds="true">
+                        <Image asyncImageLoader:ImageLoader.Source="https://i.imgur.com/JCoYjzH.png" 
+                              Height="16" Width="16" />
+                      </Border>
+                      <TextBlock Text="{Binding UserCompleting.Name}"/>
+                    </StackPanel>
+                    <TextBlock Text="{Binding DateCompleted}" DockPanel.Dock="Right" HorizontalAlignment="Right"/>
+                  </DockPanel>
+                  <DockPanel>
+                    <TextBlock Text="{Binding RecipeCompleted.Country}" DockPanel.Dock="Left" />
+                    <TextBlock DockPanel.Dock="Right" HorizontalAlignment="Right">
+                      <Run Text="{Binding RecipeCompleted.Stars}"/><Run Text="/5"/>
+                    </TextBlock>
+                  </DockPanel>
+                </StackPanel>
+              </Button>
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+        </ItemsControl>
+      </StackPanel>
+    </Grid>
+  </Grid>
+</UserControl>
