@@ -45,6 +45,7 @@ public class User {
     public List<Recipe> FavouriteRecipies { get; internal set; }
     [InverseProperty("TodoUsers")]
     public List<Recipe> TodoRecipies { get; internal set; }
+    public List<CompletedRecipe> CompletedRecipies { get; internal set; }
 
     public User(string name, string profile_picture_path, string description, Country country_origin,
                 Country? country_current, string unhashed_password, byte[] salt) {
@@ -200,6 +201,14 @@ public class User {
 
     public void RemoveFromTodoRecipies(Recipe recipe) {
         RemoveRecipe(TodoRecipies, recipe);
+    }
+
+    public void AddCompletedRecipe(CompletedRecipe recipe) {
+        CompletedRecipies.Add(recipe);
+    }
+
+    public void RemoveompletedRecipe(CompletedRecipe recipe) {
+        CompletedRecipies.Remove(recipe);
     }
 
     private static void AddRecipe(List<Recipe> list, Recipe recipe) {

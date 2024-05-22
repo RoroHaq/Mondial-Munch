@@ -55,6 +55,30 @@ namespace MondialMunch.Migrations
                     b.ToTable("Ingredient");
                 });
 
+            modelBuilder.Entity("MondialMunch.CompletedRecipe", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("DateCompleted")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("RecipeCompletedId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("UserCompletingId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RecipeCompletedId");
+
+                    b.HasIndex("UserCompletingId");
+
+                    b.ToTable("CompletedRecipe");
+                });
+
             modelBuilder.Entity("MondialMunch.Country", b =>
                 {
                     b.Property<int>("Id")
@@ -245,6 +269,25 @@ namespace MondialMunch.Migrations
                     b.Navigation("Recipe");
                 });
 
+            modelBuilder.Entity("MondialMunch.CompletedRecipe", b =>
+                {
+                    b.HasOne("Recipe", "RecipeCompleted")
+                        .WithMany()
+                        .HasForeignKey("RecipeCompletedId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MondialMunch.User", "UserCompleting")
+                        .WithMany("CompletedRecipies")
+                        .HasForeignKey("UserCompletingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("RecipeCompleted");
+
+                    b.Navigation("UserCompleting");
+                });
+
             modelBuilder.Entity("MondialMunch.User", b =>
                 {
                     b.HasOne("MondialMunch.Country", "CountryCurrent")
@@ -322,6 +365,8 @@ namespace MondialMunch.Migrations
 
             modelBuilder.Entity("MondialMunch.User", b =>
                 {
+                    b.Navigation("CompletedRecipies");
+
                     b.Navigation("PersonalRecipes");
                 });
 

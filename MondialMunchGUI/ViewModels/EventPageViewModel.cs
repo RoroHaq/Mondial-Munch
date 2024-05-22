@@ -30,7 +30,10 @@ namespace MondialMunchGUI.ViewModels {
             List<Tuple<Country, bool>> EventCountriesList = new List<Tuple<Country, bool>>();
 
             foreach (string c in EventCountries) {
-                EventCountriesList.Add(new Tuple<Country, bool>(new(c), false));
+                Country NextCountry = new(c);
+                bool complete = false;
+
+                EventCountriesList.Add(new Tuple<Country, bool>(NextCountry, complete));
             }
 
             ListCountries = new ObservableCollection<Tuple<Country, bool>>(EventCountriesList);

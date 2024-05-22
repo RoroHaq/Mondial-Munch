@@ -44,6 +44,8 @@ namespace MondialMunchGUI.ViewModels {
                     if (existingUser != null) return null;
 
                     User user = new(Username, "img/something.png", Description, CountryOrigin, CountryCurrent, Password, User.GenerateSalt());
+                    Recipe r = new Recipe("", user, "made in the depths of hell", 5, 3, 15, new Country("Israel"), new List<RecipeInstruction>(), new List<Ingredient>());
+                    user.AddCompletedRecipe(new CompletedRecipe(r, user, DateTime.Today));
                     if (!user.Authenticate(Password)) return null;
                     return user;
                 }, readyToEnter
