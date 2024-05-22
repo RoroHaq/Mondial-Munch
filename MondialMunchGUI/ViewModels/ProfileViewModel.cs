@@ -9,13 +9,21 @@ using ReactiveUI;
 namespace MondialMunchGUI.ViewModels;
 
 public class ProfileViewModel : ViewModelBase {
+    private ObservableCollection<Recipe> _createdRecipes;
+
     public string Name { get; }
     public string Description { get; }
     public string CountryOriginName { get; }
+
+    public ObservableCollection<Recipe> CreatedRecipes {
+        get => _createdRecipes;
+        set => this.RaiseAndSetIfChanged(ref _createdRecipes, value);
+    }
 
     public ProfileViewModel(User user) {
         Name = user.Name;
         Description = user.Description;
         CountryOriginName = user.CountryOrigin.Name;
+        CreatedRecipes = new(user.PersonalRecipes);
     }
 }
