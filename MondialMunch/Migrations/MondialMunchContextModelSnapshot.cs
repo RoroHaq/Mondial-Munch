@@ -55,10 +55,37 @@ namespace MondialMunch.Migrations
                     b.ToTable("Ingredient");
                 });
 
+            modelBuilder.Entity("MondialMunch.CompletedRecipe", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("DateCompleted")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("RecipeCompletedId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("UserCompletingId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RecipeCompletedId");
+
+                    b.HasIndex("UserCompletingId");
+
+                    b.ToTable("CompletedRecipe");
+                });
+
             modelBuilder.Entity("MondialMunch.Country", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("EventId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
@@ -66,6 +93,8 @@ namespace MondialMunch.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EventId");
 
                     b.HasIndex("Name")
                         .IsUnique();
@@ -86,6 +115,34 @@ namespace MondialMunch.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("DietaryTags");
+                });
+
+            modelBuilder.Entity("MondialMunch.MondialMunchEvent", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("DaysLeft")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DueDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MondialMunchEvents");
                 });
 
             modelBuilder.Entity("MondialMunch.User", b =>
@@ -269,6 +326,34 @@ namespace MondialMunch.Migrations
                     b.Navigation("Recipe");
                 });
 
+            modelBuilder.Entity("MondialMunch.CompletedRecipe", b =>
+                {
+                    b.HasOne("Recipe", "RecipeCompleted")
+                        .WithMany()
+                        .HasForeignKey("RecipeCompletedId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MondialMunch.User", "UserCompleting")
+                        .WithMany("CompletedRecipies")
+                        .HasForeignKey("UserCompletingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("RecipeCompleted");
+
+                    b.Navigation("UserCompleting");
+                });
+
+            modelBuilder.Entity("MondialMunch.Country", b =>
+                {
+                    b.HasOne("MondialMunch.MondialMunchEvent", "Event")
+                        .WithMany("EventCountries")
+                        .HasForeignKey("EventId");
+
+                    b.Navigation("Event");
+                });
+
             modelBuilder.Entity("MondialMunch.User", b =>
                 {
                     b.HasOne("MondialMunch.Country", "CountryCurrent")
@@ -363,8 +448,15 @@ namespace MondialMunch.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("MondialMunch.MondialMunchEvent", b =>
+                {
+                    b.Navigation("EventCountries");
+                });
+
             modelBuilder.Entity("MondialMunch.User", b =>
                 {
+                    b.Navigation("CompletedRecipies");
+
                     b.Navigation("PersonalRecipes");
                 });
 

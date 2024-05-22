@@ -19,6 +19,8 @@ public class PrimaryPageViewModel : ViewModelBase {
 
     public ReactiveCommand<Unit, bool> ToggleSideBar { get; }
     public ReactiveCommand<Unit, IEnumerable<Recipe>> Search { get; }
+    public ReactiveCommand<Unit, Unit> SilkRoadButton { get; }
+    public ReactiveCommand<Unit, Unit> BananaRepublicButton { get; }
     public ReactiveCommand<Unit, Unit> NewRecipe { get; }
 
     public ViewModelBase Content {
@@ -74,6 +76,26 @@ public class PrimaryPageViewModel : ViewModelBase {
 
             return recipes;
         }, isValidSearch);
+
+        SilkRoadButton = ReactiveCommand.Create(() => {
+            List<string> SilkEventCountries = new List<string>(){
+            "Italy", "Greece", "Turkey", "Iran", "India", "China", "Syria", "Lebanon", "Jordan", "Israel",
+            };
+
+            EventPageViewModel SilkEventPage = new EventPageViewModel("Silk Road Event!", new DateTime(2024, 05, 1), new DateTime(2024, 06, 1), SilkEventCountries, "The Silk Road was a series of routes  used for trade between Europe and Asia between the 2nd century BCE until the 15th. It spans ~6,500 kilometers and it played a central role in joining the East and West culturally, economically and religiously. To celebrate this major part of history, Mondial Munch's event this month is to make one recipe from every country on the silk road! Track your progress below and good luck!");
+
+            Content = SilkEventPage;
+        });
+
+        BananaRepublicButton = ReactiveCommand.Create(() => {
+            List<string> BananaEventCountries = new List<string>(){
+                "Honduras", "Guatemala", "Costa Rica", "Panama", "Cuba"
+            };
+
+            EventPageViewModel BananaEventPage = new EventPageViewModel("Banana Republic Week!", new DateTime(2024, 05, 11), new DateTime(2024, 05, 25), BananaEventCountries, "The banana republics were (in some cases still are) politaclly and economically unstable countries where the government is in part or totally controlled by a private for-profit company, making the country an asset for the profit of it's ruling class. Some of these countries are being featured here as Mondial Munch's bi-weekly event to bring help bring some awareness to these regimes. Track your progress below and consider reading up some of the history of these countries.");
+
+            Content = BananaEventPage;
+        });
 
         NewRecipe = ReactiveCommand.Create(() => {
             NewRecipeViewModel newRecipePage = new NewRecipeViewModel();
