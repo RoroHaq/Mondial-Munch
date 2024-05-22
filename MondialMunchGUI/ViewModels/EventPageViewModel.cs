@@ -21,6 +21,8 @@ namespace MondialMunchGUI.ViewModels {
         public string Description { get; private set; }
         public int DaysLeft { get; private set; }
         public string DaysLeftText => DaysLeft > 0 ? "days left" : "days ago";
+        public string EventProgressCssString { get; }
+
         public EventPageViewModel(string shortEventTitle, string EventTitle, DateTime StartDate, DateTime DueDate, List<Country> EventCountries, string EventDescription) {
 
             ShortTitle = shortEventTitle;
@@ -30,6 +32,7 @@ namespace MondialMunchGUI.ViewModels {
             DateTime Today = DateTime.Today;
             DaysLeft = (DueDate - Today).Days;
 
+            List<Country> CompletedCountries = new() { };
             List<Tuple<Country?, bool>> EventCountriesList = new List<Tuple<Country?, bool>>();
 
             foreach (Country c in EventCountries) {
@@ -38,12 +41,16 @@ namespace MondialMunchGUI.ViewModels {
                     if (r.RecipeCompleted.Country == c &&
                         StartDate <= r.DateCompleted) {
                         complete = true;
+                        CompletedCountries.Add(c);
                         break;
                     }
                 }
 
                 EventCountriesList.Add(new Tuple<Country?, bool>(c, complete));
             }
+
+            EventProgressCssString = Country.MakeGuiMapCssForCountries(EventCountries, "#ffac40") + " "
+                                    + Country.MakeGuiMapCssForCountries(CompletedCountries, "#005aff");
 
             ListCountries = new ObservableCollection<Tuple<Country?, bool>>(EventCountriesList);
         }
