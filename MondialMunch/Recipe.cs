@@ -19,8 +19,8 @@ public class Recipe {
     public List<DietaryTag>? Tags { get; internal set; }
     public List<User> FavouriteUsers { get; internal set; }
     public List<User> TodoUsers { get; internal set; }
-    public List<RecipeReview> Reviews { get; private set; }
-    public double Stars => Reviews.Average(r => r.Stars);
+    public List<RecipeReview> Reviews { get; private set; } = new() { };
+    public double Stars => (Reviews != null && Reviews.Count > 0) ? Reviews.Average(r => r.Stars) : 0;
 
     public Recipe(string name, User creator, string description, int servings,
                     double preptime, double cookingTime, Country country, List<RecipeInstruction> instructions, List<Ingredient> ingredients) {
@@ -41,6 +41,7 @@ public class Recipe {
         Country = country;
         Instructions = instructions;
         Ingredients = ingredients;
+        Reviews = new() { };
     }
 
     private Recipe() { }
@@ -171,12 +172,12 @@ public class RecipeReview {
     public User User { get; private set; } = null!;
     public int Stars {
         get => _stars;
-        private set {
+        internal set {
             if (value < 1 || value > 5) throw new Exception("Star ratings must be between 1 and 5.");
             _stars = value;
         }
     }
-    public string? Review { get; private set; }
+    public string? Review { get; internal set; }
 
     private RecipeReview() { }
     public RecipeReview(User user, int stars, string? review) {

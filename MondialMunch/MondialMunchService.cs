@@ -30,6 +30,7 @@ public class MondialMunchService {
             .Include(r => r.Country)
             .Include(r => r.Instructions)
             .Include(r => r.Ingredients)
+            .Include(r => r.Reviews)
             .ToList();
     }
     public List<User> GetUsers() {
@@ -101,16 +102,24 @@ public class MondialMunchService {
         _context.SaveChanges();
     }
 
-    public void AddReviewToRecipe(Recipe recipe, int stars, string? reviewText) {
+    public void AddOrEditRecipeReview(Recipe recipe, int stars, string? reviewText) {
         if (_current_user == null) throw new Exception("Not logged in.");
-        if (recipe.Reviews.FirstOrDefault(r => r.User == _current_user) != null) throw new Exception("You already reviewed this recipe.");
 
-        RecipeReview review = new(_current_user, stars, reviewText);
-        recipe.Reviews.Add(review);
+        var existingReview = recipe.Reviews.FirstOrDefault(r => r.User == _current_user);
+
+        if (existingReview != null) {
+            existingReview.Stars = stars;
+            existingReview.Review = reviewText;
+        }
+        else {
+            RecipeReview review = new(_current_user, stars, reviewText);
+            recipe.Reviews.Add(review);
+        }
+
         _context.SaveChanges();
     }
 
-    public void DeleteReviewFromRecipe(Recipe recipe, RecipeReview review) {
+    public void DeleteRecipeReview(Recipe recipe, RecipeReview review) {
         if (_current_user == null) throw new Exception("Not logged in.");
         if (review.User != _current_user) throw new Exception("You cannot remove this review.");
         recipe.Reviews.Remove(review);
