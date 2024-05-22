@@ -6,11 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace MondialMunch.Migrations
 {
     /// <inheritdoc />
-<<<<<<<< HEAD:MondialMunch/Migrations/20240522144526_f525b536400a.cs
-    public partial class f525b536400a : Migration
-========
-    public partial class f72199f1f1d9 : Migration
->>>>>>>> 73e7ccfb5ce8ed4e0b600305155d434a55b0e6dc:MondialMunch/Migrations/20240522154120_f72199f1f1d9.cs
+    public partial class _69031c230c0c : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

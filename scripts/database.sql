@@ -206,3 +206,8 @@ INSERT INTO CountryMondialMunchEvent VALUES (64, 2); --Guatemala
 INSERT INTO CountryMondialMunchEvent VALUES (36, 2); --Costa Rica
 INSERT INTO CountryMondialMunchEvent VALUES (122, 2); --Panama
 INSERT INTO CountryMondialMunchEvent VALUES (39, 2); --Cuba
+
+INSERT INTO MondialMunchEvents (Id, ShortTitle, Title, StartDate, DueDate, Description)
+VALUES (3, 'Test', 'Test', '2024-05-22', '2024-06-22', 'This is a test event');
+INSERT INTO CountryMondialMunchEvent VALUES (1, 3);
+INSERT INTO CountryMondialMunchEvent VALUES (2, 3);
