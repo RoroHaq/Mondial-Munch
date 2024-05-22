@@ -12,6 +12,7 @@ namespace MondialMunchGUI.ViewModels;
 public class RecipeViewModel : ViewModelBase {
     private string _favoriteButtonText;
     private string _todoButtonText;
+    private string _completeButtonText;
 
     private int _myRating;
     private string _myReview;
@@ -46,6 +47,10 @@ public class RecipeViewModel : ViewModelBase {
         get => _todoButtonText;
         set => this.RaiseAndSetIfChanged(ref _todoButtonText, value);
     }
+    public string CompleteButtonText {
+        get => _completeButtonText;
+        set => this.RaiseAndSetIfChanged(ref _completeButtonText, value);
+    }
 
     public int MyRating {
         get => _myRating;
@@ -59,6 +64,7 @@ public class RecipeViewModel : ViewModelBase {
     public ReactiveCommand<Unit, Unit> AddReview { get; }
     public ReactiveCommand<Unit, Unit> FavoriteButton { get; }
     public ReactiveCommand<Unit, Unit> ToDoButton { get; }
+    public ReactiveCommand<Unit, Unit> CompleteButton { get; }
 
     public RecipeViewModel(Recipe recipe) {
         Name = recipe.Name;
@@ -74,6 +80,7 @@ public class RecipeViewModel : ViewModelBase {
         Reviews = new(recipe.Reviews);
         FavoriteButtonText = MondialMunchService.GetInstance().IsRecipeFavorited(recipe) ? "Unfavorite" : "Favorite";
         ToDoButtonText = MondialMunchService.GetInstance().IsRecipeToDo(recipe) ? "Unmark ToDo" : "Mark ToDo";
+        CompleteButtonText = MondialMunchService.GetInstance().IsRecipeComplete(recipe) ? "Unmark Complete" : "Mark Complete";
 
         AddReview = ReactiveCommand.Create(() => {
             MondialMunchService.GetInstance().AddOrEditRecipeReview(recipe, MyRating, MyReview);
@@ -89,6 +96,11 @@ public class RecipeViewModel : ViewModelBase {
         ToDoButton = ReactiveCommand.Create(() => {
             bool isToDo = MondialMunchService.GetInstance().ToggleRecipeToDo(recipe);
             ToDoButtonText = isToDo ? "Unmark ToDo" : "Mark ToDo";
+        });
+
+        CompleteButton = ReactiveCommand.Create(() => {
+            bool isComplete = MondialMunchService.GetInstance().ToggleRecipeComplete(recipe);
+            CompleteButtonText = isComplete ? "Unmark Complete" : "Mark Complete";
         });
     }
 }

@@ -205,10 +205,16 @@ public class User {
     }
 
     public void AddCompletedRecipe(CompletedRecipe recipe) {
+        if (CompletedRecipies == null) {
+            CompletedRecipies = new List<CompletedRecipe>();
+        }
         CompletedRecipies.Add(recipe);
     }
 
     public void RemoveompletedRecipe(CompletedRecipe recipe) {
+        if (CompletedRecipies == null) {
+            CompletedRecipies = new List<CompletedRecipe>();
+        }
         CompletedRecipies.Remove(recipe);
     }
 
