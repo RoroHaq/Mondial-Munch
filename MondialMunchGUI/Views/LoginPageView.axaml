@@ -10,11 +10,15 @@
               HorizontalAlignment="Center">
     <Border BorderBrush="White" BorderThickness="5">
       <StackPanel>
-        <StackPanel HorizontalAlignment="Center">
-          <TextBlock FontSize="24" Foreground="Black">Login</TextBlock>
+        <StackPanel HorizontalAlignment="Center" Width="200" Height="100">
+          <TextBlock FontSize="24" 
+                     Foreground="Black" 
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center"
+                     Margin="0, 50, 0, 0">Login</TextBlock>
         </StackPanel>
-        <StackPanel Margin="10, 10, 10, 10">
-          <StackPanel Margin="15,10,15,10">
+        <StackPanel Margin="0, 0, 0, 20">
+          <StackPanel>
             <TextBlock>Username</TextBlock>
             <TextBox AcceptsReturn="True"
                     Text="{Binding Username}"
@@ -22,18 +26,20 @@
           </StackPanel>
 
           <StackPanel>
-            <TextBlock>Login</TextBlock>
+            <TextBlock>Password</TextBlock>
             <TextBox AcceptsReturn="True"
                     Text="{Binding Password}"
                     PasswordChar="*"
-                    Watermark="Enter your password"/>
+                    Watermark="Enter your password"
+                    Margin="0, 0, 0, 20"/>
           </StackPanel>
-          <StackPanel>
+          <StackPanel Width="200">
             <Button DockPanel.Dock="Bottom"
                     HorizontalAlignment="Stretch"
                     HorizontalContentAlignment="Left"
                     x:CompileBindings="False"
-                    Command="{Binding Login}">
+                    Command="{Binding Login}"
+                    Margin="0, 0, 0, 10">
                 Login
             </Button>
             <Button DockPanel.Dock="Bottom"
@@ -46,7 +52,6 @@
               <StackPanel.Styles>
                 <Style Selector="Button">
                     <Setter Property="Background" Value="Black"/>
-                    <Setter Property="Opacity" Value="1"/>
                     <Setter Property="Foreground" Value="White"/>
                 </Style>
                 <Style Selector="TextBlock">
@@ -74,6 +79,6 @@
   </StackPanel>
 
   <UserControl.Background>
-      <ImageBrush Source="/Assets/login-background.jpg"/>
+      <ImageBrush Source="/Assets/login-background.jpg" Stretch="3"/>
   </UserControl.Background>
 </UserControl>
