@@ -6,11 +6,24 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace MondialMunch.Migrations
 {
     /// <inheritdoc />
-    public partial class _83ceac409f28 : Migration
+    public partial class f3e73ac5e943 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Countries",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Countries", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "DietaryTags",
                 columns: table => new
@@ -32,32 +45,12 @@ namespace MondialMunch.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Title = table.Column<string>(type: "TEXT", nullable: false),
                     Description = table.Column<string>(type: "TEXT", nullable: false),
-                    DaysLeft = table.Column<int>(type: "INTEGER", nullable: false),
                     StartDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     DueDate = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_MondialMunchEvents", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Countries",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: false),
-                    EventId = table.Column<int>(type: "INTEGER", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Countries", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Countries_MondialMunchEvents_EventId",
-                        column: x => x.EventId,
-                        principalTable: "MondialMunchEvents",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -86,6 +79,30 @@ namespace MondialMunch.Migrations
                         name: "FK_Users_Countries_CountryOriginId",
                         column: x => x.CountryOriginId,
                         principalTable: "Countries",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CountryMondialMunchEvent",
+                columns: table => new
+                {
+                    EventCountriesId = table.Column<int>(type: "INTEGER", nullable: false),
+                    EventsId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CountryMondialMunchEvent", x => new { x.EventCountriesId, x.EventsId });
+                    table.ForeignKey(
+                        name: "FK_CountryMondialMunchEvent_Countries_EventCountriesId",
+                        column: x => x.EventCountriesId,
+                        principalTable: "Countries",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CountryMondialMunchEvent_MondialMunchEvents_EventsId",
+                        column: x => x.EventsId,
+                        principalTable: "MondialMunchEvents",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -299,15 +316,15 @@ namespace MondialMunch.Migrations
                 column: "UserCompletingId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Countries_EventId",
-                table: "Countries",
-                column: "EventId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Countries_Name",
                 table: "Countries",
                 column: "Name",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CountryMondialMunchEvent_EventsId",
+                table: "CountryMondialMunchEvent",
+                column: "EventsId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DietaryTagRecipe_TagsId",
@@ -372,6 +389,9 @@ namespace MondialMunch.Migrations
                 name: "CompletedRecipe");
 
             migrationBuilder.DropTable(
+                name: "CountryMondialMunchEvent");
+
+            migrationBuilder.DropTable(
                 name: "DietaryTagRecipe");
 
             migrationBuilder.DropTable(
@@ -390,6 +410,9 @@ namespace MondialMunch.Migrations
                 name: "RecipeUser1");
 
             migrationBuilder.DropTable(
+                name: "MondialMunchEvents");
+
+            migrationBuilder.DropTable(
                 name: "DietaryTags");
 
             migrationBuilder.DropTable(
@@ -400,9 +423,6 @@ namespace MondialMunch.Migrations
 
             migrationBuilder.DropTable(
                 name: "Countries");
-
-            migrationBuilder.DropTable(
-                name: "MondialMunchEvents");
         }
     }
 }

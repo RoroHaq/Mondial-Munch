@@ -6,7 +6,7 @@ namespace MondialMunch;
 public class Country {
     public int Id { get; private set; }
     public string Name { get; private set; } = null!;
-    public MondialMunchEvent? Event;
+    public List<MondialMunchEvent>? Events;
 
     public Country(string name) {
         Name = name;
