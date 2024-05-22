@@ -41,6 +41,6 @@ public class MondialMunchContext : DbContext {
         modelBuilder.Entity<User>().HasMany(user => user.CompletedRecipies).WithOne(recipe => recipe.UserCompleting);
         modelBuilder.Entity<User>().Property<byte[]>("_password").HasColumnName("Password");
         modelBuilder.Entity<User>().Property<byte[]>("_salt").HasColumnName("Salt");
-        modelBuilder.Entity<MondialMunchEvent>().HasMany(MMEvent => MMEvent.EventCountries).WithOne(country => country.Event);
+        modelBuilder.Entity<MondialMunchEvent>().HasMany(MMEvent => MMEvent.EventCountries).WithMany(country => country.Events);
     }
 }
