@@ -157,9 +157,6 @@ namespace MondialMunch.Migrations
                     b.Property<int>("Servings")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("Stars")
-                        .HasColumnType("INTEGER");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CountryId");
@@ -187,6 +184,33 @@ namespace MondialMunch.Migrations
                     b.HasIndex("RecipeId");
 
                     b.ToTable("RecipeInstruction");
+                });
+
+            modelBuilder.Entity("RecipeReview", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("RecipeId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Review")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Stars")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RecipeId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("RecipeReview");
                 });
 
             modelBuilder.Entity("RecipeUser", b =>
@@ -290,6 +314,25 @@ namespace MondialMunch.Migrations
                     b.Navigation("Recipe");
                 });
 
+            modelBuilder.Entity("RecipeReview", b =>
+                {
+                    b.HasOne("Recipe", "Recipe")
+                        .WithMany("Reviews")
+                        .HasForeignKey("RecipeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MondialMunch.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Recipe");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("RecipeUser", b =>
                 {
                     b.HasOne("Recipe", null)
@@ -330,6 +373,8 @@ namespace MondialMunch.Migrations
                     b.Navigation("Ingredients");
 
                     b.Navigation("Instructions");
+
+                    b.Navigation("Reviews");
                 });
 #pragma warning restore 612, 618
         }

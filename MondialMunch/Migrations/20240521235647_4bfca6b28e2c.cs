@@ -5,7 +5,7 @@
 namespace MondialMunch.Migrations
 {
     /// <inheritdoc />
-    public partial class _764076c16b36 : Migration
+    public partial class _4bfca6b28e2c : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
