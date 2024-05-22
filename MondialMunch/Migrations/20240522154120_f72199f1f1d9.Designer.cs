@@ -11,8 +11,8 @@ using MondialMunch;
 namespace MondialMunch.Migrations
 {
     [DbContext(typeof(MondialMunchContext))]
-    [Migration("20240522051540_f3e73ac5e943")]
-    partial class f3e73ac5e943
+    [Migration("20240522154120_f72199f1f1d9")]
+    partial class f72199f1f1d9
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -141,6 +141,10 @@ namespace MondialMunch.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("DueDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ShortTitle")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("StartDate")

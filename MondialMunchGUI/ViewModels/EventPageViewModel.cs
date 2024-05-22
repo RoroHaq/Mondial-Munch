@@ -16,11 +16,14 @@ namespace MondialMunchGUI.ViewModels {
             get => _list_countries;
             set => this.RaiseAndSetIfChanged(ref _list_countries, value);
         }
+        public string ShortTitle { get; private set; }
         public string Title { get; private set; }
         public string Description { get; private set; }
         public int DaysLeft { get; private set; }
-        public EventPageViewModel(string EventTitle, DateTime StartDate, DateTime DueDate, List<string> EventCountries, string EventDescription) {
+        public string DaysLeftText => DaysLeft > 0 ? "days left" : "days ago";
+        public EventPageViewModel(string shortEventTitle, string EventTitle, DateTime StartDate, DateTime DueDate, List<Country> EventCountries, string EventDescription) {
 
+            ShortTitle = shortEventTitle;
             Title = EventTitle;
             Description = EventDescription;
 
@@ -29,18 +32,17 @@ namespace MondialMunchGUI.ViewModels {
 
             List<Tuple<Country?, bool>> EventCountriesList = new List<Tuple<Country?, bool>>();
 
-            foreach (string c in EventCountries) {
-                Country? NextCountry = MondialMunchService.GetInstance().GetCountryByName(c);
+            foreach (Country c in EventCountries) {
                 bool complete = false;
                 foreach (CompletedRecipe r in MondialMunchService.GetInstance().CurrentUser!.CompletedRecipies) {
-                    if (r.RecipeCompleted.Country == NextCountry &&
+                    if (r.RecipeCompleted.Country == c &&
                         StartDate <= r.DateCompleted) {
                         complete = true;
                         break;
                     }
                 }
 
-                EventCountriesList.Add(new Tuple<Country?, bool>(NextCountry, complete));
+                EventCountriesList.Add(new Tuple<Country?, bool>(c, complete));
             }
 
             ListCountries = new ObservableCollection<Tuple<Country?, bool>>(EventCountriesList);
