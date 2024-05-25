@@ -15,7 +15,7 @@
       <Button DockPanel.Dock="Left" Background="#00000000" Command="{Binding OpenProfile}">
         <StackPanel Orientation="Horizontal" Spacing="8" >
           <Border CornerRadius="100" ClipToBounds="true">
-            <Image asyncImageLoader:ImageLoader.Source="https://i.imgur.com/JCoYjzH.png" 
+            <Image asyncImageLoader:ImageLoader.Source="{Binding CreatorProfilePicturePath}" 
                   Height="24" Width="24" />
           </Border>
           <TextBlock Text="{Binding CreatorName}" VerticalAlignment="Center"/>
@@ -80,7 +80,7 @@
                 <StackPanel Margin="6,6,6,6">
                   <StackPanel Spacing="8" Orientation="Horizontal">
                     <Border CornerRadius="16" ClipToBounds="true">
-                      <Image asyncImageLoader:ImageLoader.Source="https://i.imgur.com/JCoYjzH.png" 
+                      <Image asyncImageLoader:ImageLoader.Source="{Binding User.ProfilePicturePath}" 
                             Height="16" Width="16" />
                     </Border>
                     <TextBlock Text="{Binding User.Name}"/>

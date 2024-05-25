@@ -13,6 +13,7 @@ public class ProfileViewModel : ViewModelBase {
     private ObservableCollection<CompletedRecipe> _completedRecipes;
 
     public string Name { get; }
+    public string ProfilePicturePath { get; }
     public string Description { get; }
     public string CountryOriginName { get; }
     public string CountryCurrentName { get; }
@@ -32,6 +33,7 @@ public class ProfileViewModel : ViewModelBase {
 
     public ProfileViewModel(User user) {
         Name = user.Name;
+        ProfilePicturePath = user.ProfilePicturePath;
         Description = user.Description;
         CountryOriginName = user.CountryOrigin.Name;
         CountryCurrentName = user.CountryCurrent!.Name;

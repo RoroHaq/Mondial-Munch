@@ -12,7 +12,7 @@
     <StackPanel Spacing="8" Grid.Column="0">
       <StackPanel Orientation="Horizontal" Spacing="16">
         <Border Grid.Column="5" CornerRadius="128" ClipToBounds="true">
-          <Image asyncImageLoader:ImageLoader.Source="https://i.imgur.com/JCoYjzH.png" 
+          <Image asyncImageLoader:ImageLoader.Source="{Binding ProfilePicturePath}" 
                 Height="128" Width="128" />
         </Border>
         <StackPanel VerticalAlignment="Center">
@@ -74,7 +74,7 @@
                     <DockPanel>
                       <StackPanel Spacing="8" Orientation="Horizontal" DockPanel.Dock="Left">
                         <Border CornerRadius="16" ClipToBounds="true">
-                          <Image asyncImageLoader:ImageLoader.Source="https://i.imgur.com/JCoYjzH.png" 
+                          <Image asyncImageLoader:ImageLoader.Source="{Binding UserCompleting.ProfilePicturePath}" 
                                 Height="16" Width="16" />
                         </Border>
                         <TextBlock Text="{Binding UserCompleting.Name}"/>
