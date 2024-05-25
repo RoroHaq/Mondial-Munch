@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace MondialMunch.Migrations
 {
     /// <inheritdoc />
-    public partial class _6372d1951ccd : Migration
+    public partial class _23d2dc1d766a : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,9 +15,9 @@ namespace MondialMunch.Migrations
                 name: "Countries",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: false)
+                    Id = table.Column<int>(type: "NUMBER(10)", nullable: false)
+                        .Annotation("Oracle:Identity", "START WITH 1 INCREMENT BY 1"),
+                    Name = table.Column<string>(type: "NVARCHAR2(450)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -28,9 +28,9 @@ namespace MondialMunch.Migrations
                 name: "DietaryTags",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Tag = table.Column<string>(type: "TEXT", nullable: false)
+                    Id = table.Column<int>(type: "NUMBER(10)", nullable: false)
+                        .Annotation("Oracle:Identity", "START WITH 1 INCREMENT BY 1"),
+                    Tag = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -41,13 +41,13 @@ namespace MondialMunch.Migrations
                 name: "MondialMunchEvents",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Title = table.Column<string>(type: "TEXT", nullable: false),
-                    ShortTitle = table.Column<string>(type: "TEXT", nullable: false),
-                    Description = table.Column<string>(type: "TEXT", nullable: false),
-                    StartDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    DueDate = table.Column<DateTime>(type: "TEXT", nullable: false)
+                    Id = table.Column<int>(type: "NUMBER(10)", nullable: false)
+                        .Annotation("Oracle:Identity", "START WITH 1 INCREMENT BY 1"),
+                    Title = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
+                    ShortTitle = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
+                    Description = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
+                    StartDate = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false),
+                    DueDate = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -58,15 +58,15 @@ namespace MondialMunch.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: false),
-                    ProfilePicturePath = table.Column<string>(type: "TEXT", nullable: true),
-                    Description = table.Column<string>(type: "TEXT", nullable: true),
-                    CountryOriginId = table.Column<int>(type: "INTEGER", nullable: false),
-                    CountryCurrentId = table.Column<int>(type: "INTEGER", nullable: true),
-                    Password = table.Column<byte[]>(type: "BLOB", nullable: false),
-                    Salt = table.Column<byte[]>(type: "BLOB", nullable: false)
+                    Id = table.Column<int>(type: "NUMBER(10)", nullable: false)
+                        .Annotation("Oracle:Identity", "START WITH 1 INCREMENT BY 1"),
+                    Name = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
+                    ProfilePicturePath = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
+                    Description = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
+                    CountryOriginId = table.Column<int>(type: "NUMBER(10)", nullable: false),
+                    CountryCurrentId = table.Column<int>(type: "NUMBER(10)", nullable: true),
+                    Password = table.Column<byte[]>(type: "RAW(2000)", nullable: false),
+                    Salt = table.Column<byte[]>(type: "RAW(2000)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -88,8 +88,8 @@ namespace MondialMunch.Migrations
                 name: "CountryMondialMunchEvent",
                 columns: table => new
                 {
-                    EventCountriesId = table.Column<int>(type: "INTEGER", nullable: false),
-                    EventsId = table.Column<int>(type: "INTEGER", nullable: false)
+                    EventCountriesId = table.Column<int>(type: "NUMBER(10)", nullable: false),
+                    EventsId = table.Column<int>(type: "NUMBER(10)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -112,15 +112,15 @@ namespace MondialMunch.Migrations
                 name: "Recipes",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    CreatorId = table.Column<int>(type: "INTEGER", nullable: true),
-                    CountryId = table.Column<int>(type: "INTEGER", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", nullable: false),
-                    Description = table.Column<string>(type: "TEXT", nullable: true),
-                    Servings = table.Column<int>(type: "INTEGER", nullable: false),
-                    PrepTime = table.Column<double>(type: "REAL", nullable: false),
-                    CookingTime = table.Column<double>(type: "REAL", nullable: false)
+                    Id = table.Column<int>(type: "NUMBER(10)", nullable: false)
+                        .Annotation("Oracle:Identity", "START WITH 1 INCREMENT BY 1"),
+                    CreatorId = table.Column<int>(type: "NUMBER(10)", nullable: true),
+                    CountryId = table.Column<int>(type: "NUMBER(10)", nullable: false),
+                    Name = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
+                    Description = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
+                    Servings = table.Column<int>(type: "NUMBER(10)", nullable: false),
+                    PrepTime = table.Column<double>(type: "BINARY_DOUBLE", nullable: false),
+                    CookingTime = table.Column<double>(type: "BINARY_DOUBLE", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -142,11 +142,11 @@ namespace MondialMunch.Migrations
                 name: "CompletedRecipe",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    RecipeCompletedId = table.Column<int>(type: "INTEGER", nullable: false),
-                    UserCompletingId = table.Column<int>(type: "INTEGER", nullable: false),
-                    DateCompleted = table.Column<DateTime>(type: "TEXT", nullable: false)
+                    Id = table.Column<int>(type: "NUMBER(10)", nullable: false)
+                        .Annotation("Oracle:Identity", "START WITH 1 INCREMENT BY 1"),
+                    RecipeCompletedId = table.Column<int>(type: "NUMBER(10)", nullable: false),
+                    UserCompletingId = table.Column<int>(type: "NUMBER(10)", nullable: false),
+                    DateCompleted = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -169,8 +169,8 @@ namespace MondialMunch.Migrations
                 name: "DietaryTagRecipe",
                 columns: table => new
                 {
-                    TaggedRecipesId = table.Column<int>(type: "INTEGER", nullable: false),
-                    TagsId = table.Column<int>(type: "INTEGER", nullable: false)
+                    TaggedRecipesId = table.Column<int>(type: "NUMBER(10)", nullable: false),
+                    TagsId = table.Column<int>(type: "NUMBER(10)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -193,11 +193,11 @@ namespace MondialMunch.Migrations
                 name: "Ingredient",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    RecipeId = table.Column<int>(type: "INTEGER", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", nullable: false),
-                    Quantity = table.Column<int>(type: "INTEGER", nullable: false)
+                    Id = table.Column<int>(type: "NUMBER(10)", nullable: false)
+                        .Annotation("Oracle:Identity", "START WITH 1 INCREMENT BY 1"),
+                    RecipeId = table.Column<int>(type: "NUMBER(10)", nullable: false),
+                    Name = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
+                    Quantity = table.Column<int>(type: "NUMBER(10)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -214,10 +214,10 @@ namespace MondialMunch.Migrations
                 name: "RecipeInstruction",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Text = table.Column<string>(type: "TEXT", nullable: false),
-                    RecipeId = table.Column<int>(type: "INTEGER", nullable: false)
+                    Id = table.Column<int>(type: "NUMBER(10)", nullable: false)
+                        .Annotation("Oracle:Identity", "START WITH 1 INCREMENT BY 1"),
+                    Text = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
+                    RecipeId = table.Column<int>(type: "NUMBER(10)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -234,12 +234,12 @@ namespace MondialMunch.Migrations
                 name: "RecipeReview",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    RecipeId = table.Column<int>(type: "INTEGER", nullable: false),
-                    UserId = table.Column<int>(type: "INTEGER", nullable: false),
-                    Stars = table.Column<int>(type: "INTEGER", nullable: false),
-                    Review = table.Column<string>(type: "TEXT", nullable: true)
+                    Id = table.Column<int>(type: "NUMBER(10)", nullable: false)
+                        .Annotation("Oracle:Identity", "START WITH 1 INCREMENT BY 1"),
+                    RecipeId = table.Column<int>(type: "NUMBER(10)", nullable: false),
+                    UserId = table.Column<int>(type: "NUMBER(10)", nullable: false),
+                    Stars = table.Column<int>(type: "NUMBER(10)", nullable: false),
+                    Review = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -262,8 +262,8 @@ namespace MondialMunch.Migrations
                 name: "RecipeUser",
                 columns: table => new
                 {
-                    FavouriteRecipiesId = table.Column<int>(type: "INTEGER", nullable: false),
-                    FavouriteUsersId = table.Column<int>(type: "INTEGER", nullable: false)
+                    FavouriteRecipiesId = table.Column<int>(type: "NUMBER(10)", nullable: false),
+                    FavouriteUsersId = table.Column<int>(type: "NUMBER(10)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -286,8 +286,8 @@ namespace MondialMunch.Migrations
                 name: "RecipeUser1",
                 columns: table => new
                 {
-                    TodoRecipiesId = table.Column<int>(type: "INTEGER", nullable: false),
-                    TodoUsersId = table.Column<int>(type: "INTEGER", nullable: false)
+                    TodoRecipiesId = table.Column<int>(type: "NUMBER(10)", nullable: false),
+                    TodoUsersId = table.Column<int>(type: "NUMBER(10)", nullable: false)
                 },
                 constraints: table =>
                 {
