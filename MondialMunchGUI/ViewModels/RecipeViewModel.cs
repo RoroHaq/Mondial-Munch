@@ -23,6 +23,7 @@ public class RecipeViewModel : ViewModelBase {
     public string Name { get; }
     public string Description { get; }
     public string CreatorName { get; }
+    public string CreatorProfilePicturePath { get; }
     public int ServingSize { get; }
     public double PrepTime { get; }
     public double CookTime { get; }
@@ -74,6 +75,7 @@ public class RecipeViewModel : ViewModelBase {
         Name = recipe.Name;
         Description = recipe.Description!;
         CreatorName = recipe.Creator.Name;
+        CreatorProfilePicturePath = recipe.Creator.ProfilePicturePath;
         ServingSize = recipe.Servings;
         PrepTime = recipe.PrepTime;
         CookTime = recipe.CookingTime;

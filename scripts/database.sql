@@ -185,7 +185,7 @@ INSERT INTO DietaryTags VALUES (4, 'Kosher');
 INSERT INTO DietaryTags VALUES (5, 'Halal');
 
 INSERT INTO MondialMunchEvents (Id, ShortTitle, Title, StartDate, DueDate, Description)
-VALUES (1, 'Silk Road', 'Silk Road Event!', '2024-05-01', '2024-06-01', 'The Silk Road was a series of routes  used for trade between Europe and Asia between the 2nd century BCE until the 15th. It spans ~6,500 kilometers and it played a central role in joining the East and West culturally, economically and religiously. To celebrate this major part of history, the Mondial Munch monthly event this month is to make one recipe from every country on the silk road! Track your progress below and good luck!');
+VALUES (1, 'Silk Road', 'Silk Road Event!', TO_DATE('2024-05-01', 'yyyy-mm-dd'), TO_DATE('2024-06-01', 'yyyy-mm-dd'), 'The Silk Road was a series of routes  used for trade between Europe and Asia between the 2nd century BCE until the 15th. It spans ~6,500 kilometers and it played a central role in joining the East and West culturally, economically and religiously. To celebrate this major part of history, the Mondial Munch monthly event this month is to make one recipe from every country on the silk road! Track your progress below and good luck!');
 
 INSERT INTO CountryMondialMunchEvent VALUES (78, 1); --Italy
 INSERT INTO CountryMondialMunchEvent VALUES (62, 1); --Greece
@@ -199,7 +199,7 @@ INSERT INTO CountryMondialMunchEvent VALUES (81, 1); --Jordan
 INSERT INTO CountryMondialMunchEvent VALUES (77, 1); --Israel
 
 INSERT INTO MondialMunchEvents (Id, ShortTitle, Title, StartDate, DueDate, Description)
-VALUES (2, 'Banana Republic', 'Banana Republic Week!', '2024-05-11', '2024-05-25', 'The banana republics were (in some cases still are) politaclly and economically unstable countries where the government is in part or totally controlled by a private for-profit company, making the country an asset for the profit of its ruling class. Some of these countries are being featured here as the Mondial Munch bi-weekly event to bring help bring some awareness to these regimes. Track your progress below and consider reading up some of the history of these countries.');
+VALUES (2, 'Banana Republic', 'Banana Republic Week!', TO_DATE('2024-05-11', 'yyyy-mm-dd'), TO_DATE('2024-05-25', 'yyyy-mm-dd'), 'The banana republics were (in some cases still are) politaclly and economically unstable countries where the government is in part or totally controlled by a private for-profit company, making the country an asset for the profit of its ruling class. Some of these countries are being featured here as the Mondial Munch bi-weekly event to bring help bring some awareness to these regimes. Track your progress below and consider reading up some of the history of these countries.');
 
 INSERT INTO CountryMondialMunchEvent VALUES (69, 2); --Honduras
 INSERT INTO CountryMondialMunchEvent VALUES (64, 2); --Guatemala
@@ -208,6 +208,6 @@ INSERT INTO CountryMondialMunchEvent VALUES (122, 2); --Panama
 INSERT INTO CountryMondialMunchEvent VALUES (39, 2); --Cuba
 
 INSERT INTO MondialMunchEvents (Id, ShortTitle, Title, StartDate, DueDate, Description)
-VALUES (3, 'Test', 'Test', '2024-05-22', '2024-06-22', 'This is a test event');
+VALUES (3, 'Test', 'Test', TO_DATE('2024-05-22', 'yyyy-mm-dd'), TO_DATE('2024-06-22', 'yyyy-mm-dd'), 'This is a test event');
 INSERT INTO CountryMondialMunchEvent VALUES (1, 3);
 INSERT INTO CountryMondialMunchEvent VALUES (2, 3);

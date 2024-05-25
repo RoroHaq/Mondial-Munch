@@ -32,8 +32,6 @@ namespace MondialMunchGUI.ViewModels {
                     && !string.IsNullOrWhiteSpace(password)
                     && !string.IsNullOrWhiteSpace(checkPassword)
                     && !string.IsNullOrWhiteSpace(description)
-                    // && !string.IsNullOrWhiteSpace(countryOrigin)
-                    // && !string.IsNullOrWhiteSpace(countryCurrent)
                     && password == checkPassword && password.Length > 3;
                 }
             );
@@ -43,7 +41,7 @@ namespace MondialMunchGUI.ViewModels {
                     User? existingUser = MondialMunchService.GetInstance().GetUserByUsername(Username);
                     if (existingUser != null) return null;
 
-                    User user = new(Username, "img/something.png", Description, CountryOrigin, CountryCurrent, Password, User.GenerateSalt());
+                    User user = new(Username, "https://i.imgur.com/JCoYjzH.png", Description, CountryOrigin, CountryCurrent, Password, User.GenerateSalt());
                     if (!user.Authenticate(Password)) return null;
                     return user;
                 }, readyToEnter
