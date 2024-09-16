@@ -1,0 +1,81 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:MondialMunchGUI.ViewModels"
+             x:DataType="vm:LoginPageViewModel"
+             mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="450"
+             x:Class="MondialMunchGUI.Views.LoginPageView">
+  <StackPanel VerticalAlignment="Center"
+              HorizontalAlignment="Center">
+    <Border BorderBrush="White" BorderThickness="5">
+      <StackPanel>
+        <StackPanel HorizontalAlignment="Center" Width="200" Height="100">
+          <TextBlock FontSize="24" 
+                     Foreground="Black" 
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center"
+                     Margin="0, 50, 0, 0">Login</TextBlock>
+        </StackPanel>
+        <StackPanel Margin="0, 0, 0, 20">
+          <StackPanel>
+            <TextBlock>Username</TextBlock>
+            <TextBox AcceptsReturn="True"
+                    Text="{Binding Username}"
+                    Watermark="Enter your username"/>
+          </StackPanel>
+
+          <StackPanel>
+            <TextBlock>Password</TextBlock>
+            <TextBox AcceptsReturn="True"
+                    Text="{Binding Password}"
+                    PasswordChar="*"
+                    Watermark="Enter your password"
+                    Margin="0, 0, 0, 20"/>
+          </StackPanel>
+          <StackPanel Width="200">
+            <Button DockPanel.Dock="Bottom"
+                    HorizontalAlignment="Stretch"
+                    HorizontalContentAlignment="Left"
+                    x:CompileBindings="False"
+                    Command="{Binding Login}"
+                    Margin="0, 0, 0, 10">
+                Login
+            </Button>
+            <Button DockPanel.Dock="Bottom"
+                    HorizontalAlignment="Stretch"
+                    HorizontalContentAlignment="Right"
+                    x:CompileBindings="False"
+                    Command="{Binding Register}">
+                Register
+            </Button>
+              <StackPanel.Styles>
+                <Style Selector="Button">
+                    <Setter Property="Background" Value="Black"/>
+                    <Setter Property="Foreground" Value="White"/>
+                </Style>
+              </StackPanel.Styles>
+          </StackPanel>
+        </StackPanel>
+
+        <StackPanel.Styles>
+                <Style Selector="StackPanel">
+                    <Setter Property="Background" Value="White"/>
+                </Style>
+        </StackPanel.Styles>
+      </StackPanel>
+    </Border>
+    <!-- <ItemsControl ItemsSource="{Binding ListUsers}">
+      <ItemsControl.ItemTemplate>
+        <DataTemplate>
+          <CheckBox Margin="4"
+                    Content="{Binding Name}"/>
+        </DataTemplate>
+      </ItemsControl.ItemTemplate>
+    </ItemsControl> -->
+  </StackPanel>
+
+  <UserControl.Background>
+      <ImageBrush Source="/Assets/login-background.jpg" Stretch="3"/>
+  </UserControl.Background>
+</UserControl>

@@ -1,0 +1,49 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:MondialMunchGUI.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="MondialMunchGUI.Views.HomePageView"
+             x:DataType="vm:HomePageViewModel">
+    
+  <StackPanel Margin="0,0,10,0">
+    <TextBlock Text="Home" FontSize="28" FontWeight="Bold"/>
+
+    <Grid ColumnDefinitions="1*,300">
+      <StackPanel Grid.Column="0" Spacing="8">
+        <TextBlock Text="Your progress" FontWeight="Bold"/>
+        <Svg Path="/Assets/world-map.svg" Css="{Binding CompletedCountriesCssString}"/>
+      </StackPanel>
+    </Grid>
+  </StackPanel>
+</UserControl>
+
+
+<!--
+  Possible use of Pfp Icon
+  <Button>
+        <Button.Content>
+          <Image Source="/Assets/MondialMunchLogo.png"/>
+        </Button.Content>
+  </Button>
+      
+ <Menu Grid.Row="0" Grid.Column="3">
+        <MenuItem Header="Insert PFP Here">
+          <MenuItem Header="Profile">
+            <MenuItem.Icon>
+            <Image Source="/Assets/MondialMunchLogo.png"/>
+            </MenuItem.Icon>
+          </MenuItem>
+          <Separator/>
+          <MenuItem Header="Settings"/>
+          <Separator/>
+          <MenuItem Header="Log Out" 
+            Command="{Binding LogOut}" />
+        </MenuItem>
+      </Menu>     
+      
+      
+      
+      
+      -->
