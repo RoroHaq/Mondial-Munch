@@ -1,0 +1,50 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="MondialMunchGUI.Views.ProfileEditView"
+             x:DataType="vm:ProfileEditViewModel"
+             xmlns:vm="using:MondialMunchGUI.ViewModels">
+  
+  <Grid RowDefinitions="Auto,1*,Auto" Margin="0,0,10,10">
+    <StackPanel Grid.Row="0" Spacing="8" Margin="0,0,0,8">
+      <TextBlock Text="Edit Profile" FontSize="28" FontWeight="Bold"/>
+
+      <StackPanel>
+        <TextBlock Text="Description"/>
+        <TextBox AcceptsReturn="True" Text="{Binding Description}" Watermark="Description" Height="100"/>
+      </StackPanel>
+
+      <StackPanel Orientation="Horizontal" Spacing="8">
+        <StackPanel>
+          <TextBlock Text="Country Origin"/>
+          <ComboBox SelectedItem="{Binding CountryOrigin}" Width="150" ItemsSource="{Binding Countries}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                  <TextBlock Text="{Binding Name}" />
+                </DataTemplate>
+              </ComboBox.ItemTemplate>
+          </ComboBox>
+        </StackPanel>
+      </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Spacing="8">
+          <StackPanel>
+            <TextBlock Text="Country Current"/>
+            <ComboBox SelectedItem="{Binding CountryLive}" Width="150" ItemsSource="{Binding Countries}">
+              <ComboBox.ItemTemplate>
+                  <DataTemplate>
+                    <TextBlock Text="{Binding Name}" />
+                  </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+          </StackPanel>
+          <StackPanel>
+            <Button Content="Edit" Command="{Binding EditGeneral}"/>
+          </StackPanel>
+       </StackPanel>
+    </StackPanel>
+  </Grid>
+</UserControl>
